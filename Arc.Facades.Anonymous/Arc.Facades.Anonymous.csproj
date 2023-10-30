@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Infrastructure.Exceptions\Arc.Infrastructure.Exceptions.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Anonymous\Arc.Models.Views.Anonymous.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Base\Arc.Facades.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Repositories.Read\Arc.Infrastructure.Repositories.Read.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Identity\Arc.Dependencies.Identity.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Domain\Arc.Facades.Domain.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Json\Arc.Dependencies.Json.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Logger\Arc.Dependencies.Logger.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Common\Arc.Models.Views.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.ConfigurationSettings\Arc.Dependencies.ConfigurationSettings.csproj"/>
+        <ProjectReference Include="..\Arc.Converters.Views.Common\Arc.Converters.Views.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Transactions\Arc.Infrastructure.Transactions.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1"/>
+    </ItemGroup>
+
+</Project>

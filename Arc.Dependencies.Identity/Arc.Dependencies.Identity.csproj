@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Exceptions\Arc.Infrastructure.Exceptions.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.1"/>
+    </ItemGroup>
+
+</Project>

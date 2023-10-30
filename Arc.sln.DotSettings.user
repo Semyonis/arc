@@ -1,0 +1,153 @@
+﻿<wpf:ResourceDictionary xml:space="preserve" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:ss="urn:shemas-jetbrains-com:settings-storage-xaml" xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation">
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=92399EED_002DB0C6_002D4FEB_002D9F08_002D4E818289DDB5_002Fd_003AAssociations_002Fd_003AOrders_002Ff_003AAssociationOrderHorseOwnerResponse_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=97C07EFC_002D47FC_002D4ADD_002D9305_002D742F61BD0F6A_002Fd_003AImplementations_002Ff_003AUsersService_002Ecs/@EntryIndexedValue">ExplicitlyExcluded</s:String>
+	<s:String x:Key="/Default/CodeInspection/ExcludedFiles/FilesAndFoldersToSkip2/=B4067C78_002DD0A1_002D4194_002DAB15_002DDA2CF8ABD702_002Fd_003AInterfaces_002Fd_003AAssociations_002Fd_003AOrganizations_002Ff_003AIAssociationOrganizationsDataService_002Ecs/@EntryIndexedValue">ForceIncluded</s:String>
+	
+	<s:String x:Key="/Default/CodeInspection/Highlighting/SweaWarningsMode/@EntryValue">ShowAndRun</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=Constants/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=LocalConstants/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
+	<s:String x:Key="/Default/CodeStyle/Naming/CSharpNaming/PredefinedNamingRules/=PrivateConstants/@EntryIndexedValue">&lt;Policy Inspect="True" Prefix="" Suffix="" Style="AaBb" /&gt;</s:String>
+	<s:Boolean x:Key="/Default/Environment/Hierarchy/NuGetOptions/IncludePrerelease/@EntryValue">True</s:Boolean>
+	
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=a04ee7ec_002Dc439_002D4dc5_002D8d3d_002Dc2ac12a722b6/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" Name="All tests from Solution" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=bc84d0ec_002D6288_002D4d1d_002Db9cd_002D869f4501181c/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from Solution #2" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Solution /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<s:String x:Key="/Default/Profiling/Configurations/=0/@EntryIndexedValue">&lt;data&gt;&lt;HostParameters type="LocalHostParameters" /&gt;&lt;Argument type="CoreClrArgument"&gt;&lt;Arguments IsNull="False"&gt;&lt;/Arguments&gt;&lt;DotNetExecutable IsNull="False"&gt;&lt;/DotNetExecutable&gt;&lt;FileName&gt;G:\Repositories\GitLab\EtalonDx-second\Etalon.Web\bin\Debug\netcoreapp2.2\Etalon.Web.dll&lt;/FileName&gt;&lt;WorkingDirectory&gt;G:\Repositories\GitLab\EtalonDx-second\Etalon.Web\bin\Debug\netcoreapp2.2&lt;/WorkingDirectory&gt;&lt;Scope&gt;&lt;ProcessFilters /&gt;&lt;/Scope&gt;&lt;RunBrowserArgument&gt;&lt;Browser IsNull="False"&gt;&lt;/Browser&gt;&lt;DisplayBrowser IsNull="False"&gt;&lt;/DisplayBrowser&gt;&lt;Url IsNull="False"&gt;&lt;/Url&gt;&lt;/RunBrowserArgument&gt;&lt;/Argument&gt;&lt;Info type="PerformanceInfo"&gt;&lt;MeasureType&gt;Sampling&lt;/MeasureType&gt;&lt;MeterKind&gt;Rdtsc&lt;/MeterKind&gt;&lt;StartImmediately&gt;False&lt;/StartImmediately&gt;&lt;InjectInfo&gt;&lt;SymbolSearch&gt;&lt;SearchPaths /&gt;&lt;/SymbolSearch&gt;&lt;Scope&gt;&lt;PatternFilters /&gt;&lt;DenyAttributeFilters /&gt;&lt;/Scope&gt;&lt;/InjectInfo&gt;&lt;/Info&gt;&lt;CoreOptions type="CoreOptions"&gt;&lt;CoreTempPath IsNull="False"&gt;&lt;/CoreTempPath&gt;&lt;RemoteEndPoint IsNull="False"&gt;&lt;/RemoteEndPoint&gt;&lt;AdditionalEnvironmentVariables /&gt;&lt;/CoreOptions&gt;&lt;HostOptions type="HostOptions"&gt;&lt;HostTempPath IsNull="False"&gt;&lt;/HostTempPath&gt;&lt;/HostOptions&gt;&lt;/data&gt;</s:String>
+	<s:String x:Key="/Default/Profiling/Configurations/=1/@EntryIndexedValue">&lt;data&gt;&lt;HostParameters type="LocalHostParameters" /&gt;&lt;Argument type="StandaloneArgument"&gt;&lt;Arguments IsNull="False"&gt;&lt;/Arguments&gt;&lt;FileName IsNull="False"&gt;&lt;/FileName&gt;&lt;WorkingDirectory IsNull="False"&gt;&lt;/WorkingDirectory&gt;&lt;Scope&gt;&lt;ProcessFilters /&gt;&lt;/Scope&gt;&lt;/Argument&gt;&lt;Info type="PerformanceInfo"&gt;&lt;MeasureType&gt;Sampling&lt;/MeasureType&gt;&lt;MeterKind&gt;Rdtsc&lt;/MeterKind&gt;&lt;StartImmediately&gt;False&lt;/StartImmediately&gt;&lt;InjectInfo&gt;&lt;SymbolSearch&gt;&lt;SearchPaths /&gt;&lt;/SymbolSearch&gt;&lt;Scope&gt;&lt;PatternFilters /&gt;&lt;DenyAttributeFilters /&gt;&lt;/Scope&gt;&lt;/InjectInfo&gt;&lt;/Info&gt;&lt;CoreOptions type="CoreOptions"&gt;&lt;CoreTempPath IsNull="False"&gt;&lt;/CoreTempPath&gt;&lt;RemoteEndPoint IsNull="False"&gt;&lt;/RemoteEndPoint&gt;&lt;AdditionalEnvironmentVariables&gt;&lt;Item&gt;&lt;Key&gt;ASPNETCORE_ENVIRONMENT&lt;/Key&gt;&lt;Value&gt;Development&lt;/Value&gt;&lt;/Item&gt;&lt;/AdditionalEnvironmentVariables&gt;&lt;/CoreOptions&gt;&lt;HostOptions type="HostOptions"&gt;&lt;HostTempPath IsNull="False"&gt;&lt;/HostTempPath&gt;&lt;/HostOptions&gt;&lt;/data&gt;</s:String>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Etalon/@EntryIndexedValue">True</s:Boolean>
+	<s:Boolean x:Key="/Default/UserDictionary/Words/=Giftcard/@EntryIndexedValue">True</s:Boolean></wpf:ResourceDictionary>

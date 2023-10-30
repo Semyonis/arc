@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Tests.Base\Arc.Tests.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Database.Context\Arc.Database.Context.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Dictionaries\Arc.Infrastructure.Dictionaries.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>
+        <ProjectReference Include="..\Arc.Executable.WebApi\Arc.Executable.WebApi.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.4.0"/>
+    </ItemGroup>
+
+</Project>

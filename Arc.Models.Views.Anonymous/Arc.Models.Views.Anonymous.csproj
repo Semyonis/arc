@@ -1,0 +1,15 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <LangVersion>latestmajor</LangVersion>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj" />
+        <ProjectReference Include="..\Arc.Models.Views.Common\Arc.Models.Views.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+    </ItemGroup>
+
+</Project>

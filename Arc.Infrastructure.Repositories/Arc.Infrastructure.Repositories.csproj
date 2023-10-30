@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Criteria\Arc.Criteria.csproj"/>
+        <ProjectReference Include="..\Arc.Database.Context\Arc.Database.Context.csproj"/>
+    </ItemGroup>
+
+</Project>

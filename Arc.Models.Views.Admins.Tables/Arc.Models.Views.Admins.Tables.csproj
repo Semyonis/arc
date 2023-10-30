@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <Folder Include="Models\"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Models.Views.Common\Arc.Models.Views.Common.csproj"/>
+    </ItemGroup>
+
+</Project>

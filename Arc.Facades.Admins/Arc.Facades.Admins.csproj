@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Facades.Base\Arc.Facades.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Converters\Arc.Converters.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Repositories.Read\Arc.Infrastructure.Repositories.Read.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Entity.Includes.Extensions\Arc.Infrastructure.Entity.Includes.Extensions.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Domain\Arc.Facades.Domain.csproj"/>
+        <ProjectReference Include="..\Arc.Criteria.FilterParameters.Factories\Arc.Criteria.FilterParameters.Factories.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Json\Arc.Dependencies.Json.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Logger\Arc.Dependencies.Logger.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Admins\Arc.Models.Views.Admins.csproj"/>
+        <ProjectReference Include="..\Arc.Converters.Views.Admins\Arc.Converters.Views.Admins.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Storages\Arc.Infrastructure.Storages.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Transactions\Arc.Infrastructure.Transactions.csproj"/>
+    </ItemGroup>
+
+</Project>

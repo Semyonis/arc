@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Facades.Base\Arc.Facades.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Common\Arc.Models.Views.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Logger\Arc.Dependencies.Logger.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0"/>
+        <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5"/>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Models.Views.Admins.Tables\Arc.Models.Views.Admins.Tables.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Admins\Arc.Models.Views.Admins.csproj"/>
+        <ProjectReference Include="..\Arc.Converters.Base\Arc.Converters.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
+        <ProjectReference Include="..\Arc.Converters\Arc.Converters.csproj"/>
+        <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
+        <ProjectReference Include="..\Arc.Converters.Views.Common\Arc.Converters.Views.Common.csproj"/>
+    </ItemGroup>
+
+</Project>

@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Converters\Arc.Converters.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Repositories.Read\Arc.Infrastructure.Repositories.Read.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Domain\Arc.Facades.Domain.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Logger\Arc.Dependencies.Logger.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Repositories\Arc.Infrastructure.Repositories.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>
+        <ProjectReference Include="..\Arc.Converters.Views.Users\Arc.Converters.Views.Users.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Abstractions" Version="2.2.0" />
+      <PackageReference Include="Microsoft.AspNetCore.Mvc.Core" Version="2.2.5" />
+    </ItemGroup>
+</Project>

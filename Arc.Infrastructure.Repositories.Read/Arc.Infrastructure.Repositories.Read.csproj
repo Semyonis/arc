@@ -1,0 +1,19 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Criteria.CompareFunctions\Arc.Criteria.CompareFunctions.csproj"/>
+        <ProjectReference Include="..\Arc.Criteria.PropertyFilters\Arc.Criteria.PropertyFilters.csproj"/>
+        <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Criteria\Arc.Criteria.csproj"/>
+        <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Repositories\Arc.Infrastructure.Repositories.csproj"/>
+    </ItemGroup>
+
+</Project>

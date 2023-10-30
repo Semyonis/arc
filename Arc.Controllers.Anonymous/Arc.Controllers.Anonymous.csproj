@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Facades.Anonymous\Arc.Facades.Anonymous.csproj"/>
+        <ProjectReference Include="..\Arc.Controllers.Base\Arc.Controllers.Base.csproj"/>
+    </ItemGroup>
+
+</Project>

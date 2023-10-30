@@ -1,0 +1,70 @@
+﻿using Arc.Criteria.Implementations;
+using Arc.Criteria.PropertyFilters.Interfaces;
+using Arc.Database.Context;
+using Arc.Infrastructure.Common.Extensions;
+using Arc.Infrastructure.Repositories.Read.Implementations.Base;
+using Arc.Infrastructure.Repositories.Read.Interfaces;
+using Arc.Models.DataBase.Models;
+
+using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.UserExpressions;
+
+namespace Arc.Infrastructure.Repositories.Read.Implementations;
+
+public sealed class UsersReadRepository :
+    IdReadRepositoryBase<User>,
+    IUsersReadRepository
+{
+    private readonly IUserPropertyFilters
+        _userPropertyFilters;
+
+    public UsersReadRepository(
+        ArcDatabaseContext context,
+        IUserPropertyFilters
+            userPropertyFilters
+    ) : base(
+        context
+    ) =>
+        _userPropertyFilters =
+            userPropertyFilters;
+
+    public async Task<string?> GetEmailById(
+        int userId
+    ) =>
+        await
+            GetProjectionById(
+                userId,
+                GetEmail()
+            );
+
+    public async Task<User?> GetByEmail(
+        string email,
+        Func
+            <
+                IQueryable<User>,
+                IIncludableQueryable<User, object>
+            >? include = null,
+        bool asNoTracking = true
+    )
+    {
+        var propertyFilterParameter =
+            _userPropertyFilters
+                .GetEmailEqualFilter(
+                    email
+                );
+
+        var criteria =
+            new ReadRepositoryFiltersCriteria<User>
+            {
+                Filters =
+                    propertyFilterParameter.WrapByReadOnlyList(),
+            };
+
+        return
+            await
+                GetFirstByCriteriaAsync(
+                    criteria,
+                    include,
+                    asNoTracking
+                );
+    }
+}

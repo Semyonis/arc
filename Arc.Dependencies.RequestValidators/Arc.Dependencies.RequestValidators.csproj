@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Models.Views.Admins.Tables\Arc.Models.Views.Admins.Tables.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Admins\Arc.Models.Views.Admins.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Anonymous\Arc.Models.Views.Anonymous.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Common\Arc.Models.Views.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Users\Arc.Models.Views.Users.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="FluentValidation" Version="11.4.0"/>
+    </ItemGroup>
+
+</Project>

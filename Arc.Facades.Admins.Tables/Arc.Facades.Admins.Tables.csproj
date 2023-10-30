@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Converters.Base\Arc.Converters.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Converters.Views.Admins\Arc.Converters.Views.Admins.csproj"/>
+        <ProjectReference Include="..\Arc.Criteria.FilterParameters.Factories\Arc.Criteria.FilterParameters.Factories.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Base\Arc.Facades.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Domain\Arc.Facades.Domain.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Dictionaries\Arc.Infrastructure.Dictionaries.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Entity.Includes.Extensions\Arc.Infrastructure.Entity.Includes.Extensions.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Transactions\Arc.Infrastructure.Transactions.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Admins\Arc.Models.Views.Admins.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Implementations\"/>
+        <Folder Include="Interfaces\"/>
+    </ItemGroup>
+
+</Project>

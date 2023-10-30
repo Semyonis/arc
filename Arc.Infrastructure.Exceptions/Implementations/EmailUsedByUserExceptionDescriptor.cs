@@ -1,0 +1,18 @@
+﻿using Arc.Infrastructure.Exceptions.Implementations.Base;
+using Arc.Infrastructure.Exceptions.Interfaces;
+
+using static Arc.Infrastructure.Common.Constants.ErrorCodeConstants;
+using static Arc.Infrastructure.Common.Constants.HttpResponseCodeConstants;
+
+namespace Arc.Infrastructure.Exceptions.Implementations;
+
+public sealed class EmailUsedByUserExceptionDescriptor :
+    ExceptionDescriptorBase,
+    IEmailUsedByUserExceptionDescriptor
+{
+    protected override string ErrorCode =>
+        EmailUsedByUser;
+
+    protected override int ResponseCode =>
+        BadRequest;
+}

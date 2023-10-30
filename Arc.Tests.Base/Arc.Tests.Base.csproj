@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+        <RootNamespace>Arc.Tests.Base</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Controllers.Admins\Arc.Controllers.Admins.csproj"/>
+        <ProjectReference Include="..\Arc.Controllers.Anonymous\Arc.Controllers.Anonymous.csproj"/>
+        <ProjectReference Include="..\Arc.Controllers.Authorized\Arc.Controllers.Authorized.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Cache\Arc.Dependencies.Cache.csproj"/>
+        <ProjectReference Include="..\Arc.Converters\Arc.Converters.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Repositories.Read\Arc.Infrastructure.Repositories.Read.csproj"/>
+        <ProjectReference Include="..\Arc.Middleware.Filters\Arc.Middleware.Filters.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Identity\Arc.Dependencies.Identity.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Domain\Arc.Facades.Domain.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Logger\Arc.Dependencies.Logger.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>
+        <ProjectReference Include="..\Arc.Controllers.Users\Arc.Controllers.Users.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Common\Arc.Models.Views.Common.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="NSubstitute" Version="4.4.0"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="7.0.1"/>
+        <PackageReference Include="xunit" Version="2.5.2"/>
+    </ItemGroup>
+
+</Project>

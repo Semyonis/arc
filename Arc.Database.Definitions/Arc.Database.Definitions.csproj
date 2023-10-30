@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.1"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Infrastructure.Entity.Expressions.Extensions\Arc.Infrastructure.Entity.Expressions.Extensions.csproj"/>
+        <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.1"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1"/>
+    </ItemGroup>
+
+</Project>

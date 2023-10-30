@@ -1,0 +1,30 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <LangVersion>latestmajor</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\Arc.Facades.Base\Arc.Facades.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Converters\Arc.Converters.csproj"/>
+        <ProjectReference Include="..\Arc.Criteria\Arc.Criteria.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Domain\Arc.Facades.Domain.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.Json\Arc.Dependencies.Json.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Repositories\Arc.Infrastructure.Repositories.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>
+        <ProjectReference Include="..\Arc.Models.Views.Common\Arc.Models.Views.Common.csproj"/>
+        <ProjectReference Include="..\Arc.Converters.Views.Users\Arc.Converters.Views.Users.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Transactions\Arc.Infrastructure.Transactions.csproj"/>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="Arc.Repositories">
+            <HintPath>..\Arc.Tests.Integrations\bin\Debug\net7.0\Arc.Repositories.dll</HintPath>
+        </Reference>
+    </ItemGroup>
+
+</Project>
