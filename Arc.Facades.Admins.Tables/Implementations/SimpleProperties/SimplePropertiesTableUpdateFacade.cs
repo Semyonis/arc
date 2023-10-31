@@ -2,7 +2,6 @@
 using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.SimpleProperties;
 using Arc.Facades.Domain.Interface;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
@@ -30,8 +29,6 @@ public sealed class SimplePropertiesTableUpdateFacade :
             updateConverter,
         ITransactionManager
             transactionManager,
-        IDictionariesManager
-            dictionariesManager,
         IBadDataExceptionDescriptor
             badDataExceptionDescriptor
     ) : base(
@@ -39,7 +36,6 @@ public sealed class SimplePropertiesTableUpdateFacade :
         internalFacade,
         updateConverter,
         transactionManager,
-        dictionariesManager,
         badDataExceptionDescriptor
     ) { }
 

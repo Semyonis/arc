@@ -3,21 +3,14 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations.Base;
 
 public abstract class Repository
 {
-    private readonly ArcDatabaseContext
-        _context;
-
-    protected Repository(
-        ArcDatabaseContext context
-    ) =>
-        _context =
-            context;
-
     protected async Task<int> InvokeActionAndSaveChangesAsync<TEntity>(
         TEntity item,
         Action<DbSet<TEntity>, TEntity> action,
@@ -25,16 +18,14 @@ public abstract class Repository
     )
         where TEntity : class
     {
-        await
-            InvokeActionAsync(
-                item,
-                action,
-                cancellationToken
-            );
+        InvokeActionAsync(
+            item,
+            action
+        );
 
         return
             await
-                SaveChangesAsync(
+                SaveChangesAsync<TEntity>(
                     cancellationToken
                 );
     }
@@ -46,72 +37,97 @@ public abstract class Repository
     )
         where TEntity : class
     {
-        await
-            InvokeActionAsync(
-                items,
-                action,
-                cancellationToken
-            );
+        InvokeActionAsync(
+            items,
+            action
+        );
 
         return
             await
-                SaveChangesAsync(
+                SaveChangesAsync<TEntity>(
                     cancellationToken
                 );
     }
 
-    private async Task InvokeActionAsync<TEntity>(
+    private void InvokeActionAsync<TEntity>(
         TEntity entity,
-        Action<DbSet<TEntity>, TEntity> action,
-        CancellationToken cancellationToken = default
+        Action<DbSet<TEntity>, TEntity> action
     )
         where TEntity : class
     {
         var entitySet =
-            GetSet<TEntity>();
+            _context
+                .Set<TEntity>();
 
         action(
             entitySet,
             entity
         );
-
-        await
-            SaveChangesAsync(
-                cancellationToken
-            );
     }
 
-    private async Task InvokeActionAsync<TEntity>(
+    private void InvokeActionAsync<TEntity>(
         IEnumerable<TEntity> entities,
-        Action<DbSet<TEntity>, IEnumerable<TEntity>> action,
-        CancellationToken cancellationToken = default
+        Action<DbSet<TEntity>, IEnumerable<TEntity>> action
     )
         where TEntity : class
     {
         var entitySet =
-            GetSet<TEntity>();
+            _context
+                .Set<TEntity>();
 
         action(
             entitySet,
             entities
         );
-
-        await
-            SaveChangesAsync(
-                cancellationToken
-            );
     }
 
-    private DbSet<TEntity> GetSet<TEntity>()
-        where TEntity : class =>
-        _context
-            .Set<TEntity>();
-
-    private Task<int> SaveChangesAsync(
+    private Task<int> SaveChangesAsync<TEntity>(
         CancellationToken cancellationToken
-    ) =>
-        _context
-            .SaveChangesAsync(
-                cancellationToken
-            );
+    )
+    {
+        var updatedEntitiesCount =
+            _context
+                .SaveChangesAsync(
+                    cancellationToken
+                );
+
+        var databaseCurrentTransaction =
+            _context
+                .Database
+                .CurrentTransaction;
+
+        if (databaseCurrentTransaction == default)
+        {
+            _dictionariesManager
+                .Update(
+                    typeof(TEntity)
+                );
+        }
+
+        return updatedEntitiesCount;
+    }
+
+#region Constructor
+
+    private readonly ArcDatabaseContext
+        _context;
+
+    private readonly IDictionariesManager
+        _dictionariesManager;
+
+    protected Repository(
+        ArcDatabaseContext
+            context,
+        IDictionariesManager
+            dictionariesManager
+    )
+    {
+        _context =
+            context;
+
+        _dictionariesManager =
+            dictionariesManager;
+    }
+
+#endregion
 }

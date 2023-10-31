@@ -15,7 +15,7 @@ public interface IUpdateRepository :
     )
         where TEntity : class;
 
-    Task<int> UpdateAsync<TEntity>(
+    Task<int> UpdateCollectionAsync<TEntity>(
         IEnumerable<TEntity> items,
         CancellationToken cancellationToken = default
     )

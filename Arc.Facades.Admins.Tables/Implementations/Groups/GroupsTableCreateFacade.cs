@@ -2,7 +2,6 @@
 using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.Groups;
 using Arc.Facades.Domain.Interface;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
 using Arc.Models.BusinessLogic.Models.Identities;
@@ -28,15 +27,12 @@ public sealed class GroupsTableCreateFacade :
         IGroupCreateRequestToGroupConverter
             createConverter,
         ITransactionManager
-            transactionManager,
-        IDictionariesManager
-            dictionariesManager
+            transactionManager
     ) : base(
         repository,
         internalFacade,
         createConverter,
-        transactionManager,
-        dictionariesManager
+        transactionManager
     ) { }
 
     public async Task<Response> Execute(

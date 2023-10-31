@@ -2,7 +2,6 @@
 using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
 using Arc.Facades.Domain.Interface;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Entity.Includes.Extensions.Implementations;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
@@ -75,8 +74,6 @@ public sealed class ComplexPropertiesTableDeleteFacade :
             complexPropertyDescriptionRepository,
         ITransactionManager
             transactionManager,
-        IDictionariesManager
-            dictionariesManager,
         IComplexPropertyDescriptionsReadRepository
             complexPropertyDescriptionReadRepository,
         IComplexPropertyDescriptionPropertyFilter
@@ -85,7 +82,6 @@ public sealed class ComplexPropertiesTableDeleteFacade :
         repository,
         internalFacade,
         transactionManager,
-        dictionariesManager,
         readRepository
     )
     {

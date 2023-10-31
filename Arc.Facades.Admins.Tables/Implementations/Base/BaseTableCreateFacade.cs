@@ -1,7 +1,6 @@
 using Arc.Converters.Base.Interfaces;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Interfaces;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
 using Arc.Models.BusinessLogic.Models.Identities;
@@ -42,8 +41,8 @@ public abstract class BaseTableCreateFacade
         var createdCount =
             await
                 _repository
-                    .CreateAsync(
-                        entityList
+                    .CreateCollectionAsync<TEntity>(
+                      entityList
                     );
 
         var changedEntityIds =
@@ -62,12 +61,9 @@ public abstract class BaseTableCreateFacade
 
         await
             transaction
-                .Commit();
-
-        _dictionariesManager
-            .Update(
-                typeof(TEntity)
-            );
+                .Commit(
+                    typeof(TEntity)
+                );
 
         return
             _internalFacade
@@ -87,9 +83,6 @@ public abstract class BaseTableCreateFacade
     private readonly IConverterBase<TCreateEntityRequest, TEntity>
         _createConverter;
 
-    private readonly IDictionariesManager
-        _dictionariesManager;
-
     private readonly IResponsesDomainFacade
         _internalFacade;
 
@@ -107,9 +100,7 @@ public abstract class BaseTableCreateFacade
         IConverterBase<TCreateEntityRequest, TEntity>
             createConverter,
         ITransactionManager
-            transactionManager,
-        IDictionariesManager
-            dictionariesManager
+            transactionManager
     )
     {
         _repository =
@@ -123,9 +114,6 @@ public abstract class BaseTableCreateFacade
 
         _transactionManager =
             transactionManager;
-
-        _dictionariesManager =
-            dictionariesManager;
     }
 
 #endregion

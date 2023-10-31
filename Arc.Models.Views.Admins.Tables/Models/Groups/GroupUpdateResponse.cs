@@ -6,8 +6,6 @@ namespace Arc.Models.Views.Admins.Tables.Models.Groups;
 public sealed record GroupUpdateResponse(
     int Id,
     string Name,
-    string Title,
-    DescriptionUpdateRequest Description,
-    ReferenceRequest Gene
+    DescriptionUpdateRequest Description
 ) :
     IWithIdentifier;

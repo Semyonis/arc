@@ -9,6 +9,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
         <ProjectReference Include="..\Arc.Database.Context\Arc.Database.Context.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Dictionaries\Arc.Infrastructure.Dictionaries.csproj" />
     </ItemGroup>
 
 </Project>

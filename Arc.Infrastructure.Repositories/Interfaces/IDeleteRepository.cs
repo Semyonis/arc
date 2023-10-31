@@ -15,7 +15,7 @@ public interface IDeleteRepository :
     )
         where TEntity : class;
 
-    Task<int> DeleteAsync<TEntity>(
+    Task<int> DeleteCollectionAsync<TEntity>(
         IEnumerable<TEntity> items,
         CancellationToken cancellationToken = default
     )

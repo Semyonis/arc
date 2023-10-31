@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations;
@@ -12,9 +14,13 @@ public sealed class UpdateRepository :
     IUpdateRepository
 {
     public UpdateRepository(
-        ArcDatabaseContext context
+        ArcDatabaseContext
+            context,
+        IDictionariesManager
+            dictionariesManager
     ) : base(
-        context
+        context,
+        dictionariesManager
     ) { }
 
     public async Task<int> UpdateAsync<TEntity>(
@@ -39,7 +45,7 @@ public sealed class UpdateRepository :
                 );
     }
 
-    public async Task<int> UpdateAsync<TEntity>(
+    public async Task<int> UpdateCollectionAsync<TEntity>(
         IEnumerable<TEntity> items,
         CancellationToken cancellationToken = default
     )

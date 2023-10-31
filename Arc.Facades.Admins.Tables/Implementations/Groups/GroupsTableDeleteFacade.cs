@@ -3,7 +3,6 @@ using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.Groups;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Extensions;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Entity.Includes.Extensions.Implementations;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
@@ -125,8 +124,6 @@ public sealed class GroupsTableDeleteFacade :
             groupDescriptionsRepository,
         ITransactionManager
             transactionManager,
-        IDictionariesManager
-            dictionariesManager,
         IGroupDescriptionsReadRepository
             groupDescriptionsReadRepository,
         IComplexPropertiesReadRepository
@@ -141,7 +138,6 @@ public sealed class GroupsTableDeleteFacade :
         repository,
         internalFacade,
         transactionManager,
-        dictionariesManager,
         readRepository
     )
     {

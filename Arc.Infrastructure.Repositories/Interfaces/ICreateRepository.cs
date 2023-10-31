@@ -15,7 +15,7 @@ public interface ICreateRepository :
     )
         where TEntity : class;
 
-    Task<int> CreateAsync<TEntity>(
+    Task<int> CreateCollectionAsync<TEntity>(
         IEnumerable<TEntity> items,
         CancellationToken cancellationToken = default
     )

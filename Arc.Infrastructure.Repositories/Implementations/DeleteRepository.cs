@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations;
@@ -12,9 +14,13 @@ public sealed class DeleteRepository :
     IDeleteRepository
 {
     public DeleteRepository(
-        ArcDatabaseContext context
+        ArcDatabaseContext
+            context,
+        IDictionariesManager
+            dictionariesManager
     ) : base(
-        context
+        context,
+        dictionariesManager
     ) { }
 
     public async Task<int> DeleteAsync<TEntity>(
@@ -39,7 +45,7 @@ public sealed class DeleteRepository :
                 );
     }
 
-    public async Task<int> DeleteAsync<TEntity>(
+    public async Task<int> DeleteCollectionAsync<TEntity>(
         IEnumerable<TEntity> items,
         CancellationToken cancellationToken = default
     )

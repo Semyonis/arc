@@ -1,7 +1,6 @@
 ﻿using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.SimpleProperties;
 using Arc.Facades.Domain.Interface;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
@@ -22,14 +21,11 @@ public sealed class SimplePropertiesTableDeleteFacade :
         IResponsesDomainFacade
             internalFacade,
         ITransactionManager
-            transactionManager,
-        IDictionariesManager
-            dictionariesManager
+            transactionManager
     ) : base(
         repository,
         internalFacade,
         transactionManager,
-        dictionariesManager,
         readRepository
     ) { }
 }

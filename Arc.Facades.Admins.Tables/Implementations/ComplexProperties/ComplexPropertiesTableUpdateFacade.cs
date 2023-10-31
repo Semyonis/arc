@@ -3,7 +3,6 @@ using Arc.Criteria.PropertyFilters.Interfaces;
 using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
 using Arc.Facades.Domain.Interface;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Entity.Includes.Extensions.Implementations;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
@@ -101,8 +100,6 @@ public sealed class ComplexPropertiesTableUpdateFacade :
             complexPropertyDescriptionRepository,
         ITransactionManager
             transactionManager,
-        IDictionariesManager
-            dictionariesManager,
         IComplexPropertyDescriptionsReadRepository
             complexPropertyDescriptionsReadRepository,
         IBadDataExceptionDescriptor
@@ -114,7 +111,6 @@ public sealed class ComplexPropertiesTableUpdateFacade :
         internalFacade,
         updateConverter,
         transactionManager,
-        dictionariesManager,
         badDataExceptionDescriptor
     )
     {

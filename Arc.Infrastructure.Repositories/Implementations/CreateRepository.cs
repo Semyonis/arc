@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 
+using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations;
@@ -12,9 +14,13 @@ public sealed class CreateRepository :
     ICreateRepository
 {
     public CreateRepository(
-        ArcDatabaseContext context
+        ArcDatabaseContext
+            context,
+        IDictionariesManager
+            dictionariesManager
     ) : base(
-        context
+        context,
+        dictionariesManager
     ) { }
 
     public async Task<int> CreateAsync<TEntity>(
@@ -39,7 +45,7 @@ public sealed class CreateRepository :
                 );
     }
 
-    public async Task<int> CreateAsync<TEntity>(
+    public async Task<int> CreateCollectionAsync<TEntity>(
         IEnumerable<TEntity> items,
         CancellationToken cancellationToken = default
     )

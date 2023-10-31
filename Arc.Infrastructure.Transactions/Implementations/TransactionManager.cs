@@ -1,4 +1,5 @@
 ﻿using Arc.Database.Context;
+using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Transactions.Interfaces;
 
 namespace Arc.Infrastructure.Transactions.Implementations;
@@ -9,10 +10,21 @@ public sealed class TransactionManager :
     private readonly ArcDatabaseContext
         _context;
 
+    private readonly IDictionariesManager
+        _dictionariesManager;
+
     public TransactionManager(
-        ArcDatabaseContext context
-    ) =>
-        _context = context;
+        ArcDatabaseContext context,
+        IDictionariesManager
+            dictionariesManager
+    )
+    {
+        _context =
+            context;
+
+        _dictionariesManager =
+            dictionariesManager;
+    }
 
     public async Task<ITransaction> BeginTransaction()
     {
@@ -22,9 +34,11 @@ public sealed class TransactionManager :
                     .Database
                     .BeginTransactionAsync();
 
-        return new Transaction(
-            _context,
-            transactionDb
-        );
+        return
+            new Transaction(
+                _context,
+                transactionDb,
+                _dictionariesManager
+            );
     }
 }

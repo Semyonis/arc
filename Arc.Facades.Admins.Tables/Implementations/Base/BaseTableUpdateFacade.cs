@@ -3,7 +3,6 @@ using Arc.Criteria.Implementations;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Extensions;
 using Arc.Infrastructure.Common.Interfaces;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
@@ -77,7 +76,7 @@ public abstract class BaseTableUpdateFacade
         var updatedCount =
             await
                 _repository
-                    .UpdateAsync(
+                    .UpdateCollectionAsync(
                         updatedEntityList
                     );
 
@@ -97,12 +96,9 @@ public abstract class BaseTableUpdateFacade
 
         await
             transaction
-                .Commit();
-
-        _dictionariesManager
-            .Update(
-                typeof(TEntity)
-            );
+                .Commit(
+                    typeof(TEntity)
+                );
 
         return
             _internalFacade
@@ -140,9 +136,6 @@ public abstract class BaseTableUpdateFacade
 
 #region Constructor
 
-    private readonly IDictionariesManager
-        _dictionariesManager;
-
     private readonly IResponsesDomainFacade
         _internalFacade;
 
@@ -167,8 +160,6 @@ public abstract class BaseTableUpdateFacade
             updateConverter,
         ITransactionManager
             transactionManager,
-        IDictionariesManager
-            dictionariesManager,
         IBadDataExceptionDescriptor
             badDataExceptionDescriptor
     )
@@ -184,9 +175,6 @@ public abstract class BaseTableUpdateFacade
 
         _transactionManager =
             transactionManager;
-
-        _dictionariesManager =
-            dictionariesManager;
 
         _badDataExceptionDescriptor =
             badDataExceptionDescriptor;

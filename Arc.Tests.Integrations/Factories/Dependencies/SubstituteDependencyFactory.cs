@@ -7,6 +7,7 @@ using Arc.Dependencies.Logger.Interfaces;
 using Arc.Infrastructure.Common.Models.Settings;
 using Arc.Infrastructure.Dictionaries.Implementations.Managers;
 using Arc.Infrastructure.Dictionaries.Interfaces;
+using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Tests.Integrations.Models.Configurations;
 using Arc.Tests.Integrations.Models.DataDictionaries;
 
@@ -108,6 +109,9 @@ public static class SubstituteDependencyFactory
             },
             {
                 typeof(IConfiguration), new ConfigurationForDebug()
+            },
+            {
+                typeof(IDictionariesManager), new DictionariesManager()
             },
         };
     }

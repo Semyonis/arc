@@ -1,6 +1,5 @@
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Interfaces;
-using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces.Base;
 using Arc.Infrastructure.Transactions.Interfaces;
@@ -50,7 +49,7 @@ public abstract class BaseTableDeleteFacade<TEntity>
         var deletedCount =
             await
                 _repository
-                    .DeleteAsync(
+                    .DeleteCollectionAsync<TEntity>(
                         entitiesList
                     );
 
@@ -70,12 +69,9 @@ public abstract class BaseTableDeleteFacade<TEntity>
 
         await
             transaction
-                .Commit();
-
-        _dictionariesManager
-            .Update(
-                typeof(TEntity)
-            );
+                .Commit(
+                    typeof(TEntity)
+                );
 
         return
             _internalFacade
@@ -101,9 +97,6 @@ public abstract class BaseTableDeleteFacade<TEntity>
 
 #region Constructor
 
-    private readonly IDictionariesManager
-        _dictionariesManager;
-
     private readonly IResponsesDomainFacade
         _internalFacade;
 
@@ -123,8 +116,6 @@ public abstract class BaseTableDeleteFacade<TEntity>
             internalFacade,
         ITransactionManager
             transactionManager,
-        IDictionariesManager
-            dictionariesManager,
         IReadRepositoryBase<TEntity>
             readRepository
     )
@@ -137,9 +128,6 @@ public abstract class BaseTableDeleteFacade<TEntity>
 
         _transactionManager =
             transactionManager;
-
-        _dictionariesManager =
-            dictionariesManager;
 
         _readRepository =
             readRepository;
