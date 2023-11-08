@@ -2,6 +2,8 @@
 using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Infrastructure.Transactions.Interfaces;
 
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Arc.Infrastructure.Transactions.Implementations;
@@ -12,9 +14,7 @@ public sealed class Transaction :
     public void Dispose() =>
         _transaction.Dispose();
 
-    public async Task Commit(
-        params Type[] updatedEntityTypes
-    )
+    public async Task Commit()
     {
         await
             _context.SaveChangesAsync();
@@ -22,7 +22,10 @@ public sealed class Transaction :
         await
             _transaction.CommitAsync();
 
-        foreach (var entityType in updatedEntityTypes)
+        var updatedEntities =
+            GetUpdatedOrDeletedEntityTypes();
+
+        foreach (var entityType in updatedEntities)
         {
             _dictionariesManager
                 .Update(
@@ -30,6 +33,31 @@ public sealed class Transaction :
                 );
         }
     }
+
+    private IEnumerable<Type> GetUpdatedOrDeletedEntityTypes() =>
+        _context
+            .ChangeTracker
+            .Entries()
+            .Where(
+                IsModifiedOrDeleted  
+            )
+            .Select(
+                GetType
+            );
+
+    private static Type GetType(
+        EntityEntry entity
+     ) =>
+        entity
+            .Entity
+            .GetType();
+
+    private static bool IsModifiedOrDeleted(
+        EntityEntry entity
+     ) =>
+        entity.State
+            is EntityState.Modified
+            or EntityState.Deleted;
 
     public void Rollback() =>
         _transaction.Rollback();

@@ -96,9 +96,7 @@ public abstract class BaseTableUpdateFacade
 
         await
             transaction
-                .Commit(
-                    typeof(TEntity)
-                );
+                .Commit();
 
         return
             _internalFacade

@@ -3,9 +3,7 @@
 public interface ITransaction :
     IDisposable
 {
-    Task Commit(
-        params Type[] updatedEntityTypes
-    );
+    Task Commit();
 
     void Rollback();
 }

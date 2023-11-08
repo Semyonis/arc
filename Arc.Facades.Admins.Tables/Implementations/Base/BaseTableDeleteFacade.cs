@@ -69,9 +69,7 @@ public abstract class BaseTableDeleteFacade<TEntity>
 
         await
             transaction
-                .Commit(
-                    typeof(TEntity)
-                );
+                .Commit();
 
         return
             _internalFacade
