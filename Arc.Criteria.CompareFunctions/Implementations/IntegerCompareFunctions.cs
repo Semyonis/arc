@@ -27,7 +27,7 @@ public sealed class IntegerCompareFunctions :
                 GetIntegerIsLowerOrEqualFunction(),
             _ =>
                 throw
-                    _badDataExceptionDescriptor.CreateException(),
+                    _unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<int, int, bool>>
@@ -80,15 +80,15 @@ public sealed class IntegerCompareFunctions :
 
 #region Constructor
 
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
+    private readonly IUnsupportedOperationExceptionDescriptor
+        _unsupportedOperationExceptionDescriptor;
 
     public IntegerCompareFunctions(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
     ) =>
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
+        _unsupportedOperationExceptionDescriptor =
+            unsupportedOperationExceptionDescriptor;
 
 #endregion
 }

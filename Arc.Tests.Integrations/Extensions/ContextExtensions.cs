@@ -1,12 +1,39 @@
+using System.Collections.Generic;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Tests.Integrations.Extensions;
 
 internal static class ContextExtensions
 {
+    public static DbContext AddEntity<TEntity>(
+        this DbContext context,
+        TEntity newEntity
+    )
+        where TEntity : class
+    {
+        var entities =
+            context
+                .Set<TEntity>();
+
+        entities
+            .Add(
+                newEntity
+            );
+
+        context
+            .SaveChanges();
+
+        context
+            .DetachAll();
+
+        return
+            context;
+    }
+    
     public static DbContext AddEntities<TEntity>(
         this DbContext context,
-        params TEntity[] newEntities
+        IEnumerable<TEntity> newEntities
     )
         where TEntity : class
     {

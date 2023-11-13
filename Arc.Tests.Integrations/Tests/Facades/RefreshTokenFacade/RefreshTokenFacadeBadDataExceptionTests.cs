@@ -29,7 +29,7 @@ public sealed class RefreshTokenFacadeBadDataExceptionTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

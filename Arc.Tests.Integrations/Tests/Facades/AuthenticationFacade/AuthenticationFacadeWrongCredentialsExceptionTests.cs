@@ -35,7 +35,7 @@ public sealed class AuthenticationFacadeWrongCredentialsExceptionTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

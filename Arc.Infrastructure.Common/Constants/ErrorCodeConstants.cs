@@ -11,6 +11,9 @@ public static class ErrorCodeConstants
     public const string BadData =
         "BadData";
 
+    public const string UnsupportedOperation =
+        "UnsupportedOperation";
+
     public const string ServerError =
         "ServerError";
 

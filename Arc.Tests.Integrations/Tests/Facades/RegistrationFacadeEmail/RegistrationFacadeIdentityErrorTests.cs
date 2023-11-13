@@ -35,7 +35,7 @@ public sealed class RegistrationFacadeIdentityErrorTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

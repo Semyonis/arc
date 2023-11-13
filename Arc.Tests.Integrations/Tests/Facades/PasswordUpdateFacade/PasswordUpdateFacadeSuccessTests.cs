@@ -35,7 +35,7 @@ public sealed class PasswordUpdateFacadeSuccessTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

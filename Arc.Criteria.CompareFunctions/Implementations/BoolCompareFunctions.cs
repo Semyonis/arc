@@ -19,7 +19,7 @@ public sealed class BoolCompareFunctions :
                 GetBoolIsNotEqualFunction(),
             _ =>
                 throw
-                    _badDataExceptionDescriptor.CreateException(),
+                    _unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<bool, bool, bool>>
@@ -40,15 +40,15 @@ public sealed class BoolCompareFunctions :
 
 #region Constructor
 
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
+    private readonly IUnsupportedOperationExceptionDescriptor
+        _unsupportedOperationExceptionDescriptor;
 
     public BoolCompareFunctions(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
     ) =>
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
+        _unsupportedOperationExceptionDescriptor =
+            unsupportedOperationExceptionDescriptor;
 
 #endregion
 }

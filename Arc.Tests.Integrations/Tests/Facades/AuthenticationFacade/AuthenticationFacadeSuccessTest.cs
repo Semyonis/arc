@@ -35,7 +35,7 @@ public sealed class AuthenticationFacadeSuccessTest
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

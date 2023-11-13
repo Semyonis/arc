@@ -31,7 +31,7 @@ public sealed class RegistrationFacadeSuccessTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

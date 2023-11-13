@@ -34,7 +34,7 @@ public sealed class ResetPasswordFacadeSuccessTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

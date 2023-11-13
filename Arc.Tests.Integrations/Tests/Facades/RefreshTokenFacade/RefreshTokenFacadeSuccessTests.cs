@@ -32,7 +32,7 @@ public sealed class RefreshTokenFacadeSuccessTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 
@@ -45,7 +45,7 @@ public sealed class RefreshTokenFacadeSuccessTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user1
             );
 

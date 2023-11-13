@@ -1,7 +1,7 @@
-﻿using Arc.Criteria.CompareFunctions.Interfaces;
-using Arc.Criteria.FilterParameters.Implementations;
+﻿using Arc.Criteria.FilterParameters.Factories.Interfaces;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.PropertyFilters.Interfaces;
-using Arc.Infrastructure.Entity.Expressions.Extensions.Implementations;
+using Arc.Models.BusinessLogic.Models.FilterProperties;
 using Arc.Models.DataBase.Models;
 
 using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstants;
@@ -11,33 +11,34 @@ namespace Arc.Criteria.PropertyFilters.Implementations;
 public sealed class ActorPropertyFilters :
     IActorPropertyFilters
 {
-    private readonly IStringCompareFunctions
-        _stringCompareFunctions;
+    private readonly IGenericFilterPropertyFactoryService
+        _genericFilterPropertyFactoryService;
 
     public ActorPropertyFilters(
-        IStringCompareFunctions
-            stringCompareFunctions
+        IGenericFilterPropertyFactoryService
+            genericFilterPropertyFactoryService
     ) =>
-        _stringCompareFunctions =
-            stringCompareFunctions;
+        _genericFilterPropertyFactoryService =
+            genericFilterPropertyFactoryService;
 
-    public PropertyFilterParameter<Actor, string> GetEmailEqualFilter(
+    public FilterParameterBase<Actor> GetEmailEqualFilter(
         string pattern
     )
     {
-        var propertyPredicate =
-            ActorExpressions.GetEmail();
+        const string Email =
+            "Email";
 
-        var compareFunction =
-            _stringCompareFunctions
-                .GetFunction(
-                    Equal
+        var filterPropertyRequestModel =
+            new FilterPropertyRequestModel(
+                Email,
+                Equal,
+                pattern
+            );
+
+        return
+            _genericFilterPropertyFactoryService
+                .GetProperty<Actor>(
+                    filterPropertyRequestModel
                 );
-
-        return new(
-            propertyPredicate,
-            compareFunction,
-            pattern
-        );
     }
 }

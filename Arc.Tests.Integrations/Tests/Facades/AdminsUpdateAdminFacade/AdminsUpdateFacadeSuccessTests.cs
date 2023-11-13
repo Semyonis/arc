@@ -30,7 +30,7 @@ public sealed class AdminsUpdateFacadeSuccessTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 admin
             );
 

@@ -32,7 +32,7 @@ public sealed class ForgotPasswordFacadeUserNotFoundExceptionTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

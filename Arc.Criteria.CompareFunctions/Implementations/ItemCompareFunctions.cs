@@ -19,7 +19,7 @@ public sealed class ItemCompareFunctions :
                 GetItemIsNotContainsFunction(),
             _ =>
                 throw
-                    _badDataExceptionDescriptor.CreateException(),
+                    _unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<int, int, bool>>
@@ -40,15 +40,15 @@ public sealed class ItemCompareFunctions :
 
 #region Constructor
 
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
+    private readonly IUnsupportedOperationExceptionDescriptor
+        _unsupportedOperationExceptionDescriptor;
 
     public ItemCompareFunctions(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
     ) =>
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
+        _unsupportedOperationExceptionDescriptor =
+            unsupportedOperationExceptionDescriptor;
 
 #endregion
 }

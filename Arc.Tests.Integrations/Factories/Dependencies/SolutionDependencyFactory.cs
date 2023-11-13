@@ -19,6 +19,7 @@ public static class SolutionDependencyFactory
                 new Infrastructure.Exceptions.DependencyManager(),
                 new Criteria.PropertyFilters.DependencyManager(),
                 new Criteria.CompareFunctions.DependencyManager(),
+                new Criteria.FilterParameters.Factories.DependencyManager(),
                 new Converters.Base.DependencyManager(),
                 new Converters.DependencyManager(),
                 new Converters.Views.Common.DependencyManager(),

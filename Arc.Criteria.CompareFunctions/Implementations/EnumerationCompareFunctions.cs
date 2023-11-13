@@ -19,7 +19,7 @@ public sealed class EnumerationCompareFunctions :
                 GetEnumerationIsNotEqualFunction(),
             _ =>
                 throw
-                    _badDataExceptionDescriptor.CreateException(),
+                    _unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<string, string, bool>>
@@ -40,15 +40,15 @@ public sealed class EnumerationCompareFunctions :
 
 #region Constructor
 
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
+    private readonly IUnsupportedOperationExceptionDescriptor
+        _unsupportedOperationExceptionDescriptor;
 
     public EnumerationCompareFunctions(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
     ) =>
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
+        _unsupportedOperationExceptionDescriptor =
+            unsupportedOperationExceptionDescriptor;
 
 #endregion
 }

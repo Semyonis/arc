@@ -1,11 +1,11 @@
-﻿using Arc.Criteria.FilterParameters.Implementations;
+﻿using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Models.DataBase.Models;
 
 namespace Arc.Criteria.PropertyFilters.Interfaces;
 
 public interface IAdminPropertyFilters
 {
-    PropertyFilterParameter<Admin, string> GetEmailEqualFilter(
+    FilterParameterBase<Admin> GetEmailEqualFilter(
         string pattern
     );
 }

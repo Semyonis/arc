@@ -29,7 +29,7 @@ public sealed class RefreshTokenFacadeInvalidTokenExceptionTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 

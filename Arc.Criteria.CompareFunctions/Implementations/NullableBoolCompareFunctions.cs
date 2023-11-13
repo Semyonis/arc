@@ -23,7 +23,7 @@ public sealed class NullableBoolCompareFunctions :
                 GetBoolIsNotNull(),
             _ =>
                 throw
-                    _badDataExceptionDescriptor.CreateException(),
+                    _unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<bool?, bool?, bool>>
@@ -60,15 +60,15 @@ public sealed class NullableBoolCompareFunctions :
 
 #region Constructor
 
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
+    private readonly IUnsupportedOperationExceptionDescriptor
+        _unsupportedOperationExceptionDescriptor;
 
     public NullableBoolCompareFunctions(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
     ) =>
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
+        _unsupportedOperationExceptionDescriptor =
+            unsupportedOperationExceptionDescriptor;
 
 #endregion
 }

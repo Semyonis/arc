@@ -34,7 +34,7 @@ public sealed class RegistrationFacadeEmailUsedByUserExceptionTests
             };
 
         context
-            .AddEntities(
+            .AddEntity(
                 user
             );
 
