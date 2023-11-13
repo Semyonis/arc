@@ -1,4 +1,4 @@
-﻿using Arc.Criteria.FilterParameters.Implementations;
+﻿using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
 
 namespace Arc.Criteria.FilterParameters.Factories.Interfaces;

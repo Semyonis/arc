@@ -1,4 +1,5 @@
-﻿using Arc.Infrastructure.Common.Interfaces;
+﻿using Arc.Criteria.FilterParameters.Implementations.Base;
+using Arc.Infrastructure.Common.Interfaces;
 
 namespace Arc.Criteria.FilterParameters.Implementations;
 

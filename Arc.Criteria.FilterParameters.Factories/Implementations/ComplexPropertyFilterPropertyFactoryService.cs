@@ -1,6 +1,7 @@
 ﻿using Arc.Criteria.CompareFunctions.Interfaces;
 using Arc.Criteria.FilterParameters.Factories.Interfaces;
 using Arc.Criteria.FilterParameters.Implementations;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
 using Arc.Models.DataBase.Models;

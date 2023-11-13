@@ -1,4 +1,6 @@
-﻿namespace Arc.Criteria.FilterParameters.Implementations.ItemListParameters;
+﻿using Arc.Criteria.FilterParameters.Implementations.Base;
+
+namespace Arc.Criteria.FilterParameters.Implementations.ItemListParameters;
 
 public sealed class ItemListPropertyAnyFilterParameter<TEntity, TProperty> :
     FilterParameterBase<TEntity>

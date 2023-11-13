@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 
 using Arc.Converters.Base.Interfaces;
-using Arc.Criteria.FilterParameters.Implementations;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Dictionaries.Interfaces.Base;
 using Arc.Infrastructure.Repositories.Read.Interfaces.Base;

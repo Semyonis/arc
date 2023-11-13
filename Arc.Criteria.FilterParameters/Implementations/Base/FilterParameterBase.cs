@@ -1,4 +1,4 @@
-﻿namespace Arc.Criteria.FilterParameters.Implementations;
+﻿namespace Arc.Criteria.FilterParameters.Implementations.Base;
 
 public abstract class FilterParameterBase<TEntity>
 {

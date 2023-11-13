@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 
-using Arc.Criteria.FilterParameters.Implementations;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Infrastructure.Common.Enums;
 using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Common.Models;

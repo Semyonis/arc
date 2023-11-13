@@ -1,4 +1,4 @@
-using Arc.Criteria.FilterParameters.Implementations;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.Implementations.Base;
 using Arc.Infrastructure.Common.Enums;
 

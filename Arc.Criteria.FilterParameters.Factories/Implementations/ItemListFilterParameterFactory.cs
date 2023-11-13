@@ -1,5 +1,5 @@
 ﻿using Arc.Criteria.FilterParameters.Factories.Interfaces;
-using Arc.Criteria.FilterParameters.Implementations;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.FilterParameters.Implementations.ItemListParameters;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Models.BusinessLogic.Models.FilterProperties;

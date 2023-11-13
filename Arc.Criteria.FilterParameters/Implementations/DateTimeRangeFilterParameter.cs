@@ -1,4 +1,6 @@
-﻿namespace Arc.Criteria.FilterParameters.Implementations;
+﻿using Arc.Criteria.FilterParameters.Implementations.Base;
+
+namespace Arc.Criteria.FilterParameters.Implementations;
 
 public sealed class DateTimeRangeFilterParameter<TEntity> :
     FilterParameterBase<TEntity>

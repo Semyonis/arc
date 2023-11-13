@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using System.Threading;
 
-using Arc.Criteria.FilterParameters.Implementations;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.Implementations;
 using Arc.Criteria.Interfaces;
 using Arc.Infrastructure.Common.Enums;
