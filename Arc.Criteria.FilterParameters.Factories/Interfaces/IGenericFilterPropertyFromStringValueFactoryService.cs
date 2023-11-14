@@ -3,12 +3,8 @@ using Arc.Models.BusinessLogic.Models.FilterProperties;
 
 namespace Arc.Criteria.FilterParameters.Factories.Interfaces;
 
-public interface IGenericFilterPropertyFactoryService
+public interface IGenericFilterPropertyFromStringValueFactoryService
 {
-    IReadOnlyList<FilterParameterBase<TEntity>> GetProperties<TEntity>(
-        IReadOnlyList<FilterPropertyRequestModel> models
-    );
-
     FilterParameterBase<TEntity> GetProperty<TEntity>(
         FilterPropertyRequestModel filter
     );

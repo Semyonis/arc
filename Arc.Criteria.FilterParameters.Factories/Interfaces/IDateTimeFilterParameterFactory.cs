@@ -3,16 +3,13 @@ using Arc.Models.BusinessLogic.Models.FilterProperties;
 
 namespace Arc.Criteria.FilterParameters.Factories.Interfaces;
 
-public interface IDateFilterParameterFactory
+public interface IDateTimeFilterParameterFactory
 {
     FilterParameterBase<TEntity> GetFilterParameter
     <
         TEntity
     >(
-        FilterPropertyRequestModel filter,
-        Expression
-        <
-            Func<TEntity, DateTime>
-        > propertyPredicate
+        FilterPropertyModel filter,
+        Expression<Func<TEntity, DateTime>> propertyPredicate
     );
 }

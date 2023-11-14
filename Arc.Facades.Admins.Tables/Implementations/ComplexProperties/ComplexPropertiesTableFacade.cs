@@ -31,7 +31,7 @@ public sealed class ComplexPropertiesTableFacade :
             readResponseConverter,
         IOrderingService
             orderingService,
-        IComplexPropertyFilterParameterFactoryService
+        IGenericFilterPropertyFromStringValueFactoryService
             filterParameterConverter,
         IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
             filterPropertyRequestRequestToFilterPropertyRequestModelConverter
@@ -49,5 +49,6 @@ public sealed class ComplexPropertiesTableFacade :
         GetInclude() =>
         entity =>
             entity
-                .IncludeDescription();
+                .IncludeDescription()
+                .IncludeGroupDescription();
 }

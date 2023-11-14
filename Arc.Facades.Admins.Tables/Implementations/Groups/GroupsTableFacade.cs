@@ -31,7 +31,7 @@ public sealed class GroupsTableFacade :
             readConverter,
         IOrderingService
             orderingService,
-        IGroupFilterParameterFactoryService
+        IGenericFilterPropertyFromStringValueFactoryService
             filterParameterConverter,
         IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
             filterPropertyRequestRequestToFilterPropertyRequestModelConverter

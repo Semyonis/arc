@@ -28,7 +28,7 @@ public sealed class SimplePropertiesTableFacade :
             readConverter,
         IOrderingService
             orderingService,
-        ISimplePropertyFilterParameterFactoryService
+        IGenericFilterPropertyFromStringValueFactoryService
             filterParameterConverter,
         IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
             filterPropertyRequestRequestToFilterPropertyRequestModelConverter

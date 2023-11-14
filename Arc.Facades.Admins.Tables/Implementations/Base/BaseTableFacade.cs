@@ -1,6 +1,7 @@
 using Arc.Converters.Base.Interfaces;
 using Arc.Converters.Views.Common.Interfaces;
 using Arc.Criteria.FilterParameters.Factories.Interfaces;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Interfaces;
@@ -34,10 +35,21 @@ public abstract class BaseTableFacade
                 );
 
         var filters =
-            _baseFilterPropertyRequestRequestToBaseFilterParameterConverter
-                .GetProperties(
-                    filterModels
+            new List<FilterParameterBase<TEntity>>();
+        
+        foreach (var filterModel in filterModels)
+        {
+            var filter =
+                _baseFilterPropertyRequestRequestToBaseFilterParameterConverter
+                    .GetProperty<TEntity>(
+                        filterModel
+                    );
+
+            filters
+                .Add(
+                    filter
                 );
+        }
 
         var totalCount =
             await
@@ -125,7 +137,7 @@ public abstract class BaseTableFacade
     private readonly IReadRepositoryBase<TEntity>
         _readRepository;
 
-    private readonly IBaseFilterParameterFactoryService<TEntity>
+    private readonly IGenericFilterPropertyFromStringValueFactoryService
         _baseFilterPropertyRequestRequestToBaseFilterParameterConverter;
 
     private readonly IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
@@ -140,7 +152,7 @@ public abstract class BaseTableFacade
             readConverter,
         IOrderingService
             orderingService,
-        IBaseFilterParameterFactoryService<TEntity>
+        IGenericFilterPropertyFromStringValueFactoryService
             baseFilterPropertyRequestRequestToBaseFilterParameterConverter,
         IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
             filterPropertyRequestRequestToFilterPropertyRequestModelConverter

@@ -5,39 +5,37 @@ using Arc.Models.BusinessLogic.Models.FilterProperties;
 using Arc.Models.DataBase.Models;
 
 using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstants;
+using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.ActorExpressions;
 
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
 public sealed class ActorPropertyFilters :
     IActorPropertyFilters
 {
-    private readonly IGenericFilterPropertyFactoryService
-        _genericFilterPropertyFactoryService;
+    private readonly IGenericFilterPropertyFromExpressionFactoryService
+        _genericFilterPropertyFromExpressionFactoryService;
 
     public ActorPropertyFilters(
-        IGenericFilterPropertyFactoryService
-            genericFilterPropertyFactoryService
+        IGenericFilterPropertyFromExpressionFactoryService
+            genericFilterPropertyFromExpressionFactoryService
     ) =>
-        _genericFilterPropertyFactoryService =
-            genericFilterPropertyFactoryService;
+        _genericFilterPropertyFromExpressionFactoryService =
+            genericFilterPropertyFromExpressionFactoryService;
 
     public FilterParameterBase<Actor> GetEmailEqualFilter(
         string pattern
     )
     {
-        const string Email =
-            "Email";
-
         var filterPropertyRequestModel =
-            new FilterPropertyRequestModel(
-                Email,
+            new FilterPropertyModel(
                 Equal,
                 pattern
             );
 
         return
-            _genericFilterPropertyFactoryService
-                .GetProperty<Actor>(
+            _genericFilterPropertyFromExpressionFactoryService
+                .GetProperty(
+                    GetEmail(),
                     filterPropertyRequestModel
                 );
     }

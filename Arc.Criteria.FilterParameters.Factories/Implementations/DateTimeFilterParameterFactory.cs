@@ -11,14 +11,14 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.FilterParameters.Factories.Implementations;
 
-public class DateFilterParameterFactory :
-    IDateFilterParameterFactory
+public class DateTimeFilterParameterFactory :
+    IDateTimeFilterParameterFactory
 {
     public FilterParameterBase<TEntity> GetFilterParameter
     <
         TEntity
     >(
-        FilterPropertyRequestModel filter,
+        FilterPropertyModel filter,
         Expression
         <
             Func<TEntity, DateTime>
@@ -100,7 +100,7 @@ public class DateFilterParameterFactory :
     private readonly ISerializationDecorator
         _serializationDecorator;
 
-    public DateFilterParameterFactory(
+    public DateTimeFilterParameterFactory(
         ISerializationDecorator
             serializationDecorator,
         IBadDataExceptionDescriptor

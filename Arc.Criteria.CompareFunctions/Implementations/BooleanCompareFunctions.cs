@@ -5,8 +5,8 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
-public sealed class BoolCompareFunctions :
-    IBoolCompareFunctions
+public sealed class BooleanCompareFunctions :
+    IBooleanCompareFunctions
 {
     public Expression<Func<bool, bool, bool>> GetFunction(
         string operation
@@ -43,7 +43,7 @@ public sealed class BoolCompareFunctions :
     private readonly IUnsupportedOperationExceptionDescriptor
         _unsupportedOperationExceptionDescriptor;
 
-    public BoolCompareFunctions(
+    public BooleanCompareFunctions(
         IUnsupportedOperationExceptionDescriptor
             unsupportedOperationExceptionDescriptor
     ) =>

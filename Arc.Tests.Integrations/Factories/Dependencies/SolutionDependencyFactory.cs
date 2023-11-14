@@ -27,6 +27,7 @@ public static class SolutionDependencyFactory
                 new Converters.Views.Admins.DependencyManager(),
                 new Facades.Domain.DependencyManager(),
                 new Facades.Admins.DependencyManager(),
+                new Facades.Admins.Tables.DependencyManager(),
                 new Facades.Anonymous.DependencyManager(),
                 new Facades.Authorized.DependencyManager(),
                 new Facades.Domain.Filters.DependencyManager(),

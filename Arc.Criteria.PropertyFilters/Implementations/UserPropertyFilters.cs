@@ -1,7 +1,8 @@
-﻿using Arc.Criteria.CompareFunctions.Interfaces;
-using Arc.Criteria.FilterParameters.Implementations;
+﻿using Arc.Criteria.FilterParameters.Factories.Interfaces;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.PropertyFilters.Interfaces;
 using Arc.Infrastructure.Entity.Expressions.Extensions.Implementations;
+using Arc.Models.BusinessLogic.Models.FilterProperties;
 using Arc.Models.DataBase.Models;
 
 using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstants;
@@ -11,33 +12,31 @@ namespace Arc.Criteria.PropertyFilters.Implementations;
 public sealed class UserPropertyFilters :
     IUserPropertyFilters
 {
-    private readonly IStringCompareFunctions
-        _stringCompareFunctions;
+    private readonly IGenericFilterPropertyFromExpressionFactoryService
+        _genericFilterPropertyFromExpressionFactoryService;
 
     public UserPropertyFilters(
-        IStringCompareFunctions
-            stringCompareFunctions
+        IGenericFilterPropertyFromExpressionFactoryService
+            genericFilterPropertyFromExpressionFactoryService
     ) =>
-        _stringCompareFunctions =
-            stringCompareFunctions;
+        _genericFilterPropertyFromExpressionFactoryService =
+            genericFilterPropertyFromExpressionFactoryService;
 
-    public PropertyFilterParameter<User, string> GetEmailEqualFilter(
+    public FilterParameterBase<User> GetEmailEqualFilter(
         string pattern
     )
     {
-        var propertyPredicate =
-            UserExpressions.GetEmail();
+        var filterPropertyRequestModel =
+            new FilterPropertyModel(
+                Equal,
+                pattern
+            );
 
-        var compareFunction =
-            _stringCompareFunctions
-                .GetFunction(
-                    Equal
+        return
+            _genericFilterPropertyFromExpressionFactoryService
+                .GetProperty(
+                    UserExpressions.GetEmail(),
+                    filterPropertyRequestModel
                 );
-
-        return new(
-            propertyPredicate,
-            compareFunction,
-            pattern
-        );
     }
 }

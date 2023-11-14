@@ -1,4 +1,4 @@
 ﻿namespace Arc.Criteria.CompareFunctions.Interfaces;
 
-public interface IBoolCompareFunctions :
+public interface IBooleanCompareFunctions :
     ICompareFunctionsBase<bool> { }
