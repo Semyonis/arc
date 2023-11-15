@@ -211,7 +211,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService :
     )
     {
         var filterPropertyModel =
-            new FilterPropertyModel(
+            new DateTimeFilterPropertyModel(
                 operation,
                 template
             );

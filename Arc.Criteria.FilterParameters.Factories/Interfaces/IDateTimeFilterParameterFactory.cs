@@ -9,7 +9,7 @@ public interface IDateTimeFilterParameterFactory
     <
         TEntity
     >(
-        FilterPropertyModel filter,
+        DateTimeFilterPropertyModel filter,
         Expression<Func<TEntity, DateTime>> propertyPredicate
     );
 }

@@ -18,7 +18,7 @@ public class DateTimeFilterParameterFactory :
     <
         TEntity
     >(
-        FilterPropertyModel filter,
+        DateTimeFilterPropertyModel filter,
         Expression
         <
             Func<TEntity, DateTime>

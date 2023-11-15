@@ -41,7 +41,7 @@ public abstract class BaseTableCreateFacade
         var createdCount =
             await
                 _repository
-                    .CreateCollectionAsync<TEntity>(
+                    .CreateCollectionAsync(
                       entityList
                     );
 

@@ -1,6 +1,6 @@
 ﻿namespace Arc.Models.BusinessLogic.Models.FilterProperties;
 
-public record FilterPropertyModel(
+public record DateTimeFilterPropertyModel(
     string Operation,
-    dynamic Value
+    string Value
 );

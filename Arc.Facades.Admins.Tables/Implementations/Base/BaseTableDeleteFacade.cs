@@ -49,7 +49,7 @@ public abstract class BaseTableDeleteFacade<TEntity>
         var deletedCount =
             await
                 _repository
-                    .DeleteCollectionAsync<TEntity>(
+                    .DeleteCollectionAsync(
                         entitiesList
                     );
 
