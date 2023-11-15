@@ -1,4 +1,4 @@
-﻿using Arc.Criteria.FilterParameters.Factories.Interfaces;
+﻿using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
 using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.PropertyFilters.Interfaces;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
@@ -10,8 +10,8 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Ac
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
 public sealed class ActorPropertyFilters(
-    IGenericFilterPropertyFromExpressionFactoryService
-        genericFilterPropertyFromExpressionFactoryService
+    IGenericFilterPropertyFactory
+        genericFilterPropertyFactory
 ) : IActorPropertyFilters
 {
     public FilterParameterBase<Actor> GetEmailEqualFilter(
@@ -25,7 +25,7 @@ public sealed class ActorPropertyFilters(
             );
 
         return
-            genericFilterPropertyFromExpressionFactoryService
+            genericFilterPropertyFactory
                 .GetProperty(
                     GetEmail(),
                     filterPropertyRequestModel

@@ -20,6 +20,7 @@ public static class SolutionDependencyFactory
                 new Criteria.PropertyFilters.DependencyManager(),
                 new Criteria.CompareFunctions.DependencyManager(),
                 new Criteria.FilterParameters.Factories.DependencyManager(),
+                new Criteria.FilterParameters.Factories.Generic.DependencyManager(),
                 new Converters.Base.DependencyManager(),
                 new Converters.DependencyManager(),
                 new Converters.Views.Common.DependencyManager(),

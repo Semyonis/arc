@@ -1,12 +1,13 @@
 using Arc.Converters.Base.Interfaces;
 using Arc.Converters.Views.Common.Interfaces;
-using Arc.Criteria.FilterParameters.Factories.Interfaces;
+using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
 using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces.Base;
 using Arc.Infrastructure.Services.Interfaces;
+using Arc.Models.BusinessLogic.Models.FilterProperties;
 using Arc.Models.BusinessLogic.Models.Identities;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.DataBase;
@@ -29,10 +30,12 @@ public abstract class BaseTableFacade
         readConverter,
     IOrderingService
         orderingService,
-    IGenericFilterPropertyFromStringValueFactoryService
-        baseFilterPropertyRequestRequestToBaseFilterParameterConverter,
+    IGenericPropertyLambdaSelector
+        basePropertyRequestRequestToBaseParameterConverter,
     IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
-        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        filterPropertyRequestRequestToFilterPropertyRequestModelConverter,
+    IGenericFilterPropertyFactory
+        genericFilterPropertyFactory
 )
     where TEntity : class, IWithIdentifier
 {
@@ -48,21 +51,9 @@ public abstract class BaseTableFacade
                 );
 
         var filters =
-            new List<FilterParameterBase<TEntity>>();
-
-        foreach (var filterModel in filterModels)
-        {
-            var filter =
-                baseFilterPropertyRequestRequestToBaseFilterParameterConverter
-                    .GetProperty<TEntity>(
-                        filterModel
-                    );
-
-            filters
-                .Add(
-                    filter
-                );
-        }
+            GetFilterParameters(
+                filterModels
+        );
 
         var totalCount =
             await
@@ -127,6 +118,43 @@ public abstract class BaseTableFacade
                 .CreatePageResponse(
                     args
                 );
+    }
+
+    private List<FilterParameterBase<TEntity>> GetFilterParameters(
+        IReadOnlyList<FilterPropertyRequestModel> filterModels
+    )
+    {
+        var filters =
+            new List<FilterParameterBase<TEntity>>();
+
+        foreach (var filterModel in filterModels)
+        {
+            dynamic propertyLambda =
+                basePropertyRequestRequestToBaseParameterConverter
+                    .GetLambda<TEntity>(
+                        filterModel.Property
+                    );
+
+            var filterPropertyModel =
+                new FilterPropertyModel(
+                    filterModel.Operation,
+                    filterModel.Value
+                );
+
+            var filter =
+                genericFilterPropertyFactory
+                    .GetProperty(
+                        propertyLambda,
+                        filterPropertyModel
+                    );
+
+            filters
+                .Add(
+                    filter
+                );
+        }
+
+        return filters;
     }
 
     protected virtual

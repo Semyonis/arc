@@ -1,4 +1,4 @@
-﻿using Arc.Criteria.FilterParameters.Factories.Interfaces;
+﻿using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
 using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.PropertyFilters.Interfaces;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
@@ -10,8 +10,8 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Ad
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
 public sealed class AdminPropertyFilters(
-    IGenericFilterPropertyFromExpressionFactoryService
-        genericFilterPropertyFromExpressionFactoryService
+    IGenericFilterPropertyFactory
+        genericFilterPropertyFactory
 ) : IAdminPropertyFilters
 {
     public FilterParameterBase<Admin> GetEmailEqualFilter(
@@ -25,7 +25,7 @@ public sealed class AdminPropertyFilters(
             );
 
         return
-            genericFilterPropertyFromExpressionFactoryService
+            genericFilterPropertyFactory
                 .GetProperty(
                     GetEmail(),
                     filterPropertyRequestModel

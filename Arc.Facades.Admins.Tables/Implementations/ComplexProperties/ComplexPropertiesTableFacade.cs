@@ -1,6 +1,6 @@
 ﻿using Arc.Converters.Views.Admins.Interfaces;
 using Arc.Converters.Views.Common.Interfaces;
-using Arc.Criteria.FilterParameters.Factories.Interfaces;
+using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
 using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
 using Arc.Facades.Domain.Interface;
@@ -23,10 +23,12 @@ public sealed class ComplexPropertiesTableFacade(
         readResponseConverter,
     IOrderingService
         orderingService,
-    IGenericFilterPropertyFromStringValueFactoryService
-        filterParameterConverter,
+    IGenericPropertyLambdaSelector
+        parameterConverter,
     IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
-        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        filterPropertyRequestRequestToFilterPropertyRequestModelConverter,
+    IGenericFilterPropertyFactory
+        genericFilterPropertyFactory
 ) : BaseTableFacade
     <
         ComplexProperty,
@@ -36,8 +38,9 @@ public sealed class ComplexPropertiesTableFacade(
         internalResponsesFacade,
         readResponseConverter,
         orderingService,
-        filterParameterConverter,
-        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        parameterConverter,
+        filterPropertyRequestRequestToFilterPropertyRequestModelConverter,
+        genericFilterPropertyFactory
     ),
     IComplexPropertiesTableFacade
 {

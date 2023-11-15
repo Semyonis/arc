@@ -1,18 +1,16 @@
 ﻿using System.Reflection;
 
 using Arc.Criteria.CompareFunctions.Interfaces;
+using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
 using Arc.Criteria.FilterParameters.Factories.Interfaces;
 using Arc.Criteria.FilterParameters.Implementations;
 using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
 
-namespace Arc.Criteria.FilterParameters.Factories.Implementations;
+namespace Arc.Criteria.FilterParameters.Factories.Generic.Implementations;
 
-/// <summary>
-/// For internal use in ReadRepository
-/// </summary>
-public sealed class GenericFilterPropertyFromExpressionFactoryService(
+public sealed class GenericFilterPropertyFactory(
     IBadDataExceptionDescriptor
         badDataExceptionDescriptor,
     IIntegerCompareFunctions
@@ -23,7 +21,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService(
         booleanCompareFunctions,
     IDateTimeFilterParameterFactory
         dateTimeFilterParameterFactory
-) : IGenericFilterPropertyFromExpressionFactoryService
+) : IGenericFilterPropertyFactory
 {
     public FilterParameterBase<TEntity> GetProperty<TEntity, TProperty>(
         Expression<Func<TEntity, TProperty>> expression,
@@ -69,7 +67,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService(
                 property
             );
 
-        // todo : should reworked in some way. this check duplicates same in GenericFilterPropertyFromStringValueFactoryService
+       
         var isBool =
             propertyType
             == typeof(bool);

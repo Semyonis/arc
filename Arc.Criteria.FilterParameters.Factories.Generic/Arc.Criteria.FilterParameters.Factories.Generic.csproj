@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>preview</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Arc.Criteria.CompareFunctions\Arc.Criteria.CompareFunctions.csproj" />
+      <ProjectReference Include="..\Arc.Criteria.FilterParameters.Factories\Arc.Criteria.FilterParameters.Factories.csproj" />
+      <ProjectReference Include="..\Arc.Criteria.FilterParameters\Arc.Criteria.FilterParameters.csproj" />
+      <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj" />
+    </ItemGroup>
+
+</Project>

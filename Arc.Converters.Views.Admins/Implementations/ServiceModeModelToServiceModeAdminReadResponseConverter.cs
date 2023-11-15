@@ -4,8 +4,7 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Converters.Views.Admins.Implementations;
 
-public sealed class
-    ServiceModeModelToServiceModeAdminReadResponseConverter :
+public sealed class ServiceModeModelToServiceModeAdminReadResponseConverter :
         ConverterBase
         <
             ServiceModeModel,
