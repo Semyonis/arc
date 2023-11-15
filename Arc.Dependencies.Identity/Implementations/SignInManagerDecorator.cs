@@ -1,11 +1,9 @@
 ﻿namespace Arc.Dependencies.Identity.Implementations;
 
 public sealed class SignInManagerDecorator(
-        SignInManager<IdentityUser>
-            signInManager
-    )
-    :
-        ISignInManagerDecorator
+    SignInManager<IdentityUser>
+        signInManager
+) : ISignInManagerDecorator
 {
     public async Task<SignInResult> PasswordSignIn(
         string name,

@@ -7,15 +7,13 @@ using Arc.Models.BusinessLogic.Response;
 namespace Arc.Facades.Admins.Implementations.Emergency;
 
 public sealed class OperatingModeControlFacade(
-        IModeControlDetailedDomainFacade
-            internalModeControlFacade,
-        IResponsesDomainFacade
-            internalFacade,
-        IServiceModeModelToServiceModeAdminReadResponseConverter
-            serviceModeModeModelToServiceModeAdminReadResponseConverter
-    )
-    :
-        IOperatingModeControlFacade
+    IModeControlDetailedDomainFacade
+        internalModeControlFacade,
+    IResponsesDomainFacade
+        internalFacade,
+    IServiceModeModelToServiceModeAdminReadResponseConverter
+        serviceModeModeModelToServiceModeAdminReadResponseConverter
+) : IOperatingModeControlFacade
 {
     public async Task<Response> Execute(
         AdminIdentity identity

@@ -12,7 +12,8 @@ public sealed class PasswordUpdateController(
     IPasswordUpdateFacade
         facade
 ) :
-    UserAuthorizedArcController(facade
+    UserAuthorizedArcController(
+        facade
     )
 {
     [HttpPost]

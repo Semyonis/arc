@@ -15,5 +15,6 @@ public sealed class GroupsTableUpdateController(
     BaseTableAuthorizedUpdateController
     <
         GroupTableUpdateRequest
-    >(facade
+    >(
+        facade
     );

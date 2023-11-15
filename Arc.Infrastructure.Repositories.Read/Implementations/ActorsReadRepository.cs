@@ -9,18 +9,16 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
 public sealed class ActorsReadRepository(
-        ArcDatabaseContext context,
-        IActorPropertyFilters
-            actorPropertyFilters
-    )
-    :
-        IdReadRepositoryBase
-        <
-            Actor
-        >(
-            context
-        ),
-        IActorsReadRepository
+    ArcDatabaseContext context,
+    IActorPropertyFilters
+        actorPropertyFilters
+) : IdReadRepositoryBase
+    <
+        Actor
+    >(
+        context
+    ),
+    IActorsReadRepository
 {
     public async Task<Actor?> GetByEmail(
         string email,

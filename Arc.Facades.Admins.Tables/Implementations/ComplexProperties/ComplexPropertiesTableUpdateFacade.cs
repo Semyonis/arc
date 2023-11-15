@@ -20,36 +20,34 @@ using static Arc.Infrastructure.Common.Enums.OperationType;
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
 public sealed class ComplexPropertiesTableUpdateFacade(
-        IUpdateRepository
-            repository,
-        IResponsesDomainFacade
-            internalFacade,
-        IComplexPropertyUpdateRequestToComplexPropertiesConverter
-            updateConverter,
-        IDeleteRepository
-            complexPropertyDescriptionRepository,
-        ITransactionManager
-            transactionManager,
-        IComplexPropertyDescriptionsReadRepository
-            complexPropertyDescriptionsReadRepository,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IComplexPropertyDescriptionPropertyFilter
-            complexPropertyDescriptionPropertyFilter
-    )
-    :
-        BaseTableUpdateFacade
-        <
-            ComplexProperty,
-            ComplexPropertyUpdateRequest
-        >(
-            repository,
-            internalFacade,
-            updateConverter,
-            transactionManager,
-            badDataExceptionDescriptor
-        ),
-        IComplexPropertiesTableUpdateFacade
+    IUpdateRepository
+        repository,
+    IResponsesDomainFacade
+        internalFacade,
+    IComplexPropertyUpdateRequestToComplexPropertiesConverter
+        updateConverter,
+    IDeleteRepository
+        complexPropertyDescriptionRepository,
+    ITransactionManager
+        transactionManager,
+    IComplexPropertyDescriptionsReadRepository
+        complexPropertyDescriptionsReadRepository,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor,
+    IComplexPropertyDescriptionPropertyFilter
+        complexPropertyDescriptionPropertyFilter
+) : BaseTableUpdateFacade
+    <
+        ComplexProperty,
+        ComplexPropertyUpdateRequest
+    >(
+        repository,
+        internalFacade,
+        updateConverter,
+        transactionManager,
+        badDataExceptionDescriptor
+    ),
+    IComplexPropertiesTableUpdateFacade
 {
     public async Task<Response> Execute(
         ComplexPropertyTableUpdateRequest request,

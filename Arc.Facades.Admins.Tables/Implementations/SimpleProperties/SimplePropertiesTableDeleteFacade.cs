@@ -9,21 +9,19 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Facades.Admins.Tables.Implementations.SimpleProperties;
 
 public sealed class SimplePropertiesTableDeleteFacade(
-        IDeleteRepository
-            repository,
-        ISimplePropertiesReadRepository
-            readRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager
-    )
-    :
-        BaseTableDeleteFacade
-        <SimpleProperty>(
-            repository,
-            internalFacade,
-            transactionManager,
-            readRepository
-        ),
-        ISimplePropertiesTableDeleteFacade;
+    IDeleteRepository
+        repository,
+    ISimplePropertiesReadRepository
+        readRepository,
+    IResponsesDomainFacade
+        internalFacade,
+    ITransactionManager
+        transactionManager
+) : BaseTableDeleteFacade
+    <SimpleProperty>(
+        repository,
+        internalFacade,
+        transactionManager,
+        readRepository
+    ),
+    ISimplePropertiesTableDeleteFacade;

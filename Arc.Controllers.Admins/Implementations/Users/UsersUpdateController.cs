@@ -9,7 +9,8 @@ public sealed class UsersUpdateController(
     IUsersUpdateFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpPut]

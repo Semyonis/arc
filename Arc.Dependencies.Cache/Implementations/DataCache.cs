@@ -6,13 +6,11 @@ using Arc.Infrastructure.Common.Extensions;
 namespace Arc.Dependencies.Cache.Implementations;
 
 public sealed class DataCache(
-        IDistributedCache
-            cache,
-        ISerializationDecorator
-            serializationDecorator
-    )
-    :
-        IDataCache
+    IDistributedCache
+        cache,
+    ISerializationDecorator
+        serializationDecorator
+) : IDataCache
 {
     public T? Read<T>(
         string key

@@ -8,7 +8,8 @@ public sealed class UsersPasswordUpdateController(
     IUsersPasswordUpdateFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpPatch]

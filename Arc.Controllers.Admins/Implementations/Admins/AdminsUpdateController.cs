@@ -9,7 +9,8 @@ public sealed class AdminsUpdateController(
     IAdminsUpdateFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpPut]

@@ -30,7 +30,7 @@ internal static class ContextExtensions
         return
             context;
     }
-    
+
     public static DbContext AddEntities<TEntity>(
         this DbContext context,
         IEnumerable<TEntity> newEntities

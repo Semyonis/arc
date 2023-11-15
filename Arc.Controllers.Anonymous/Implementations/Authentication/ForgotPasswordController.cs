@@ -12,7 +12,8 @@ public sealed class ForgotPasswordController(
     IForgotPasswordFacade
         facade
 ) :
-    AnonymousArcController(facade
+    AnonymousArcController(
+        facade
     )
 {
     [HttpPost]

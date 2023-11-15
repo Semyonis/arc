@@ -142,7 +142,7 @@ public abstract class BaseAuthorizedArcController<TIdentity>(
                     );
         }
     }
-    
+
     private TIdentity GetActorIdentity()
     {
         var identity =

@@ -10,17 +10,15 @@ using Microsoft.EntityFrameworkCore;
 namespace Arc.Infrastructure.Repositories.Implementations;
 
 public sealed class CreateRepository(
-        ArcDatabaseContext
-            context,
-        IDictionariesManager
-            dictionariesManager
-    )
-    :
-        Repository(
-            context,
-            dictionariesManager
-        ),
-        ICreateRepository
+    ArcDatabaseContext
+        context,
+    IDictionariesManager
+        dictionariesManager
+) : Repository(
+        context,
+        dictionariesManager
+    ),
+    ICreateRepository
 {
     public async Task<int> CreateAsync<TEntity>(
         TEntity item,

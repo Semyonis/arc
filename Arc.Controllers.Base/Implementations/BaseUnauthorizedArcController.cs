@@ -7,7 +7,8 @@ public abstract class BaseUnauthorizedArcController(
     object
         facade
 ) :
-    BaseArcController(facade
+    BaseArcController(
+        facade
     )
 {
     protected async Task<IActionResult> Invoke

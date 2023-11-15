@@ -6,12 +6,14 @@ using Arc.Tests.Base.Factories.Containers;
 
 namespace Arc.Tests.Base.Factories;
 
-public sealed class DependencyFactory(IDependencyContainer
+public sealed class DependencyFactory(
+    IDependencyContainer
         dependencyContainer,
     IMultipleConstructorsExceptionDescriptor
         multipleConstructorsExceptionDescriptor,
     IBadDataExceptionDescriptor
-        badDataExceptionDescriptor)
+        badDataExceptionDescriptor
+)
 {
     public TInterface GetImplementation<TInterface>() =>
         (TInterface)GetInstance(

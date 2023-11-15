@@ -51,7 +51,7 @@ public abstract class BaseTableCreateFacade
             await
                 repository
                     .CreateCollectionAsync(
-                      entityList
+                        entityList
                     );
 
         var changedEntityIds =

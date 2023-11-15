@@ -9,15 +9,13 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Facades.Admins.Implementations.Users;
 
 public sealed class UsersUpdateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IUserUpdateDomainFacade
-            userUpdateDomainFacade
-    )
-    :
-        IUsersUpdateFacade
+    IResponsesDomainFacade
+        internalFacade,
+    ITransactionManager
+        transactionManager,
+    IUserUpdateDomainFacade
+        userUpdateDomainFacade
+) : IUsersUpdateFacade
 {
     public async Task<Response> Execute(
         UserAdminEditRequest request,

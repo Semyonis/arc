@@ -9,7 +9,8 @@ public sealed class CurrentController(
     IAdminInfoFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpGet]

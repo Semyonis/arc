@@ -17,23 +17,21 @@ using Microsoft.IdentityModel.Tokens;
 namespace Arc.Facades.Anonymous.Implementations.Authentication;
 
 public sealed class RefreshTokenFacade(
-        IUserManagerService
-            userManagerService,
-        IResponsesDomainFacade
-            internalFacade,
-        IUserTokenManagerService
-            userTokenManagerService,
-        IAuthenticationTokensCreateDomainFacade
-            authenticationTokensCreateDomainFacade,
-        IInvalidTokenExceptionDescriptor
-            invalidTokenExceptionDescriptor,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IRefreshTokenFacade
+    IUserManagerService
+        userManagerService,
+    IResponsesDomainFacade
+        internalFacade,
+    IUserTokenManagerService
+        userTokenManagerService,
+    IAuthenticationTokensCreateDomainFacade
+        authenticationTokensCreateDomainFacade,
+    IInvalidTokenExceptionDescriptor
+        invalidTokenExceptionDescriptor,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IRefreshTokenFacade
 {
     public async Task<Response> Execute(
         RefreshTokenRequest model

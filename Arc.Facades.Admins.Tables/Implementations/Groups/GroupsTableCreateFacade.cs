@@ -12,27 +12,25 @@ using Arc.Models.Views.Admins.Tables.Models.Groups;
 namespace Arc.Facades.Admins.Tables.Implementations.Groups;
 
 public sealed class GroupsTableCreateFacade(
-        ICreateRepository
-            repository,
-        IResponsesDomainFacade
-            internalFacade,
-        IGroupCreateRequestToGroupConverter
-            createConverter,
-        ITransactionManager
-            transactionManager
-    )
-    :
-        BaseTableCreateFacade
-        <
-            Group,
-            GroupCreateRequest
-        >(
-            repository,
-            internalFacade,
-            createConverter,
-            transactionManager
-        ),
-        IGroupsTableCreateFacade
+    ICreateRepository
+        repository,
+    IResponsesDomainFacade
+        internalFacade,
+    IGroupCreateRequestToGroupConverter
+        createConverter,
+    ITransactionManager
+        transactionManager
+) : BaseTableCreateFacade
+    <
+        Group,
+        GroupCreateRequest
+    >(
+        repository,
+        internalFacade,
+        createConverter,
+        transactionManager
+    ),
+    IGroupsTableCreateFacade
 {
     public async Task<Response> Execute(
         GroupTableCreateRequest tableRequest,

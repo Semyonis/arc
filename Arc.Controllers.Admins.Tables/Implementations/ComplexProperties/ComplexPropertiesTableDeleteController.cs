@@ -8,9 +8,8 @@ namespace Arc.Controllers.Admins.Tables.Implementations.ComplexProperties;
     "ComplexProperties"
 )]
 public sealed class ComplexPropertiesTableDeleteController(
-        IComplexPropertiesTableDeleteFacade
-            facade
-    )
-    :
-        BaseTableAuthorizedDeleteController(facade
-    );
+    IComplexPropertiesTableDeleteFacade
+        facade
+) : BaseTableAuthorizedDeleteController(
+    facade
+);

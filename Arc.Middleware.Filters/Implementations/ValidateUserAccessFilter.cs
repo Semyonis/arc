@@ -8,13 +8,11 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 namespace Arc.Middleware.Filters.Implementations;
 
 public sealed class ValidateUserAccessFilter(
-        IOperatingModeFilterFacade
-            operatingModeFilterFacade,
-        IServiceUnavailableExceptionDescriptor
-            serviceUnavailableExceptionDescriptor
-    )
-    :
-        IAsyncActionFilter
+    IOperatingModeFilterFacade
+        operatingModeFilterFacade,
+    IServiceUnavailableExceptionDescriptor
+        serviceUnavailableExceptionDescriptor
+) : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
@@ -90,7 +88,4 @@ public sealed class ValidateUserAccessFilter(
             value?.Value
             ?? string.Empty;
     }
-#region Constructor
-
-#endregion
 }

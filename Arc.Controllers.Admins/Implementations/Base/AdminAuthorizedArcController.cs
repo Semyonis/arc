@@ -15,7 +15,8 @@ public abstract class AdminAuthorizedArcController(
     BaseAuthorizedArcController
     <
         AdminIdentity
-    >(facade
+    >(
+        facade
     )
 {
     protected override ResultContainer<AdminIdentity> ReadActorIdentity() =>

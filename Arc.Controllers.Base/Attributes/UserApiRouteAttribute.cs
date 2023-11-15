@@ -3,5 +3,6 @@
 namespace Arc.Controllers.Base.Attributes;
 
 public sealed class UserApiRouteAttribute() :
-    RouteAttribute($"{UserRoutePrefix}{ControllerRoute}"
+    RouteAttribute(
+        $"{UserRoutePrefix}{ControllerRoute}"
     );

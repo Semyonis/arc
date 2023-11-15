@@ -9,11 +9,9 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
 public sealed class ComplexPropertyPropertyFilter(
-        IItemCompareFunctions
-            itemCompareFunctions
-    )
-    :
-        IComplexPropertyPropertyFilter
+    IItemCompareFunctions
+        itemCompareFunctions
+) : IComplexPropertyPropertyFilter
 {
     public PropertyFilterParameter<ComplexProperty, int> GetGroupIdEqualFilter(
         int pattern

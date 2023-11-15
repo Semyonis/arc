@@ -15,7 +15,8 @@ public sealed class GroupsTableController(
     IGroupsTableFacade
         facade
 ) :
-    BaseTableAuthorizedController(facade
+    BaseTableAuthorizedController(
+        facade
     )
 {
     [HttpGet]

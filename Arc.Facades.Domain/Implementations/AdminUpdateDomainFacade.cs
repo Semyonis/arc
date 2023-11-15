@@ -6,13 +6,11 @@ using Arc.Infrastructure.Repositories.Read.Interfaces;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class AdminUpdateDomainFacade(
-        IAdminsReadRepository
-            adminsReadRepository,
-        IUpdateRepository
-            adminsRepository
-    )
-    :
-        IAdminUpdateDomainFacade
+    IAdminsReadRepository
+        adminsReadRepository,
+    IUpdateRepository
+        adminsRepository
+) : IAdminUpdateDomainFacade
 {
     public async Task Update(
         AdminUpdateDomainFacadeArgs args

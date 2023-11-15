@@ -5,16 +5,14 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Converters.Implementations;
 
 public sealed class GroupToGroupModelConverter(
-        IBaseDescriptionToDescriptionModelConverter
-            descriptionModelConverter
-    )
-    :
-        ConverterBase
-        <
-            Group,
-            GroupModel
-        >,
-        IGroupToGroupModelConverter
+    IBaseDescriptionToDescriptionModelConverter
+        descriptionModelConverter
+) : ConverterBase
+    <
+        Group,
+        GroupModel
+    >,
+    IGroupToGroupModelConverter
 {
     public override GroupModel Convert(
         Group entity

@@ -6,11 +6,9 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
 public sealed class NullableIntegerCompareFunctions(
-        IUnsupportedOperationExceptionDescriptor
-            unsupportedOperationExceptionDescriptor
-    )
-    :
-        INullableIntegerCompareFunctions
+    IUnsupportedOperationExceptionDescriptor
+        unsupportedOperationExceptionDescriptor
+) : INullableIntegerCompareFunctions
 {
     public Expression<Func<int?, int?, bool>> GetFunction(
         string operation

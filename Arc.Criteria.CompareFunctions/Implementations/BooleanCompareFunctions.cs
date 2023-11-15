@@ -6,11 +6,9 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
 public sealed class BooleanCompareFunctions(
-        IUnsupportedOperationExceptionDescriptor
-            unsupportedOperationExceptionDescriptor
-    )
-    :
-        IBooleanCompareFunctions
+    IUnsupportedOperationExceptionDescriptor
+        unsupportedOperationExceptionDescriptor
+) : IBooleanCompareFunctions
 {
     public Expression<Func<bool, bool, bool>> GetFunction(
         string operation

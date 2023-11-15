@@ -11,15 +11,13 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Ad
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
 public sealed class AdminsReadRepository(
-        ArcDatabaseContext context,
-        IAdminPropertyFilters
-            adminPropertyFilters
-    )
-    :
-        IdReadRepositoryBase<Admin>(
-            context
-        ),
-        IAdminsReadRepository
+    ArcDatabaseContext context,
+    IAdminPropertyFilters
+        adminPropertyFilters
+) : IdReadRepositoryBase<Admin>(
+        context
+    ),
+    IAdminsReadRepository
 {
     public async Task<Admin?> GetByEmail(
         string email,

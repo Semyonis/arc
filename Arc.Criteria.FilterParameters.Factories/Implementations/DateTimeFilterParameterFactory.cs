@@ -12,15 +12,13 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 namespace Arc.Criteria.FilterParameters.Factories.Implementations;
 
 public class DateTimeFilterParameterFactory(
-        ISerializationDecorator
-            serializationDecorator,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IDateCompareFunctions
-            dateCompareFunctions
-    )
-    :
-        IDateTimeFilterParameterFactory
+    ISerializationDecorator
+        serializationDecorator,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor,
+    IDateCompareFunctions
+        dateCompareFunctions
+) : IDateTimeFilterParameterFactory
 {
     public FilterParameterBase<TEntity> GetFilterParameter
     <

@@ -15,33 +15,31 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace Arc.Facades.Admins.Tables.Implementations.Groups;
 
 public sealed class GroupsTableFacade(
-        IGroupsReadRepository
-            readRepository,
-        IPageResponsesDomainFacade
-            internalResponsesFacade,
-        IGroupToGroupReadResponseConverter
-            readConverter,
-        IOrderingService
-            orderingService,
-        IGenericFilterPropertyFromStringValueFactoryService
-            filterParameterConverter,
-        IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
-            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    )
-    :
-        BaseTableFacade
-        <
-            Group,
-            GroupReadResponse
-        >(
-            readRepository,
-            internalResponsesFacade,
-            readConverter,
-            orderingService,
-            filterParameterConverter,
-            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-        ),
-        IGroupsTableFacade
+    IGroupsReadRepository
+        readRepository,
+    IPageResponsesDomainFacade
+        internalResponsesFacade,
+    IGroupToGroupReadResponseConverter
+        readConverter,
+    IOrderingService
+        orderingService,
+    IGenericFilterPropertyFromStringValueFactoryService
+        filterParameterConverter,
+    IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+) : BaseTableFacade
+    <
+        Group,
+        GroupReadResponse
+    >(
+        readRepository,
+        internalResponsesFacade,
+        readConverter,
+        orderingService,
+        filterParameterConverter,
+        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+    ),
+    IGroupsTableFacade
 {
     protected override
         Func<IQueryable<Group>, IIncludableQueryable<Group, object>>

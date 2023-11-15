@@ -5,12 +5,10 @@ using Arc.Infrastructure.Transactions.Interfaces;
 namespace Arc.Infrastructure.Transactions.Implementations;
 
 public sealed class TransactionManager(
-        ArcDatabaseContext context,
-        IDictionariesManager
-            dictionariesManager
-    )
-    :
-        ITransactionManager
+    ArcDatabaseContext context,
+    IDictionariesManager
+        dictionariesManager
+) : ITransactionManager
 {
     public async Task<ITransaction> BeginTransaction()
     {

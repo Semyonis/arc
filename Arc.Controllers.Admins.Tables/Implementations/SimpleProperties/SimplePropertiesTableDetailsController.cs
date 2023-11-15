@@ -11,12 +11,11 @@ namespace Arc.Controllers.Admins.Tables.Implementations.SimpleProperties;
     "SimpleProperties"
 )]
 public sealed class SimplePropertiesTableDetailsController(
-        ISimplePropertiesTableDetailsFacade
-            facade
-    )
-    :
-        BaseTableAuthorizedDetailsController(facade
-    )
+    ISimplePropertiesTableDetailsFacade
+        facade
+) : BaseTableAuthorizedDetailsController(
+    facade
+)
 {
     [HttpGet(
         "{entityId:int}"

@@ -20,7 +20,7 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="6.25.1"/>
-        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1" />
+        <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="6.25.1"/>
     </ItemGroup>
 
 </Project>

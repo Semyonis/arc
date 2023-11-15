@@ -7,15 +7,13 @@ using Arc.Infrastructure.Repositories.Read.Interfaces;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class UserUpdateDomainFacade(
-        IUsersReadRepository
-            usersReadRepository,
-        IUpdateRepository
-            usersRepository,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IUserUpdateDomainFacade
+    IUsersReadRepository
+        usersReadRepository,
+    IUpdateRepository
+        usersRepository,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IUserUpdateDomainFacade
 {
     public async Task Update(
         UserUpdateDomainFacadeArgs args

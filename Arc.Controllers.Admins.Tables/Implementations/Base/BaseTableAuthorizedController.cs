@@ -9,7 +9,8 @@ public abstract class BaseTableAuthorizedController(
     IExtendedTableFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpGet]

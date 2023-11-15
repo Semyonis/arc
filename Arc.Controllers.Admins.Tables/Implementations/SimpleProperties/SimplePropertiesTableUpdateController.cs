@@ -9,12 +9,11 @@ namespace Arc.Controllers.Admins.Tables.Implementations.SimpleProperties;
     "SimpleProperties"
 )]
 public sealed class SimplePropertiesTableUpdateController(
-        ISimplePropertiesTableUpdateFacade
-            facade
-    )
-    :
-        BaseTableAuthorizedUpdateController
-    <
-        SimplePropertyTableUpdateRequest
-    >(facade
-    );
+    ISimplePropertiesTableUpdateFacade
+        facade
+) : BaseTableAuthorizedUpdateController
+<
+    SimplePropertyTableUpdateRequest
+>(
+    facade
+);

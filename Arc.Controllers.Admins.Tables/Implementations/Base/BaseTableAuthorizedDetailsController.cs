@@ -5,12 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Arc.Controllers.Admins.Tables.Implementations.Base;
 
 public abstract class BaseTableAuthorizedDetailsController(
-        IExtendedTableDetailsFacade
-            facade
-    )
-    :
-        AdminAuthorizedArcController(facade
-    )
+    IExtendedTableDetailsFacade
+        facade
+) : AdminAuthorizedArcController(
+    facade
+)
 {
     [HttpGet(
         "{entityId:int}"

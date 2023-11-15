@@ -8,13 +8,11 @@ using Arc.Models.Views.Common.Models;
 namespace Arc.Facades.Anonymous.Implementations.Service;
 
 public sealed class CurrentModeServiceFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IServiceModesReadRepository
-            serviceModesReadRepository
-    )
-    :
-        ICurrentModeServiceFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IServiceModesReadRepository
+        serviceModesReadRepository
+) : ICurrentModeServiceFacade
 {
     public async Task<Response> Execute()
     {

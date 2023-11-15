@@ -15,33 +15,31 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
 public sealed class ComplexPropertiesTableFacade(
-        IComplexPropertiesReadRepository
-            readRepository,
-        IPageResponsesDomainFacade
-            internalResponsesFacade,
-        IComplexPropertyToComplexPropertyReadResponseConverter
-            readResponseConverter,
-        IOrderingService
-            orderingService,
-        IGenericFilterPropertyFromStringValueFactoryService
-            filterParameterConverter,
-        IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
-            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    )
-    :
-        BaseTableFacade
-        <
-            ComplexProperty,
-            ComplexPropertyReadResponse
-        >(
-            readRepository,
-            internalResponsesFacade,
-            readResponseConverter,
-            orderingService,
-            filterParameterConverter,
-            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-        ),
-        IComplexPropertiesTableFacade
+    IComplexPropertiesReadRepository
+        readRepository,
+    IPageResponsesDomainFacade
+        internalResponsesFacade,
+    IComplexPropertyToComplexPropertyReadResponseConverter
+        readResponseConverter,
+    IOrderingService
+        orderingService,
+    IGenericFilterPropertyFromStringValueFactoryService
+        filterParameterConverter,
+    IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+) : BaseTableFacade
+    <
+        ComplexProperty,
+        ComplexPropertyReadResponse
+    >(
+        readRepository,
+        internalResponsesFacade,
+        readResponseConverter,
+        orderingService,
+        filterParameterConverter,
+        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+    ),
+    IComplexPropertiesTableFacade
 {
     protected override
         Func<IQueryable<ComplexProperty>, IIncludableQueryable<ComplexProperty, object>>

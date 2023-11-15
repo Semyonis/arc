@@ -7,10 +7,10 @@ using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 namespace Arc.Infrastructure.Dictionaries.Implementations.Base;
 
 public abstract class ModelDictionaryBase
-    <
-        TKey,
-        TModel
-    > :
+<
+    TKey,
+    TModel
+> :
     IModelDictionaryBase
     <
         TKey,

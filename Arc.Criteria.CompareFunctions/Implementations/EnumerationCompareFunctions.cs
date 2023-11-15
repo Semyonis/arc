@@ -6,11 +6,9 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
 public sealed class EnumerationCompareFunctions(
-        IUnsupportedOperationExceptionDescriptor
-            unsupportedOperationExceptionDescriptor
-    )
-    :
-        IEnumerationCompareFunctions
+    IUnsupportedOperationExceptionDescriptor
+        unsupportedOperationExceptionDescriptor
+) : IEnumerationCompareFunctions
 {
     public Expression<Func<string, string, bool>> GetFunction(
         string operation

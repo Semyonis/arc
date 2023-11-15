@@ -6,17 +6,15 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class UserPasswordUpdateDomainFacade(
-        IUserManagerService
-            userManagerService,
-        IUserTokenManagerService
-            userTokenManagerService,
-        IUserPasswordManagerService
-            userPasswordManagerService,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IUserPasswordUpdateDomainFacade
+    IUserManagerService
+        userManagerService,
+    IUserTokenManagerService
+        userTokenManagerService,
+    IUserPasswordManagerService
+        userPasswordManagerService,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IUserPasswordUpdateDomainFacade
 {
     public async Task ChangePassword(
         UserPasswordUpdateDomainFacadeArgs args

@@ -9,7 +9,8 @@ public sealed class ActorTypeController(
     IActorTypeFacade
         facade
 ) :
-    AuthorizedArcController(facade
+    AuthorizedArcController(
+        facade
     )
 {
     [HttpGet(

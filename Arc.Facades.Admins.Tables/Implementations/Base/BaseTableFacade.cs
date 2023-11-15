@@ -49,7 +49,7 @@ public abstract class BaseTableFacade
 
         var filters =
             new List<FilterParameterBase<TEntity>>();
-        
+
         foreach (var filterModel in filterModels)
         {
             var filter =

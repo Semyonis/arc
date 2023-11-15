@@ -10,23 +10,21 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class AdminCreateDomainFacade(
-        IAdminsReadRepository
-            adminsReadRepository,
-        ICreateRepository
-            adminsRepository,
-        IUserManagerService
-            userManagerService,
-        IUserManagerDecorator
-            userRoleManagerService,
-        IUsersReadRepository
-            usersReadRepository,
-        IEmailUsedByAdminExceptionDescriptor
-            emailUsedByAdminExceptionDescriptor,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    :
-        IAdminCreateDomainFacade
+    IAdminsReadRepository
+        adminsReadRepository,
+    ICreateRepository
+        adminsRepository,
+    IUserManagerService
+        userManagerService,
+    IUserManagerDecorator
+        userRoleManagerService,
+    IUsersReadRepository
+        usersReadRepository,
+    IEmailUsedByAdminExceptionDescriptor
+        emailUsedByAdminExceptionDescriptor,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
+) : IAdminCreateDomainFacade
 {
     public async Task<int> Create(
         AdminCreateDomainFacadeArgs request

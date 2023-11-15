@@ -5,17 +5,15 @@ using Arc.Models.BusinessLogic.Models.Identities;
 namespace Arc.Dependencies.Cache.Implementations;
 
 public sealed class UserIdentityCache(
-        IDistributedCache
-            distributedCache,
-        ISerializationDecorator
-            serializationDecorator
-    )
-    :
-        IntegerCacheBase<UserIdentity>(
-            distributedCache,
-            serializationDecorator
-        ),
-        IUserIdentityCache
+    IDistributedCache
+        distributedCache,
+    ISerializationDecorator
+        serializationDecorator
+) : IntegerCacheBase<UserIdentity>(
+        distributedCache,
+        serializationDecorator
+    ),
+    IUserIdentityCache
 {
     protected override string GetKey(
         int userId

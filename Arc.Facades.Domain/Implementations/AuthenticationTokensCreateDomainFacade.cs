@@ -15,17 +15,15 @@ using Microsoft.IdentityModel.Tokens;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class AuthenticationTokensCreateDomainFacade(
-        IUserManagerDecorator
-            userRoleManagerService,
-        IUserTokenManagerService
-            userTokenManagerService,
-        IJwtSettingsFactory
-            jwtSettingsFactory,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    :
-        IAuthenticationTokensCreateDomainFacade
+    IUserManagerDecorator
+        userRoleManagerService,
+    IUserTokenManagerService
+        userTokenManagerService,
+    IJwtSettingsFactory
+        jwtSettingsFactory,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
+) : IAuthenticationTokensCreateDomainFacade
 {
     public async Task<AuthenticationModel> CreateTokens(
         AuthenticationTokensCreateDomainFacadeArgs args

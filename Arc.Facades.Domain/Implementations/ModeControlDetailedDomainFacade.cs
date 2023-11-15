@@ -8,15 +8,13 @@ using Arc.Models.BusinessLogic.Models;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class ModeControlDetailedDomainFacade(
-        IAdminsReadRepository
-            adminReadRepository,
-        IServiceModesReadRepository
-            serviceModesReadRepository,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IModeControlDetailedDomainFacade
+    IAdminsReadRepository
+        adminReadRepository,
+    IServiceModesReadRepository
+        serviceModesReadRepository,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IModeControlDetailedDomainFacade
 {
     public async Task<ServiceModeModel> GetDetailedCurrentMode()
     {

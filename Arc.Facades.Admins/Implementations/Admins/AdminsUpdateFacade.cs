@@ -8,15 +8,13 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Facades.Admins.Implementations.Admins;
 
 public sealed class AdminsUpdateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IAdminUpdateDomainFacade
-            adminUpdateDomainFacade
-    )
-    :
-        IAdminsUpdateFacade
+    IResponsesDomainFacade
+        internalFacade,
+    ITransactionManager
+        transactionManager,
+    IAdminUpdateDomainFacade
+        adminUpdateDomainFacade
+) : IAdminsUpdateFacade
 {
     public async Task<Response> Execute(
         AdminUpdateRequest request

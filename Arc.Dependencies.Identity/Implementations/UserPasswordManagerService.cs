@@ -5,15 +5,13 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 namespace Arc.Dependencies.Identity.Implementations;
 
 public sealed class UserPasswordManagerService(
-        IUserManagerDecorator
-            userManagerDecorator,
-        IIdentityErrorExceptionDescriptor
-            identityErrorExceptionDescriptor,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IUserPasswordManagerService
+    IUserManagerDecorator
+        userManagerDecorator,
+    IIdentityErrorExceptionDescriptor
+        identityErrorExceptionDescriptor,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IUserPasswordManagerService
 {
     public async Task ResetPassword(
         IdentityUser user,

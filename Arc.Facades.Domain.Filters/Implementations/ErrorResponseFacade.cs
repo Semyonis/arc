@@ -8,11 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 namespace Arc.Facades.Domain.Filters.Implementations;
 
 public sealed class ErrorResponseFacade(
-        IDomainErrorsContainerService
-            internalErrorsContainerService
-    )
-    :
-        IErrorResponseFacade
+    IDomainErrorsContainerService
+        internalErrorsContainerService
+) : IErrorResponseFacade
 {
     public IActionResult CreateErrorResponse(
         Exception exception,

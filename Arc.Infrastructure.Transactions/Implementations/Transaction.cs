@@ -9,15 +9,13 @@ using Microsoft.EntityFrameworkCore.Storage;
 namespace Arc.Infrastructure.Transactions.Implementations;
 
 public sealed class Transaction(
-        ArcDatabaseContext
-            context,
-        IDbContextTransaction
-            transaction,
-        IDictionariesManager
-            dictionariesManager
-    )
-    :
-        ITransaction
+    ArcDatabaseContext
+        context,
+    IDbContextTransaction
+        transaction,
+    IDictionariesManager
+        dictionariesManager
+) : ITransaction
 {
     public void Dispose() =>
         transaction.Dispose();
@@ -42,12 +40,15 @@ public sealed class Transaction(
         }
     }
 
+    public void Rollback() =>
+        transaction.Rollback();
+
     private IEnumerable<Type> GetUpdatedOrDeletedEntityTypes() =>
         context
             .ChangeTracker
             .Entries()
             .Where(
-                IsModifiedOrDeleted  
+                IsModifiedOrDeleted
             )
             .Select(
                 GetType
@@ -55,18 +56,15 @@ public sealed class Transaction(
 
     private static Type GetType(
         EntityEntry entity
-     ) =>
+    ) =>
         entity
             .Entity
             .GetType();
 
     private static bool IsModifiedOrDeleted(
         EntityEntry entity
-     ) =>
+    ) =>
         entity.State
             is EntityState.Modified
             or EntityState.Deleted;
-
-    public void Rollback() =>
-        transaction.Rollback();
 }

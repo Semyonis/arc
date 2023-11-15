@@ -13,30 +13,28 @@ using Arc.Models.Views.Admins.Tables.Models.SimpleProperties;
 namespace Arc.Facades.Admins.Tables.Implementations.SimpleProperties;
 
 public sealed class SimplePropertiesTableUpdateFacade(
-        IUpdateRepository
-            repository,
-        IResponsesDomainFacade
-            internalFacade,
-        ISimplePropertyUpdateRequestToSimplePropertiesConverter
-            updateConverter,
-        ITransactionManager
-            transactionManager,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    :
-        BaseTableUpdateFacade
-        <
-            SimpleProperty,
-            SimplePropertyUpdateRequest
-        >(
-            repository,
-            internalFacade,
-            updateConverter,
-            transactionManager,
-            badDataExceptionDescriptor
-        ),
-        ISimplePropertiesTableUpdateFacade
+    IUpdateRepository
+        repository,
+    IResponsesDomainFacade
+        internalFacade,
+    ISimplePropertyUpdateRequestToSimplePropertiesConverter
+        updateConverter,
+    ITransactionManager
+        transactionManager,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
+) : BaseTableUpdateFacade
+    <
+        SimpleProperty,
+        SimplePropertyUpdateRequest
+    >(
+        repository,
+        internalFacade,
+        updateConverter,
+        transactionManager,
+        badDataExceptionDescriptor
+    ),
+    ISimplePropertiesTableUpdateFacade
 {
     public async Task<Response> Execute(
         SimplePropertyTableUpdateRequest tableRequest,

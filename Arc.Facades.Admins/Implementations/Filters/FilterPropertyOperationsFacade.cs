@@ -12,13 +12,11 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterPropertyType;
 namespace Arc.Facades.Admins.Implementations.Filters;
 
 public sealed class FilterPropertyOperationsFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    :
-        IFilterPropertyOperationsFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
+) : IFilterPropertyOperationsFacade
 {
     public Task Validate(
         AdminIdentity identity

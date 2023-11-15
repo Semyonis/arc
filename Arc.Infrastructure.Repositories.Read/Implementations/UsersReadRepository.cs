@@ -11,15 +11,13 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Us
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
 public sealed class UsersReadRepository(
-        ArcDatabaseContext context,
-        IUserPropertyFilters
-            userPropertyFilters
-    )
-    :
-        IdReadRepositoryBase<User>(
-            context
-        ),
-        IUsersReadRepository
+    ArcDatabaseContext context,
+    IUserPropertyFilters
+        userPropertyFilters
+) : IdReadRepositoryBase<User>(
+        context
+    ),
+    IUsersReadRepository
 {
     public async Task<string?> GetEmailById(
         int userId
@@ -33,10 +31,10 @@ public sealed class UsersReadRepository(
     public async Task<User?> GetByEmail(
         string email,
         Func
-            <
-                IQueryable<User>,
-                IIncludableQueryable<User, object>
-            >? include = null,
+        <
+            IQueryable<User>,
+            IIncludableQueryable<User, object>
+        >? include = null,
         bool asNoTracking = true
     )
     {

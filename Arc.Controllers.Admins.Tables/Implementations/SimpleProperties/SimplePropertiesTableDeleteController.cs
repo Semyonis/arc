@@ -8,9 +8,8 @@ namespace Arc.Controllers.Admins.Tables.Implementations.SimpleProperties;
     "SimpleProperties"
 )]
 public sealed class SimplePropertiesTableDeleteController(
-        ISimplePropertiesTableDeleteFacade
-            facade
-    )
-    :
-        BaseTableAuthorizedDeleteController(facade
-    );
+    ISimplePropertiesTableDeleteFacade
+        facade
+) : BaseTableAuthorizedDeleteController(
+    facade
+);

@@ -8,15 +8,13 @@ using Arc.Models.Views.Anonymous.Models;
 namespace Arc.Facades.Anonymous.Implementations.Authentication;
 
 public sealed class ForgotPasswordFacade(
-        IUserManagerService
-            userManagerService,
-        IResponsesDomainFacade
-            internalFacade,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IForgotPasswordFacade
+    IUserManagerService
+        userManagerService,
+    IResponsesDomainFacade
+        internalFacade,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IForgotPasswordFacade
 {
     public async Task<Response> Execute(
         ForgotPasswordRequest model

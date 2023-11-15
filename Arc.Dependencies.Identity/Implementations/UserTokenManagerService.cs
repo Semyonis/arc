@@ -1,11 +1,9 @@
 ﻿namespace Arc.Dependencies.Identity.Implementations;
 
 public sealed class UserTokenManagerService(
-        IUserManagerDecorator
-            userManagerDecorator
-    )
-    :
-        IUserTokenManagerService
+    IUserManagerDecorator
+        userManagerDecorator
+) : IUserTokenManagerService
 {
     public async Task<string> GetConfirmationToken(
         IdentityUser user

@@ -3,5 +3,6 @@
 namespace Arc.Controllers.Base.Attributes;
 
 public sealed class DefaultApiRouteAttribute() :
-    RouteAttribute(ControllerRouteTemplateConstants.DefaultRoute
+    RouteAttribute(
+        ControllerRouteTemplateConstants.DefaultRoute
     );

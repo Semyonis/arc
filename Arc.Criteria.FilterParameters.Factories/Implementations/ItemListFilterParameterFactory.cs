@@ -9,11 +9,9 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 namespace Arc.Criteria.FilterParameters.Factories.Implementations;
 
 public sealed class ItemListFilterParameterFactory(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    :
-        IItemListFilterParameterFactory
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
+) : IItemListFilterParameterFactory
 {
     public FilterParameterBase<TEntity> GetFilterParameter
     <

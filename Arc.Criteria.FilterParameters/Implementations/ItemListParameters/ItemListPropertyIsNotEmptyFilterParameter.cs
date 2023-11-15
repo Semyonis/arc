@@ -3,25 +3,23 @@
 namespace Arc.Criteria.FilterParameters.Implementations.ItemListParameters;
 
 public sealed class ItemListPropertyIsNotEmptyFilterParameter
-    <
-        TEntity,
-        TProperty
-    >(
-        Expression
+<
+    TEntity,
+    TProperty
+>(
+    Expression
+        <
+            Func
             <
-                Func
-                <
-                    TEntity,
-                    ICollection<TProperty>
-                >
+                TEntity,
+                ICollection<TProperty>
             >
-            collectionPropertyPredicate
-    )
-    :
-        FilterParameterBase
-    <
-        TEntity
-    >
+        >
+        collectionPropertyPredicate
+) : FilterParameterBase
+<
+    TEntity
+>
 {
     public override Expression
     <

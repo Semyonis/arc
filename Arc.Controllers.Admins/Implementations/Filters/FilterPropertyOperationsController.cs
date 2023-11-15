@@ -8,12 +8,11 @@ using Arc.Models.BusinessLogic.Models.FilterProperties;
 namespace Arc.Controllers.Admins.Implementations.Filters;
 
 public sealed class FilterPropertyOperationsController(
-        IFilterPropertyOperationsFacade
-            facade
-    )
-    :
-        AdminAuthorizedArcController(facade
-    )
+    IFilterPropertyOperationsFacade
+        facade
+) : AdminAuthorizedArcController(
+    facade
+)
 {
     [HttpGet]
     [ProducesOkResponseType(

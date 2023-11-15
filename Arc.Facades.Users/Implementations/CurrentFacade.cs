@@ -8,15 +8,13 @@ using Arc.Models.BusinessLogic.Response;
 namespace Arc.Facades.Users.Implementations;
 
 public sealed class CurrentFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IUsersReadRepository
-            usersReadRepository,
-        IUserToUserResponseConverter
-            userToUserResponseConverter
-    )
-    :
-        ICurrentFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IUsersReadRepository
+        usersReadRepository,
+    IUserToUserResponseConverter
+        userToUserResponseConverter
+) : ICurrentFacade
 {
     public async Task<Response> Execute(
         UserIdentity identity

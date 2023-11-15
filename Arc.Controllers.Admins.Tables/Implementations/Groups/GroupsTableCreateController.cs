@@ -12,5 +12,6 @@ public sealed class GroupsTableCreateController(
     IGroupsTableCreateFacade
         facade
 ) :
-    BaseTableAuthorizedCreateController<GroupTableCreateRequest>(facade
+    BaseTableAuthorizedCreateController<GroupTableCreateRequest>(
+        facade
     );

@@ -12,26 +12,24 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace Arc.Infrastructure.Storages.Implementations;
 
 public sealed class ComplexPropertyModelsStorage(
-        IComplexPropertiesReadRepository
-            readRepository,
-        IComplexPropertyModelsDictionary
-            dictionary,
+    IComplexPropertiesReadRepository
+        readRepository,
+    IComplexPropertyModelsDictionary
+        dictionary,
+    IComplexPropertyToComplexPropertyModelConverter
+        converter
+) : IntegerKeysModelStorageBase
+    <
+        ComplexPropertyModel,
+        ComplexProperty,
+        IComplexPropertyModelsDictionary,
         IComplexPropertyToComplexPropertyModelConverter
-            converter
-    )
-    :
-        IntegerKeysModelStorageBase
-        <
-            ComplexPropertyModel,
-            ComplexProperty,
-            IComplexPropertyModelsDictionary,
-            IComplexPropertyToComplexPropertyModelConverter
-        >(
-            readRepository,
-            dictionary,
-            converter
-        ),
-        IComplexPropertyModelsStorage
+    >(
+        readRepository,
+        dictionary,
+        converter
+    ),
+    IComplexPropertyModelsStorage
 {
     protected override Func
         <

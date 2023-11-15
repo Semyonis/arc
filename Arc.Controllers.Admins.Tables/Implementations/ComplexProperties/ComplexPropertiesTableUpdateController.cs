@@ -9,12 +9,11 @@ namespace Arc.Controllers.Admins.Tables.Implementations.ComplexProperties;
     "ComplexProperties"
 )]
 public sealed class ComplexPropertiesTableUpdateController(
-        IComplexPropertiesTableUpdateFacade
-            facade
-    )
-    :
-        BaseTableAuthorizedUpdateController
-    <
-        ComplexPropertyTableUpdateRequest
-    >(facade
-    );
+    IComplexPropertiesTableUpdateFacade
+        facade
+) : BaseTableAuthorizedUpdateController
+<
+    ComplexPropertyTableUpdateRequest
+>(
+    facade
+);

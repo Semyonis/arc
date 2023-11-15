@@ -11,5 +11,6 @@ public sealed class GroupsTableDeleteController(
     IGroupsTableDeleteFacade
         facade
 ) :
-    BaseTableAuthorizedDeleteController(facade
+    BaseTableAuthorizedDeleteController(
+        facade
     );

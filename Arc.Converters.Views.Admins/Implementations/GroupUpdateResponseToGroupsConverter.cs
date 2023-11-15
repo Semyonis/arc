@@ -5,16 +5,14 @@ using Arc.Models.Views.Admins.Tables.Models.Groups;
 namespace Arc.Converters.Views.Admins.Implementations;
 
 public sealed class GroupUpdateResponseToGroupsConverter(
-        IStringToGroupDescriptionConverter
-            descriptionToDescriptionEntityConverter
-    )
-    :
-        ConverterBase
-        <
-            GroupUpdateResponse,
-            Group
-        >,
-        IGroupUpdateResponseToGroupsConverter
+    IStringToGroupDescriptionConverter
+        descriptionToDescriptionEntityConverter
+) : ConverterBase
+    <
+        GroupUpdateResponse,
+        Group
+    >,
+    IGroupUpdateResponseToGroupsConverter
 {
     public override Group Convert(
         GroupUpdateResponse entity

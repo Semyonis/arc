@@ -14,7 +14,8 @@ public sealed class GroupItemListController(
     IGroupItemListFacade
         facade
 ) :
-    AuthorizedArcController(facade
+    AuthorizedArcController(
+        facade
     )
 {
     [HttpGet]

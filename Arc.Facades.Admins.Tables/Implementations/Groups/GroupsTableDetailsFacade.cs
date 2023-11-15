@@ -13,24 +13,22 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace Arc.Facades.Admins.Tables.Implementations.Groups;
 
 public sealed class GroupsTableDetailsFacade(
-        IGroupsReadRepository
-            readRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        IGroupToGroupReadResponseConverter
-            readConverter,
-        IEntityNotFoundExceptionDescriptor
-            entityNotFoundExceptionDescriptor
-    )
-    :
-        BaseTableDetailsFacade
-        <Group, GroupReadResponse>(
-            readRepository,
-            internalFacade,
-            readConverter,
-            entityNotFoundExceptionDescriptor
-        ),
-        IGroupsTableDetailsFacade
+    IGroupsReadRepository
+        readRepository,
+    IResponsesDomainFacade
+        internalFacade,
+    IGroupToGroupReadResponseConverter
+        readConverter,
+    IEntityNotFoundExceptionDescriptor
+        entityNotFoundExceptionDescriptor
+) : BaseTableDetailsFacade
+    <Group, GroupReadResponse>(
+        readRepository,
+        internalFacade,
+        readConverter,
+        entityNotFoundExceptionDescriptor
+    ),
+    IGroupsTableDetailsFacade
 {
     protected override
         Func<IQueryable<Group>, IIncludableQueryable<Group, object>>

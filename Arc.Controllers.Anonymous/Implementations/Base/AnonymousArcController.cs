@@ -9,5 +9,6 @@ public abstract class AnonymousArcController(
     object
         facade
 ) :
-    BaseUnauthorizedArcController(facade
+    BaseUnauthorizedArcController(
+        facade
     );

@@ -39,7 +39,7 @@ public static class SolutionDependencies
                 .Where(
                     NameStartWithArc()
                 );
-        
+
         var assemblies =
             new List<Assembly>();
 
@@ -47,8 +47,8 @@ public static class SolutionDependencies
         {
             var assemblyName =
                 new AssemblyName(
-                dependencyAssembly.Name
-            );
+                    dependencyAssembly.Name
+                );
 
             var assembly =
                 Assembly
@@ -140,9 +140,9 @@ public static class SolutionDependencies
 
         var memberInfo =
             type
-            .GetInterface(
-                nameof(IDependencyManager)
-            );
+                .GetInterface(
+                    nameof(IDependencyManager)
+                );
 
         var isNotEmpty =
             memberInfo != default;

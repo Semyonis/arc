@@ -71,7 +71,6 @@ public abstract class ReadRepositoryBase<TEntity>(
         return
             entities.FirstOrDefault();
     }
-    
 
     public async Task<IReadOnlyList<TEntity>> GetListByFiltersAsync(
         IReadOnlyList<FilterParameterBase<TEntity>>? filters = default,
@@ -174,7 +173,7 @@ public abstract class ReadRepositoryBase<TEntity>(
                 criteria
             );
 
-        return 
+        return
             await
                 results.ToListAsync();
     }
@@ -234,7 +233,7 @@ public abstract class ReadRepositoryBase<TEntity>(
                     projection
                 );
 
-        return 
+        return
             await
                 results
                     .ToListAsync();

@@ -6,12 +6,11 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Controllers.Admins.Implementations.Admins;
 
 public sealed class AdminsPasswordUpdateController(
-        IAdminsPasswordUpdateFacade
-            facade
-    )
-    :
-        AdminAuthorizedArcController(facade
-    )
+    IAdminsPasswordUpdateFacade
+        facade
+) : AdminAuthorizedArcController(
+    facade
+)
 {
     [HttpPost]
     [ProducesOkResponseType]

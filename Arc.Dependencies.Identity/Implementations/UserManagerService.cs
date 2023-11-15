@@ -6,17 +6,15 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 namespace Arc.Dependencies.Identity.Implementations;
 
 public sealed class UserManagerService(
-        IUserManagerDecorator
-            userManagerDecorator,
-        IEmailUsedByUserExceptionDescriptor
-            emailUsedByUserExceptionDescriptor,
-        IIdentityErrorExceptionDescriptor
-            identityErrorExceptionDescriptor,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IUserManagerService
+    IUserManagerDecorator
+        userManagerDecorator,
+    IEmailUsedByUserExceptionDescriptor
+        emailUsedByUserExceptionDescriptor,
+    IIdentityErrorExceptionDescriptor
+        identityErrorExceptionDescriptor,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IUserManagerService
 {
     public async Task<IdentityUser?> FindByEmail(
         string email

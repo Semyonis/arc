@@ -9,15 +9,13 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Facades.Admins.Implementations.Users;
 
 public sealed class UsersCreateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IUserCreateDomainFacade
-            userCreateDomainFacade,
-        ITransactionManager
-            transactionManager
-    )
-    :
-        IUsersCreateFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IUserCreateDomainFacade
+        userCreateDomainFacade,
+    ITransactionManager
+        transactionManager
+) : IUsersCreateFacade
 {
     public Task Validate(
         AdminIdentity identity

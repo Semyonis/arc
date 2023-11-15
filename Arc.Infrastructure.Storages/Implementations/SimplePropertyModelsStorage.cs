@@ -6,23 +6,21 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Infrastructure.Storages.Implementations;
 
 public sealed class SimplePropertyModelsStorage(
-        ISimplePropertiesReadRepository
-            readRepository,
-        ISimplePropertyModelsDictionary
-            dictionary,
+    ISimplePropertiesReadRepository
+        readRepository,
+    ISimplePropertyModelsDictionary
+        dictionary,
+    ISimplePropertyToSimplePropertyModelConverter
+        converter
+) : IntegerKeysModelStorageBase
+    <
+        SimplePropertyModel,
+        SimpleProperty,
+        ISimplePropertyModelsDictionary,
         ISimplePropertyToSimplePropertyModelConverter
-            converter
-    )
-    :
-        IntegerKeysModelStorageBase
-        <
-            SimplePropertyModel,
-            SimpleProperty,
-            ISimplePropertyModelsDictionary,
-            ISimplePropertyToSimplePropertyModelConverter
-        >(
-            readRepository,
-            dictionary,
-            converter
-        ),
-        ISimplePropertyModelsStorage;
+    >(
+        readRepository,
+        dictionary,
+        converter
+    ),
+    ISimplePropertyModelsStorage;

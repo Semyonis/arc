@@ -4,7 +4,7 @@ public interface IExtendedFunctionFacade
 <
     in TRequest,
     in TIdentity
-> 
+>
     where TIdentity : BaseIdentity
 {
     Task<Response> Execute(

@@ -10,17 +10,15 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Facades.Admins.Implementations.Admins;
 
 public sealed class AdminsPasswordUpdateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IUserPasswordManagerService
-            userPasswordManagerService,
-        IAdminsReadRepository
-            adminReadRepository
-    )
-    :
-        IAdminsPasswordUpdateFacade
+    IResponsesDomainFacade
+        internalFacade,
+    ITransactionManager
+        transactionManager,
+    IUserPasswordManagerService
+        userPasswordManagerService,
+    IAdminsReadRepository
+        adminReadRepository
+) : IAdminsPasswordUpdateFacade
 {
     public async Task<Response> Execute(
         AdminPasswordRequest request,

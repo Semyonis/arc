@@ -5,8 +5,5 @@ public sealed class AdminDefinition :
 {
     public void Configure(
         EntityTypeBuilder<Admin> builder
-    )
-    {
-        
-    }
+    ) { }
 }

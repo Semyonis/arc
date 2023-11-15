@@ -7,13 +7,11 @@ using Arc.Models.Views.Common.Models;
 namespace Arc.Facades.Authorized.Implementations;
 
 public sealed class ActorTypeFacade(
-        IActorsReadRepository
-            actorsReadRepository,
-        IResponsesDomainFacade
-            internalFacade
-    )
-    :
-        IActorTypeFacade
+    IActorsReadRepository
+        actorsReadRepository,
+    IResponsesDomainFacade
+        internalFacade
+) : IActorTypeFacade
 {
     public async Task<Response> Execute(
         string email

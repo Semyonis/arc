@@ -6,13 +6,11 @@ using Arc.Infrastructure.Common.Extensions;
 namespace Arc.Dependencies.Cache.Implementations.Base;
 
 public abstract class CacheBase<TKey, TEntity>(
-        IDistributedCache
-            distributedCache,
-        ISerializationDecorator
-            serializationDecorator
-    )
-    :
-        ICacheBase<TKey, TEntity>
+    IDistributedCache
+        distributedCache,
+    ISerializationDecorator
+        serializationDecorator
+) : ICacheBase<TKey, TEntity>
     where TEntity : class
 {
     private readonly DistributedCacheEntryOptions

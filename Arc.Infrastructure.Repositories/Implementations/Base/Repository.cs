@@ -9,10 +9,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations.Base;
 
-public abstract class Repository(ArcDatabaseContext
+public abstract class Repository(
+    ArcDatabaseContext
         context,
     IDictionariesManager
-        dictionariesManager)
+        dictionariesManager
+)
 {
     protected async Task<int> InvokeActionAndSaveChangesAsync<TEntity>(
         TEntity item,

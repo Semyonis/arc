@@ -5,7 +5,5 @@ public sealed class UserDefinition :
 {
     public void Configure(
         EntityTypeBuilder<User> builder
-    )
-    {
-    }
+    ) { }
 }

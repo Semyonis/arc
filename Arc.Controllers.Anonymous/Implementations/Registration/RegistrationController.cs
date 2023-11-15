@@ -12,7 +12,8 @@ public sealed class RegistrationController(
     IRegistrationFacade
         facade
 ) :
-    AnonymousArcController(facade
+    AnonymousArcController(
+        facade
     )
 {
     [HttpPost]

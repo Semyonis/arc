@@ -8,7 +8,8 @@ public sealed class DictionaryUpdateController(
     IDictionaryUpdateFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpPost]

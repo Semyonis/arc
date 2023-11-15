@@ -7,15 +7,13 @@ using Arc.Models.BusinessLogic.Response;
 namespace Arc.Facades.Authorized.Implementations.Dictionaries;
 
 public sealed class ComplexPropertyItemListFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IComplexPropertyModelsStorage
-            complexPropertyModelsStorage,
-        IComplexPropertyModelToListItemResponseConverter
-            complexPropertyModelToListItemResponseConverter
-    )
-    :
-        IComplexPropertyItemListFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IComplexPropertyModelsStorage
+        complexPropertyModelsStorage,
+    IComplexPropertyModelToListItemResponseConverter
+        complexPropertyModelToListItemResponseConverter
+) : IComplexPropertyItemListFacade
 {
     public async Task<Response> Execute()
     {

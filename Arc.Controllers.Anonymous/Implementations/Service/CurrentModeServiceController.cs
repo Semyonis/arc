@@ -9,7 +9,8 @@ public sealed class CurrentModeServiceController(
     ICurrentModeServiceFacade
         facade
 ) :
-    AnonymousArcController(facade
+    AnonymousArcController(
+        facade
     )
 {
     [HttpGet]

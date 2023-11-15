@@ -8,15 +8,13 @@ using Arc.Models.Views.Anonymous.Models;
 namespace Arc.Facades.Anonymous.Implementations.Registration;
 
 public sealed class RegistrationFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IUserCreateDomainFacade
-            userCreateDomainFacade,
-        ITransactionManager
-            transactionManager
-    )
-    :
-        IRegistrationFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IUserCreateDomainFacade
+        userCreateDomainFacade,
+    ITransactionManager
+        transactionManager
+) : IRegistrationFacade
 {
     public async Task<Response> Execute(
         CreateUserRequest model

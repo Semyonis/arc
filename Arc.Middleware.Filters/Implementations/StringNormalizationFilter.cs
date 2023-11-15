@@ -4,11 +4,9 @@ using Arc.Infrastructure.Common.Extensions;
 namespace Arc.Middleware.Filters.Implementations;
 
 public sealed class StringNormalizationFilter(
-        IObjectNormalizeStringFacade
-            objectNormalizeStringFacade
-    )
-    :
-        IAsyncActionFilter
+    IObjectNormalizeStringFacade
+        objectNormalizeStringFacade
+) : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,

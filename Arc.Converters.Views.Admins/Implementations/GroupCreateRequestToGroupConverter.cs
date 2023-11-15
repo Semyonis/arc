@@ -5,16 +5,14 @@ using Arc.Models.Views.Admins.Tables.Models.Groups;
 namespace Arc.Converters.Views.Admins.Implementations;
 
 public sealed class GroupCreateRequestToGroupConverter(
-        IDescriptionCreateRequestToGroupDescriptionConverter
-            descriptionCreateRequestToGroupDescriptionConverter
-    )
-    :
-        ConverterBase
-        <
-            GroupCreateRequest,
-            Group
-        >,
-        IGroupCreateRequestToGroupConverter
+    IDescriptionCreateRequestToGroupDescriptionConverter
+        descriptionCreateRequestToGroupDescriptionConverter
+) : ConverterBase
+    <
+        GroupCreateRequest,
+        Group
+    >,
+    IGroupCreateRequestToGroupConverter
 {
     public override Group Convert(
         GroupCreateRequest entityCreate

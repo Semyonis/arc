@@ -12,7 +12,8 @@ public sealed class ConfirmEmailController(
     IConfirmEmailFacade
         facade
 ) :
-    AnonymousArcController(facade
+    AnonymousArcController(
+        facade
     )
 {
     [HttpPatch]

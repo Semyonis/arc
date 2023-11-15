@@ -12,21 +12,19 @@ using Arc.Models.Views.Anonymous.Models;
 namespace Arc.Facades.Anonymous.Implementations.Authentication;
 
 public sealed class AuthenticationFacade(
-        IUserManagerService
-            userManagerService,
-        ISignInManagerDecorator
-            signInManagerDecorator,
-        IResponsesDomainFacade
-            internalFacade,
-        IActorsReadRepository
-            actorsReadRepository,
-        IAuthenticationTokensCreateDomainFacade
-            authenticationTokensCreateDomainFacade,
-        IWrongCredentialsExceptionDescriptor
-            wrongCredentialsExceptionDescriptor
-    )
-    :
-        IAuthenticationFacade
+    IUserManagerService
+        userManagerService,
+    ISignInManagerDecorator
+        signInManagerDecorator,
+    IResponsesDomainFacade
+        internalFacade,
+    IActorsReadRepository
+        actorsReadRepository,
+    IAuthenticationTokensCreateDomainFacade
+        authenticationTokensCreateDomainFacade,
+    IWrongCredentialsExceptionDescriptor
+        wrongCredentialsExceptionDescriptor
+) : IAuthenticationFacade
 {
     public async Task<Response> Execute(
         LoginRequest model

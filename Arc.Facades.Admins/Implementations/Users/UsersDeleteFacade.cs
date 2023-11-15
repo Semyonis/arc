@@ -8,15 +8,13 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Facades.Admins.Implementations.Users;
 
 public sealed class UsersDeleteFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IUserDeleteDomainFacade
-            userDeleteDomainFacade
-    )
-    :
-        IUsersDeleteFacade
+    IResponsesDomainFacade
+        internalFacade,
+    ITransactionManager
+        transactionManager,
+    IUserDeleteDomainFacade
+        userDeleteDomainFacade
+) : IUsersDeleteFacade
 {
     public async Task<Response> Execute(
         DeleteEntityAdminRequest request,

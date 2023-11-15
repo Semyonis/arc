@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Arc.Controllers.Admins.Tables.Implementations.Base;
 
 public abstract class BaseTableAuthorizedUpdateController<TUpdateRequest>(
-        IExtendedTableUpdateFacade<TUpdateRequest>
-            facade
-    )
-    :
-        AdminAuthorizedArcController(facade
-    )
+    IExtendedTableUpdateFacade<TUpdateRequest>
+        facade
+) : AdminAuthorizedArcController(
+    facade
+)
 {
     [HttpPut]
     [ProducesOkResponseType(

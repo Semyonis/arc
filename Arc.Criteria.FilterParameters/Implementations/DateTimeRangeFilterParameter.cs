@@ -33,7 +33,7 @@ public sealed class DateTimeRangeFilterParameter<TEntity> :
                             ))
             );
 
-#region Constructors
+#region Constructor
 
     private readonly DateTime
         _fromDate;

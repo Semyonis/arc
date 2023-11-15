@@ -10,17 +10,15 @@ using Microsoft.EntityFrameworkCore;
 namespace Arc.Infrastructure.Repositories.Implementations;
 
 public sealed class UpdateRepository(
-        ArcDatabaseContext
-            context,
-        IDictionariesManager
-            dictionariesManager
-    )
-    :
-        Repository(
-            context,
-            dictionariesManager
-        ),
-        IUpdateRepository
+    ArcDatabaseContext
+        context,
+    IDictionariesManager
+        dictionariesManager
+) : Repository(
+        context,
+        dictionariesManager
+    ),
+    IUpdateRepository
 {
     public async Task<int> UpdateAsync<TEntity>(
         TEntity item,

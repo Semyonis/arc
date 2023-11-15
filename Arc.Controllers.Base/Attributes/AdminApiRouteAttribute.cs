@@ -3,5 +3,6 @@
 namespace Arc.Controllers.Base.Attributes;
 
 public sealed class AdminApiRouteAttribute() :
-    RouteAttribute($"{AdminRoutePrefix}{ControllerRoute}"
+    RouteAttribute(
+        $"{AdminRoutePrefix}{ControllerRoute}"
     );

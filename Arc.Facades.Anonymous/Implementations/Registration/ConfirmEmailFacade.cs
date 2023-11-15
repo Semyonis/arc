@@ -9,15 +9,13 @@ using Arc.Models.Views.Anonymous.Models;
 namespace Arc.Facades.Anonymous.Implementations.Registration;
 
 public sealed class ConfirmEmailFacade(
-        IUserManagerService
-            userManagerService,
-        IResponsesDomainFacade
-            internalFacade,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    :
-        IConfirmEmailFacade
+    IUserManagerService
+        userManagerService,
+    IResponsesDomainFacade
+        internalFacade,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
+) : IConfirmEmailFacade
 {
     public async Task<Response> Execute(
         ConfirmEmailRequest confirmEmailRequest

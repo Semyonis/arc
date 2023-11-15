@@ -3,28 +3,26 @@
 namespace Arc.Criteria.FilterParameters.Implementations;
 
 public sealed class PropertyFilterParameter
-    <
-        TEntity,
-        TProperty
-    >(
-        Expression
-            <
-                Func<TEntity, TProperty>
-            >
-            propertyPredicate,
-        Expression
-            <
-                Func<TProperty, TProperty, bool>
-            >
-            compareFunction,
-        TProperty
-            value
-    )
-    :
-        FilterParameterBase
-    <
-        TEntity
-    >
+<
+    TEntity,
+    TProperty
+>(
+    Expression
+        <
+            Func<TEntity, TProperty>
+        >
+        propertyPredicate,
+    Expression
+        <
+            Func<TProperty, TProperty, bool>
+        >
+        compareFunction,
+    TProperty
+        value
+) : FilterParameterBase
+<
+    TEntity
+>
 {
     public override Expression
     <

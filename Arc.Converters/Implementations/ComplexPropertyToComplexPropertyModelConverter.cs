@@ -5,18 +5,16 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Converters.Implementations;
 
 public sealed class ComplexPropertyToComplexPropertyModelConverter(
-        IGroupToGroupModelConverter
-            testToGroupModelConverter,
-        IBaseDescriptionToDescriptionModelConverter
-            descriptionModelConverter
-    )
-    :
-        ConverterBase
-        <
-            ComplexProperty,
-            ComplexPropertyModel
-        >,
-        IComplexPropertyToComplexPropertyModelConverter
+    IGroupToGroupModelConverter
+        testToGroupModelConverter,
+    IBaseDescriptionToDescriptionModelConverter
+        descriptionModelConverter
+) : ConverterBase
+    <
+        ComplexProperty,
+        ComplexPropertyModel
+    >,
+    IComplexPropertyToComplexPropertyModelConverter
 {
     public override ComplexPropertyModel Convert(
         ComplexProperty entity

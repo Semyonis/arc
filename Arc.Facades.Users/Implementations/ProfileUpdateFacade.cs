@@ -10,19 +10,17 @@ using Arc.Models.Views.Users.Models;
 namespace Arc.Facades.Users.Implementations;
 
 public sealed class ProfileUpdateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IUsersReadRepository
-            usersReadRepository,
-        ITransactionManager
-            transactionManager,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor,
-        IAccessDeniedExceptionDescriptor
-            accessDeniedExceptionDescriptor
-    )
-    :
-        IProfileUpdateFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IUsersReadRepository
+        usersReadRepository,
+    ITransactionManager
+        transactionManager,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor,
+    IAccessDeniedExceptionDescriptor
+        accessDeniedExceptionDescriptor
+) : IProfileUpdateFacade
 {
     public async Task<Response> Execute(
         UserRequest userProfile,

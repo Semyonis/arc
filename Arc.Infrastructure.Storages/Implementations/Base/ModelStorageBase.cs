@@ -15,28 +15,32 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace Arc.Infrastructure.Storages.Implementations.Base;
 
 public abstract class ModelStorageBase
-    <
-        TKey,
-        TModel,
-        TEntity,
-        TDictionary,
-        TConverter
-    >(
-        IReadRepositoryBase<TEntity>
-            readRepository,
-        TDictionary
-            dictionary,
-        TConverter
-            converter
-    )
-    :
-        IModelStorageBase<TKey, TModel>
+<
+    TKey,
+    TModel,
+    TEntity,
+    TDictionary,
+    TConverter
+>(
+    IReadRepositoryBase<TEntity>
+        readRepository,
+    TDictionary
+        dictionary,
+    TConverter
+        converter
+) : IModelStorageBase<TKey, TModel>
     where TKey : notnull
     where TModel : class, IWithIdentifier
     where TEntity : class, IWithIdentifier
     where TDictionary : IModelDictionaryBase<TKey, TModel>
     where TConverter : IConverterBase<TEntity, TModel>
 {
+    private readonly TConverter
+        _converter = converter;
+
+    private readonly TDictionary
+        _dictionary = dictionary;
+
     private readonly object _mutex =
         new();
 
@@ -153,14 +157,4 @@ public abstract class ModelStorageBase
     protected abstract TKey GetModelKey(
         TModel key
     );
-
-#region Constructor
-
-    private readonly TConverter
-        _converter = converter;
-
-    private readonly TDictionary
-        _dictionary = dictionary;
-
-#endregion
 }

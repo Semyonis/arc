@@ -1,11 +1,9 @@
 ﻿namespace Arc.Dependencies.Identity.Implementations;
 
 public sealed class UserManagerDecorator(
-        UserManager<IdentityUser>
-            userManager
-    )
-    :
-        IUserManagerDecorator
+    UserManager<IdentityUser>
+        userManager
+) : IUserManagerDecorator
 {
     public async Task AddToRoleAsync(
         IdentityUser user,

@@ -7,17 +7,15 @@ using Arc.Infrastructure.Repositories.Read.Interfaces;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class UserDeleteDomainFacade(
-        IUsersReadRepository
-            usersReadRepository,
-        IDeleteRepository
-            usersRepository,
-        IUserManagerService
-            userManagerService,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IUserDeleteDomainFacade
+    IUsersReadRepository
+        usersReadRepository,
+    IDeleteRepository
+        usersRepository,
+    IUserManagerService
+        userManagerService,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IUserDeleteDomainFacade
 {
     public async Task Delete(
         int userId

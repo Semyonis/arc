@@ -7,12 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 namespace Arc.Controllers.Admins.Tables.Implementations.Base;
 
 public abstract class BaseTableAuthorizedCreateController<TCreateRequest>(
-        IExtendedTableCreateFacade<TCreateRequest>
-            facade
-    )
-    :
-        AdminAuthorizedArcController(facade
-    )
+    IExtendedTableCreateFacade<TCreateRequest>
+        facade
+) : AdminAuthorizedArcController(
+    facade
+)
 
 {
     [HttpPost]

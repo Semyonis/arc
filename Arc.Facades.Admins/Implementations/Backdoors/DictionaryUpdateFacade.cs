@@ -7,13 +7,11 @@ using Arc.Models.BusinessLogic.Response;
 namespace Arc.Facades.Admins.Implementations.Backdoors;
 
 public sealed class DictionaryUpdateFacade(
-        IDictionariesManager
-            dictionariesManager,
-        IResponsesDomainFacade
-            internalFacade
-    )
-    :
-        IDictionaryUpdateFacade
+    IDictionariesManager
+        dictionariesManager,
+    IResponsesDomainFacade
+        internalFacade
+) : IDictionaryUpdateFacade
 {
     public Task<Response> Execute(
         AdminIdentity identity

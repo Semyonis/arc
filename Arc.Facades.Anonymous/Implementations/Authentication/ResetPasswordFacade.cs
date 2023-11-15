@@ -8,17 +8,15 @@ using Arc.Models.Views.Anonymous.Models;
 namespace Arc.Facades.Anonymous.Implementations.Authentication;
 
 public sealed class ResetPasswordFacade(
-        IUserManagerService
-            userManagerService,
-        IResponsesDomainFacade
-            internalFacade,
-        IUserPasswordManagerService
-            userPasswordManagerService,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IResetPasswordFacade
+    IUserManagerService
+        userManagerService,
+    IResponsesDomainFacade
+        internalFacade,
+    IUserPasswordManagerService
+        userPasswordManagerService,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IResetPasswordFacade
 {
     public async Task<Response> Execute(
         ResetPasswordRequest model

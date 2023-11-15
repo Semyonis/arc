@@ -13,21 +13,19 @@ namespace Arc.Criteria.FilterParameters.Factories.Implementations;
 /// For internal use in ReadRepository
 /// </summary>
 public sealed class GenericFilterPropertyFromExpressionFactoryService(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IIntegerCompareFunctions
-            integerCompareFunctions,
-        IStringCompareFunctions
-            stringCompareFunctions,
-        IBooleanCompareFunctions
-            booleanCompareFunctions,
-        IDateTimeFilterParameterFactory
-            dateTimeFilterParameterFactory
-    )
-    :
-        IGenericFilterPropertyFromExpressionFactoryService
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor,
+    IIntegerCompareFunctions
+        integerCompareFunctions,
+    IStringCompareFunctions
+        stringCompareFunctions,
+    IBooleanCompareFunctions
+        booleanCompareFunctions,
+    IDateTimeFilterParameterFactory
+        dateTimeFilterParameterFactory
+) : IGenericFilterPropertyFromExpressionFactoryService
 {
-   public FilterParameterBase<TEntity> GetProperty<TEntity, TProperty>(
+    public FilterParameterBase<TEntity> GetProperty<TEntity, TProperty>(
         Expression<Func<TEntity, TProperty>> expression,
         FilterPropertyModel filter
     )
@@ -54,11 +52,10 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService(
     }
 
     private PropertyFilterParameter<TEntity, TProperty> GetFilterParameter
-        <
-            TEntity,
-            TProperty
-        >
-    (
+    <
+        TEntity,
+        TProperty
+    >(
         string operation,
         string template,
         Expression<Func<TEntity, TProperty>> property
@@ -133,7 +130,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService(
             badDataExceptionDescriptor.CreateException();
     }
 
-    private  Type GetPropertyType<TEntity, TProperty>(
+    private Type GetPropertyType<TEntity, TProperty>(
         Expression<Func<TEntity, TProperty>> propertyLambda
     )
     {
@@ -148,6 +145,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService(
         throw
             badDataExceptionDescriptor.CreateException();
     }
+
     private PropertyFilterParameter<TEntity, bool> GetBoolFilterParameter<TEntity>(
         string operation,
         string template,

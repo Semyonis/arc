@@ -12,7 +12,8 @@ public sealed class CurrentController(
     ICurrentFacade
         facade
 ) :
-    UserAuthorizedArcController(facade
+    UserAuthorizedArcController(
+        facade
     )
 {
     [HttpGet]

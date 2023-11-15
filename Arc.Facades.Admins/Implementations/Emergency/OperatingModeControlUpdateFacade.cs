@@ -9,15 +9,13 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Facades.Admins.Implementations.Emergency;
 
 public sealed class OperatingModeControlUpdateFacade(
-        IModeControlDomainFacade
-            modeControlDomainFacade,
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager
-    )
-    :
-        IOperatingModeControlUpdateFacade
+    IModeControlDomainFacade
+        modeControlDomainFacade,
+    IResponsesDomainFacade
+        internalFacade,
+    ITransactionManager
+        transactionManager
+) : IOperatingModeControlUpdateFacade
 {
     public async Task<Response> Execute(
         ServiceModeAdminEditRequest request,

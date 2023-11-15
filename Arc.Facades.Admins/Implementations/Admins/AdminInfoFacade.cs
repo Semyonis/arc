@@ -8,15 +8,13 @@ using Arc.Models.BusinessLogic.Response;
 namespace Arc.Facades.Admins.Implementations.Admins;
 
 public sealed class AdminInfoFacade(
-        IAdminsReadRepository
-            adminsReadRepository,
-        IAdminToAdminInfoResponseConverter
-            adminToAdminInfoResponseConverter,
-        IResponsesDomainFacade
-            internalFacade
-    )
-    :
-        IAdminInfoFacade
+    IAdminsReadRepository
+        adminsReadRepository,
+    IAdminToAdminInfoResponseConverter
+        adminToAdminInfoResponseConverter,
+    IResponsesDomainFacade
+        internalFacade
+) : IAdminInfoFacade
 {
     public async Task<Response> Execute(
         AdminIdentity identity

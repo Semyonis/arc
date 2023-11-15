@@ -15,30 +15,28 @@ using static Arc.Infrastructure.Common.Enums.OperationType;
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
 public sealed class ComplexPropertiesTableDeleteFacade(
-        IDeleteRepository
-            repository,
-        IComplexPropertiesReadRepository
-            readRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        IDeleteRepository
-            complexPropertyDescriptionRepository,
-        ITransactionManager
-            transactionManager,
-        IComplexPropertyDescriptionsReadRepository
-            complexPropertyDescriptionReadRepository,
-        IComplexPropertyDescriptionPropertyFilter
-            complexPropertyDescriptionPropertyFilter
-    )
-    :
-        BaseTableDeleteFacade
-        <ComplexProperty>(
-            repository,
-            internalFacade,
-            transactionManager,
-            readRepository
-        ),
-        IComplexPropertiesTableDeleteFacade
+    IDeleteRepository
+        repository,
+    IComplexPropertiesReadRepository
+        readRepository,
+    IResponsesDomainFacade
+        internalFacade,
+    IDeleteRepository
+        complexPropertyDescriptionRepository,
+    ITransactionManager
+        transactionManager,
+    IComplexPropertyDescriptionsReadRepository
+        complexPropertyDescriptionReadRepository,
+    IComplexPropertyDescriptionPropertyFilter
+        complexPropertyDescriptionPropertyFilter
+) : BaseTableDeleteFacade
+    <ComplexProperty>(
+        repository,
+        internalFacade,
+        transactionManager,
+        readRepository
+    ),
+    IComplexPropertiesTableDeleteFacade
 {
     protected override
         Func<IQueryable<ComplexProperty>, IIncludableQueryable<ComplexProperty, object>>

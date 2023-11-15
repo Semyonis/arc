@@ -9,12 +9,11 @@ namespace Arc.Controllers.Users.Implementations.Users;
     "User"
 )]
 public sealed class ProfileUpdateController(
-        IProfileUpdateFacade
-            executionFacade
-    )
-    :
-        UserAuthorizedArcController(executionFacade
-    )
+    IProfileUpdateFacade
+        executionFacade
+) : UserAuthorizedArcController(
+    executionFacade
+)
 {
     [HttpPut]
     [ProducesOkResponseType]

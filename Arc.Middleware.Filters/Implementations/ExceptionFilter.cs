@@ -8,13 +8,11 @@ using Microsoft.AspNetCore.Http;
 namespace Arc.Middleware.Filters.Implementations;
 
 public sealed class ExceptionFilter(
-        IErrorResponseFacade
-            errorResponseFacade,
-        IExceptionLogDomainFacade
-            internalFacade
-    )
-    :
-        IExceptionFilter
+    IErrorResponseFacade
+        errorResponseFacade,
+    IExceptionLogDomainFacade
+        internalFacade
+) : IExceptionFilter
 {
     public void OnException(
         ExceptionContext context

@@ -5,16 +5,14 @@ using Arc.Models.Views.Admins.Tables.Models.Groups;
 namespace Arc.Converters.Views.Admins.Implementations;
 
 public sealed class GroupToGroupReadResponseConverter(
-        IGroupDescriptionToDescriptionResponseConverter
-            testDescriptionToDescriptionResponseConverter
-    )
-    :
-        ConverterBase
-        <
-            Group,
-            GroupReadResponse
-        >,
-        IGroupToGroupReadResponseConverter
+    IGroupDescriptionToDescriptionResponseConverter
+        testDescriptionToDescriptionResponseConverter
+) : ConverterBase
+    <
+        Group,
+        GroupReadResponse
+    >,
+    IGroupToGroupReadResponseConverter
 {
     public override GroupReadResponse Convert(
         Group entity

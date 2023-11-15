@@ -10,28 +10,25 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Ad
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
 public sealed class AdminPropertyFilters(
-        IGenericFilterPropertyFromExpressionFactoryService
-            genericFilterPropertyFromExpressionFactoryService
-    )
-    :
-        IAdminPropertyFilters
+    IGenericFilterPropertyFromExpressionFactoryService
+        genericFilterPropertyFromExpressionFactoryService
+) : IAdminPropertyFilters
 {
     public FilterParameterBase<Admin> GetEmailEqualFilter(
         string pattern
     )
     {
-
         var filterPropertyRequestModel =
             new FilterPropertyModel(
                 Equal,
                 pattern
             );
 
-        return 
-        genericFilterPropertyFromExpressionFactoryService
-            .GetProperty(
-                GetEmail(),
-                filterPropertyRequestModel
-            );
+        return
+            genericFilterPropertyFromExpressionFactoryService
+                .GetProperty(
+                    GetEmail(),
+                    filterPropertyRequestModel
+                );
     }
 }

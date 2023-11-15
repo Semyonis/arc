@@ -7,15 +7,13 @@ using Arc.Models.BusinessLogic.Response;
 namespace Arc.Facades.Authorized.Implementations.Dictionaries;
 
 public sealed class GroupItemListFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IGroupModelsStorage
-            complexPropertyModelsStorage,
-        IGroupModelToListItemResponseConverter
-            groupModelToListItemResponseConverter
-    )
-    :
-        IGroupItemListFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IGroupModelsStorage
+        complexPropertyModelsStorage,
+    IGroupModelToListItemResponseConverter
+        groupModelToListItemResponseConverter
+) : IGroupItemListFacade
 {
     public async Task<Response> Execute()
     {

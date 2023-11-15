@@ -16,10 +16,12 @@ using Microsoft.Extensions.Logging;
 
 namespace Arc.Executable.WebApi;
 
-public sealed class Startup(IConfiguration
+public sealed class Startup(
+    IConfiguration
         configuration,
     ILoggerFactory
-        loggerFactory)
+        loggerFactory
+)
 {
     public void ConfigureServices(
         IServiceCollection services

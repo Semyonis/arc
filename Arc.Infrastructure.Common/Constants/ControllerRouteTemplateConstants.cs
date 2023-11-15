@@ -4,7 +4,7 @@ public static class ControllerRouteTemplateConstants
 {
     public const string DefaultRoute =
         "api/[controller]";
-    
+
     public const string ControllerRoute =
         "[controller]";
 

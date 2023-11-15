@@ -9,5 +9,6 @@ public abstract class AuthorizedArcController(
     object
         facade
 ) :
-    BaseUnauthorizedArcController(facade
+    BaseUnauthorizedArcController(
+        facade
     );

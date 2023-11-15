@@ -3,20 +3,17 @@ using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
 
 namespace Arc.Criteria.FilterParameters.Factories.Implementations;
+
 /// <summary>
-/// For api requests 
+/// For api requests
 /// </summary>
+
 // todo : should be replaced by LambdaBuilderService instead ?
 public sealed class GenericFilterPropertyFromStringValueFactoryService(
-        IGenericFilterPropertyFromExpressionFactoryService
-            genericFilterPropertyFromExpressionFactoryService
-    )
-    :
-        IGenericFilterPropertyFromStringValueFactoryService
+    IGenericFilterPropertyFromExpressionFactoryService
+        genericFilterPropertyFromExpressionFactoryService
+) : IGenericFilterPropertyFromStringValueFactoryService
 {
-#region Constructor
-
-#endregion
     public FilterParameterBase<TEntity> GetProperty<TEntity>(
         FilterPropertyRequestModel filter
     )
@@ -70,7 +67,8 @@ public sealed class GenericFilterPropertyFromStringValueFactoryService(
             propertyType
             == typeof(string);
 
-        if (isString) {
+        if (isString)
+        {
             propertyLambda =
                 GetPropertyLambda<TEntity, string>(
                     entityType,

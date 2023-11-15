@@ -13,24 +13,22 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
 public sealed class ComplexPropertiesTableDetailsFacade(
-        IComplexPropertiesReadRepository
-            readRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        IComplexPropertyToComplexPropertyReadResponseConverter
-            readConverter,
-        IEntityNotFoundExceptionDescriptor
-            entityNotFoundExceptionDescriptor
-    )
-    :
-        BaseTableDetailsFacade
-        <ComplexProperty, ComplexPropertyReadResponse>(
-            readRepository,
-            internalFacade,
-            readConverter,
-            entityNotFoundExceptionDescriptor
-        ),
-        IComplexPropertiesTableDetailsFacade
+    IComplexPropertiesReadRepository
+        readRepository,
+    IResponsesDomainFacade
+        internalFacade,
+    IComplexPropertyToComplexPropertyReadResponseConverter
+        readConverter,
+    IEntityNotFoundExceptionDescriptor
+        entityNotFoundExceptionDescriptor
+) : BaseTableDetailsFacade
+    <ComplexProperty, ComplexPropertyReadResponse>(
+        readRepository,
+        internalFacade,
+        readConverter,
+        entityNotFoundExceptionDescriptor
+    ),
+    IComplexPropertiesTableDetailsFacade
 {
     protected override
         Func<

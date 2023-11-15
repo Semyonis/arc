@@ -5,16 +5,14 @@ using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 namespace Arc.Converters.Views.Admins.Implementations;
 
 public sealed class ComplexPropertyUpdateRequestToComplexPropertiesConverter(
-        IStringToComplexPropertyDescriptionConverter
-            descriptionToDescriptionEntityConverter
-    )
-    :
-        ConverterBase
-        <
-            ComplexPropertyUpdateRequest,
-            ComplexProperty
-        >,
-        IComplexPropertyUpdateRequestToComplexPropertiesConverter
+    IStringToComplexPropertyDescriptionConverter
+        descriptionToDescriptionEntityConverter
+) : ConverterBase
+    <
+        ComplexPropertyUpdateRequest,
+        ComplexProperty
+    >,
+    IComplexPropertyUpdateRequestToComplexPropertiesConverter
 {
     public override ComplexProperty Convert(
         ComplexPropertyUpdateRequest entity

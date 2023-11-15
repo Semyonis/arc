@@ -12,7 +12,8 @@ public sealed class RefreshTokenController(
     IRefreshTokenFacade
         facade
 ) :
-    AnonymousArcController(facade
+    AnonymousArcController(
+        facade
     )
 {
     [HttpPost]

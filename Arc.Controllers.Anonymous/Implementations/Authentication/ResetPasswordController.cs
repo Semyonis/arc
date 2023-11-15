@@ -12,7 +12,8 @@ public sealed class ResetPasswordController(
     IResetPasswordFacade
         facade
 ) :
-    AnonymousArcController(facade
+    AnonymousArcController(
+        facade
     )
 {
     [HttpPost]

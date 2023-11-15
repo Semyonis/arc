@@ -8,7 +8,8 @@ public sealed class UsersDeleteController(
     IUsersDeleteFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpDelete]

@@ -6,14 +6,12 @@ using Microsoft.Extensions.Options;
 namespace Arc.Executable.WebApi.Configuration.Models;
 
 public sealed class CustomEmailConfirmationTokenProvider<TUser>(
-        IDataProtectionProvider dataProtectionProvider,
-        IOptions<EmailConfirmationTokenProviderOptions> options,
-        ILogger<CustomEmailConfirmationTokenProvider<TUser>> logger
-    )
-    :
-        DataProtectorTokenProvider<TUser>(
-            dataProtectionProvider,
-            options,
-            logger
-        )
+    IDataProtectionProvider dataProtectionProvider,
+    IOptions<EmailConfirmationTokenProviderOptions> options,
+    ILogger<CustomEmailConfirmationTokenProvider<TUser>> logger
+) : DataProtectorTokenProvider<TUser>(
+    dataProtectionProvider,
+    options,
+    logger
+)
     where TUser : class;

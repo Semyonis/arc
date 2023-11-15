@@ -9,7 +9,8 @@ public sealed class UsersCreateController(
     IUsersCreateFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpPost]

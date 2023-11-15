@@ -9,9 +9,8 @@ namespace Arc.Controllers.Admins.Tables.Implementations.ComplexProperties;
     "ComplexProperties"
 )]
 public sealed class ComplexPropertiesTableCreateController(
-        IComplexPropertiesTableCreateFacade
-            facade
-    )
-    :
-        BaseTableAuthorizedCreateController<ComplexPropertyTableCreateRequest>(facade
-    );
+    IComplexPropertiesTableCreateFacade
+        facade
+) : BaseTableAuthorizedCreateController<ComplexPropertyTableCreateRequest>(
+    facade
+);

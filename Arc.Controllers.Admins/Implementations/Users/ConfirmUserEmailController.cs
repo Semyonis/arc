@@ -8,7 +8,8 @@ public sealed class ConfirmUserEmailController(
     IConfirmUserEmailFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpPut(

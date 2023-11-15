@@ -11,12 +11,11 @@ namespace Arc.Controllers.Admins.Tables.Implementations.ComplexProperties;
     "ComplexProperties"
 )]
 public sealed class ComplexPropertiesTableDetailsController(
-        IComplexPropertiesTableDetailsFacade
-            facade
-    )
-    :
-        BaseTableAuthorizedDetailsController(facade
-    )
+    IComplexPropertiesTableDetailsFacade
+        facade
+) : BaseTableAuthorizedDetailsController(
+    facade
+)
 {
     [HttpGet(
         "{entityId:int}"

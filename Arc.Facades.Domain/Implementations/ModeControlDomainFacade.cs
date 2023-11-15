@@ -6,11 +6,9 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class ModeControlDomainFacade(
-        ICreateRepository
-            serviceModesRepository
-    )
-    :
-        IModeControlDomainFacade
+    ICreateRepository
+        serviceModesRepository
+) : IModeControlDomainFacade
 {
     public async Task SetMode(
         ModeControlDomainFacadeArgs args

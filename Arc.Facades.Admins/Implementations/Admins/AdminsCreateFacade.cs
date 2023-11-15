@@ -9,15 +9,13 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Facades.Admins.Implementations.Admins;
 
 public sealed class AdminsCreateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IAdminCreateDomainFacade
-            adminCreateDomainFacade,
-        ITransactionManager
-            transactionManager
-    )
-    :
-        IAdminsCreateFacade
+    IResponsesDomainFacade
+        internalFacade,
+    IAdminCreateDomainFacade
+        adminCreateDomainFacade,
+    ITransactionManager
+        transactionManager
+) : IAdminsCreateFacade
 {
     public async Task<Response> Execute(
         AdminCreateRequest request,

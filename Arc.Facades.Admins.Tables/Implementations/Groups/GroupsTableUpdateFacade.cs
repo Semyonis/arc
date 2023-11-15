@@ -20,36 +20,34 @@ using static Arc.Infrastructure.Common.Enums.OperationType;
 namespace Arc.Facades.Admins.Tables.Implementations.Groups;
 
 public sealed class GroupsTableUpdateFacade(
-        IUpdateRepository
-            repository,
-        IResponsesDomainFacade
-            internalFacade,
-        IGroupUpdateResponseToGroupsConverter
-            updateConverter,
-        IDeleteRepository
-            testDescriptionsRepository,
-        ITransactionManager
-            transactionManager,
-        IGroupDescriptionsReadRepository
-            testDescriptionsReadRepository,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IGroupDescriptionPropertyFilter
-            groupDescriptionPropertyFilter
-    )
-    :
-        BaseTableUpdateFacade
-        <
-            Group,
-            GroupUpdateResponse
-        >(
-            repository,
-            internalFacade,
-            updateConverter,
-            transactionManager,
-            badDataExceptionDescriptor
-        ),
-        IGroupsTableUpdateFacade
+    IUpdateRepository
+        repository,
+    IResponsesDomainFacade
+        internalFacade,
+    IGroupUpdateResponseToGroupsConverter
+        updateConverter,
+    IDeleteRepository
+        testDescriptionsRepository,
+    ITransactionManager
+        transactionManager,
+    IGroupDescriptionsReadRepository
+        testDescriptionsReadRepository,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor,
+    IGroupDescriptionPropertyFilter
+        groupDescriptionPropertyFilter
+) : BaseTableUpdateFacade
+    <
+        Group,
+        GroupUpdateResponse
+    >(
+        repository,
+        internalFacade,
+        updateConverter,
+        transactionManager,
+        badDataExceptionDescriptor
+    ),
+    IGroupsTableUpdateFacade
 {
     public async Task<Response> Execute(
         GroupTableUpdateRequest tableRequest,

@@ -6,12 +6,11 @@ using Arc.Models.Views.Admins.Models;
 namespace Arc.Controllers.Admins.Implementations.Emergency;
 
 public sealed class OperatingModeControlController(
-        IOperatingModeControlFacade
-            facade
-    )
-    :
-        AdminAuthorizedArcController(facade
-    )
+    IOperatingModeControlFacade
+        facade
+) : AdminAuthorizedArcController(
+    facade
+)
 {
     [HttpGet]
     [ProducesOkResponseType(

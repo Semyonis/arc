@@ -12,21 +12,19 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class UserCreateDomainFacade(
-        ICreateRepository
-            usersRepository,
-        IUserManagerService
-            userManagerService,
-        IUserManagerDecorator
-            userRoleManagerService,
-        IUsersReadRepository
-            usersReadRepository,
-        IEmailUsedByUserExceptionDescriptor
-            usedByUserExceptionDescriptor,
-        IUserPropertyFilters
-            userPropertyFilters
-    )
-    :
-        IUserCreateDomainFacade
+    ICreateRepository
+        usersRepository,
+    IUserManagerService
+        userManagerService,
+    IUserManagerDecorator
+        userRoleManagerService,
+    IUsersReadRepository
+        usersReadRepository,
+    IEmailUsedByUserExceptionDescriptor
+        usedByUserExceptionDescriptor,
+    IUserPropertyFilters
+        userPropertyFilters
+) : IUserCreateDomainFacade
 {
     public async Task Create(
         CreateUserDomainFacadeArgs args

@@ -10,11 +10,9 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Ac
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
 public sealed class ActorPropertyFilters(
-        IGenericFilterPropertyFromExpressionFactoryService
-            genericFilterPropertyFromExpressionFactoryService
-    )
-    :
-        IActorPropertyFilters
+    IGenericFilterPropertyFromExpressionFactoryService
+        genericFilterPropertyFromExpressionFactoryService
+) : IActorPropertyFilters
 {
     public FilterParameterBase<Actor> GetEmailEqualFilter(
         string pattern

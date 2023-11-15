@@ -9,15 +9,13 @@ using Arc.Models.Views.Users.Models;
 namespace Arc.Facades.Users.Implementations;
 
 public sealed class PasswordUpdateFacade(
-        IUsersReadRepository
-            usersReadRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        IUserPasswordManagerService
-            userPasswordManagerService
-    )
-    :
-        IPasswordUpdateFacade
+    IUsersReadRepository
+        usersReadRepository,
+    IResponsesDomainFacade
+        internalFacade,
+    IUserPasswordManagerService
+        userPasswordManagerService
+) : IPasswordUpdateFacade
 {
     public async Task<Response> Execute(
         ChangePasswordRequest model,

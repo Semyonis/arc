@@ -10,19 +10,17 @@ using Arc.Models.BusinessLogic.Response;
 namespace Arc.Facades.Admins.Implementations.Users;
 
 public sealed class ConfirmUserEmailFacade(
-        IUserManagerService
-            userManagerService,
-        IResponsesDomainFacade
-            internalFacade,
-        IUserTokenManagerService
-            userTokenManagerService,
-        IUsersReadRepository
-            usersReadRepository,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    :
-        IConfirmUserEmailFacade
+    IUserManagerService
+        userManagerService,
+    IResponsesDomainFacade
+        internalFacade,
+    IUserTokenManagerService
+        userTokenManagerService,
+    IUsersReadRepository
+        usersReadRepository,
+    IUserNotFoundExceptionDescriptor
+        userNotFoundExceptionDescriptor
+) : IConfirmUserEmailFacade
 {
     public async Task<Response> Execute(
         int userId,

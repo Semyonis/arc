@@ -10,21 +10,19 @@ using Arc.Models.Views.Admins.Tables.Models.SimpleProperties;
 namespace Arc.Facades.Admins.Tables.Implementations.SimpleProperties;
 
 public sealed class SimplePropertiesTableDetailsFacade(
-        ISimplePropertiesReadRepository
-            readRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        ISimplePropertyToSimplePropertyReadResponseConverter
-            readConverter,
-        IEntityNotFoundExceptionDescriptor
-            entityNotFoundExceptionDescriptor
-    )
-    :
-        BaseTableDetailsFacade
-        <SimpleProperty, SimplePropertyReadResponse>(
-            readRepository,
-            internalFacade,
-            readConverter,
-            entityNotFoundExceptionDescriptor
-        ),
-        ISimplePropertiesTableDetailsFacade;
+    ISimplePropertiesReadRepository
+        readRepository,
+    IResponsesDomainFacade
+        internalFacade,
+    ISimplePropertyToSimplePropertyReadResponseConverter
+        readConverter,
+    IEntityNotFoundExceptionDescriptor
+        entityNotFoundExceptionDescriptor
+) : BaseTableDetailsFacade
+    <SimpleProperty, SimplePropertyReadResponse>(
+        readRepository,
+        internalFacade,
+        readConverter,
+        entityNotFoundExceptionDescriptor
+    ),
+    ISimplePropertiesTableDetailsFacade;

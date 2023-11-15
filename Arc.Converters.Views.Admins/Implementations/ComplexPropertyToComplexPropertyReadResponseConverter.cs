@@ -5,18 +5,16 @@ using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 namespace Arc.Converters.Views.Admins.Implementations;
 
 public sealed class ComplexPropertyToComplexPropertyReadResponseConverter(
-        IGroupToGroupReadResponseConverter
-            testToGroupReadResponseConverter,
-        IComplexPropertyDescriptionToDescriptionResponseConverter
-            complexPropertyDescriptionToDescriptionResponseConverter
-    )
-    :
-        ConverterBase
-        <
-            ComplexProperty,
-            ComplexPropertyReadResponse
-        >,
-        IComplexPropertyToComplexPropertyReadResponseConverter
+    IGroupToGroupReadResponseConverter
+        testToGroupReadResponseConverter,
+    IComplexPropertyDescriptionToDescriptionResponseConverter
+        complexPropertyDescriptionToDescriptionResponseConverter
+) : ConverterBase
+    <
+        ComplexProperty,
+        ComplexPropertyReadResponse
+    >,
+    IComplexPropertyToComplexPropertyReadResponseConverter
 {
     public override ComplexPropertyReadResponse Convert(
         ComplexProperty entity

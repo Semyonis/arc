@@ -18,36 +18,34 @@ using static Arc.Infrastructure.Common.Enums.OperationType;
 namespace Arc.Facades.Admins.Tables.Implementations.Groups;
 
 public sealed class GroupsTableDeleteFacade(
-        IDeleteRepository
-            repository,
-        IGroupsReadRepository
-            readRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        IDeleteRepository
-            groupDescriptionsRepository,
-        ITransactionManager
-            transactionManager,
-        IGroupDescriptionsReadRepository
-            groupDescriptionsReadRepository,
-        IComplexPropertiesReadRepository
-            complexPropertiesReadRepository,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IComplexPropertyPropertyFilter
-            complexPropertyPropertyFilter,
-        IGroupDescriptionPropertyFilter
-            groupDescriptionPropertyFilter
-    )
-    :
-        BaseTableDeleteFacade
-        <Group>(
-            repository,
-            internalFacade,
-            transactionManager,
-            readRepository
-        ),
-        IGroupsTableDeleteFacade
+    IDeleteRepository
+        repository,
+    IGroupsReadRepository
+        readRepository,
+    IResponsesDomainFacade
+        internalFacade,
+    IDeleteRepository
+        groupDescriptionsRepository,
+    ITransactionManager
+        transactionManager,
+    IGroupDescriptionsReadRepository
+        groupDescriptionsReadRepository,
+    IComplexPropertiesReadRepository
+        complexPropertiesReadRepository,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor,
+    IComplexPropertyPropertyFilter
+        complexPropertyPropertyFilter,
+    IGroupDescriptionPropertyFilter
+        groupDescriptionPropertyFilter
+) : BaseTableDeleteFacade
+    <Group>(
+        repository,
+        internalFacade,
+        transactionManager,
+        readRepository
+    ),
+    IGroupsTableDeleteFacade
 {
     protected override async Task ValidateOnDelete(
         IReadOnlyList<int> ids,

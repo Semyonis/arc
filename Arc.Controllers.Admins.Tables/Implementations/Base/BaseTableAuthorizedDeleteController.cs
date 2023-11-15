@@ -10,7 +10,8 @@ public abstract class BaseTableAuthorizedDeleteController(
     IExtendedTableDeleteFacade
         facade
 ) :
-    AdminAuthorizedArcController(facade
+    AdminAuthorizedArcController(
+        facade
     )
 {
     [HttpDelete]

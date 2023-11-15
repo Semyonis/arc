@@ -12,7 +12,8 @@ public sealed class AuthenticationController(
     IAuthenticationFacade
         facade
 ) :
-    AnonymousArcController(facade
+    AnonymousArcController(
+        facade
     )
 {
     [HttpPost]

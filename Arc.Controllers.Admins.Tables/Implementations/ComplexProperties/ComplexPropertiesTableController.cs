@@ -12,12 +12,11 @@ namespace Arc.Controllers.Admins.Tables.Implementations.ComplexProperties;
     "ComplexProperties"
 )]
 public sealed class ComplexPropertiesTableController(
-        IComplexPropertiesTableFacade
-            facade
-    )
-    :
-        BaseTableAuthorizedController(facade
-    )
+    IComplexPropertiesTableFacade
+        facade
+) : BaseTableAuthorizedController(
+    facade
+)
 {
     [HttpGet]
     [ProducesOkResponseType(
