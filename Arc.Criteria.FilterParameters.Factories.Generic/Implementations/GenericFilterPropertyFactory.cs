@@ -24,7 +24,7 @@ public sealed class GenericFilterPropertyFactory(
 ) : IGenericFilterPropertyFactory
 {
     public FilterParameterBase<TEntity> GetProperty<TEntity, TProperty>(
-        Expression<Func<TEntity, TProperty>> expression,
+        Expression<Func<TEntity, TProperty>> lambdaExpression,
         FilterPropertyModel filter
     )
     {
@@ -45,7 +45,7 @@ public sealed class GenericFilterPropertyFactory(
             action(
                 operation,
                 value,
-                expression
+                lambdaExpression
             );
     }
 
@@ -67,65 +67,13 @@ public sealed class GenericFilterPropertyFactory(
                 property
             );
 
-       
-        var isBool =
-            propertyType
-            == typeof(bool);
-
-        if (isBool)
-        {
-            return
-                GetBoolFilterParameter<TEntity>(
-                    operation,
-                    template,
-                    convertedProperty
-                );
-        }
-
-        var isInteger =
-            propertyType
-            == typeof(int);
-
-        if (isInteger)
-        {
-            return
-                GetIntegerFilterParameter<TEntity>(
-                    operation,
-                    template,
-                    convertedProperty
-                );
-        }
-
-        var isString =
-            propertyType
-            == typeof(string);
-
-        if (isString)
-        {
-            return
-                GetStringFilterParameter<TEntity>(
-                    operation,
-                    template,
-                    convertedProperty
-                );
-        }
-
-        var isDateTime =
-            propertyType
-            == typeof(DateTime);
-
-        if (isDateTime)
-        {
-            return
-                GetDateTimeFilterParameter<TEntity>(
-                    operation,
-                    template,
-                    convertedProperty
-                );
-        }
-
-        throw
-            badDataExceptionDescriptor.CreateException();
+        return
+            GetFilterParameter<TEntity, TProperty>(
+                operation,
+                template,
+                convertedProperty,
+                propertyType
+            );
     }
 
     private Type GetPropertyType<TEntity, TProperty>(
@@ -137,14 +85,51 @@ public sealed class GenericFilterPropertyFactory(
             var propertyInfo =
                 (PropertyInfo)memberExpression.Member;
 
-            return propertyInfo.PropertyType;
+            return
+                propertyInfo.PropertyType;
         }
 
         throw
             badDataExceptionDescriptor.CreateException();
     }
 
-    private PropertyFilterParameter<TEntity, bool> GetBoolFilterParameter<TEntity>(
+    private PropertyFilterParameter<TEntity, TProperty> GetFilterParameter<TEntity, TProperty>(
+        string operation,
+        string template,
+        dynamic convertedProperty,
+        Type propertyType
+    ) =>
+        propertyType switch
+        {
+            not null when propertyType == typeof(bool) =>
+                GetBooleanFilterParameter<TEntity>(
+                    operation,
+                    template,
+                    convertedProperty
+                ),
+            not null when propertyType == typeof(int) =>
+                GetIntegerFilterParameter<TEntity>(
+                    operation,
+                    template,
+                    convertedProperty
+                ),
+            not null when propertyType == typeof(string) =>
+                GetStringFilterParameter<TEntity>(
+                    operation,
+                    template,
+                    convertedProperty
+                ),
+            not null when propertyType == typeof(DateTime) =>
+                GetDateTimeFilterParameter<TEntity>(
+                    operation,
+                    template,
+                    convertedProperty
+                ),
+            _ => throw
+                badDataExceptionDescriptor.CreateException(),
+        };
+
+    private PropertyFilterParameter<TEntity, bool> GetBooleanFilterParameter<TEntity>(
         string operation,
         string template,
         Expression<Func<TEntity, bool>> property
@@ -218,7 +203,7 @@ public sealed class GenericFilterPropertyFactory(
         Expression<Func<TEntity, DateTime>> property
     )
     {
-        var filterPropertyModel =
+        var dateTimeFilterPropertyModel =
             new DateTimeFilterPropertyModel(
                 operation,
                 template
@@ -227,7 +212,7 @@ public sealed class GenericFilterPropertyFactory(
         return
             dateTimeFilterParameterFactory
                 .GetFilterParameter(
-                    filterPropertyModel,
+                    dateTimeFilterPropertyModel,
                     property
                 );
     }

@@ -6,7 +6,7 @@ namespace Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
 public interface IGenericFilterPropertyFactory
 {
     FilterParameterBase<TEntity> GetProperty<TEntity, TProperty>(
-        Expression<Func<TEntity, TProperty>> expression,
+        Expression<Func<TEntity, TProperty>> lambdaExpression,
         FilterPropertyModel filter
     );
 }
