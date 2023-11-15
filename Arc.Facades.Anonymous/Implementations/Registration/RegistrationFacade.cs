@@ -7,8 +7,16 @@ using Arc.Models.Views.Anonymous.Models;
 
 namespace Arc.Facades.Anonymous.Implementations.Registration;
 
-public sealed class RegistrationFacade :
-    IRegistrationFacade
+public sealed class RegistrationFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        IUserCreateDomainFacade
+            userCreateDomainFacade,
+        ITransactionManager
+            transactionManager
+    )
+    :
+        IRegistrationFacade
 {
     public async Task<Response> Execute(
         CreateUserRequest model
@@ -24,11 +32,11 @@ public sealed class RegistrationFacade :
 
         var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         await
-            _userCreateDomainFacade
+            userCreateDomainFacade
                 .Create(
                     internalCreateUserFacadeArgs
                 );
@@ -38,39 +46,7 @@ public sealed class RegistrationFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUserCreateDomainFacade
-        _userCreateDomainFacade;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    public RegistrationFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IUserCreateDomainFacade
-            userCreateDomainFacade,
-        ITransactionManager
-            transactionManager
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _userCreateDomainFacade =
-            userCreateDomainFacade;
-
-        _transactionManager =
-            transactionManager;
-    }
-
-#endregion
 }

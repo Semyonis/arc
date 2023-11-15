@@ -7,4 +7,4 @@ public interface IStringToDescriptionEntityConverter<out TEntity> :
     <
         string,
         TEntity
-    > { }
+    >;

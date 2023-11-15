@@ -8,16 +8,13 @@ namespace Arc.Controllers.Anonymous.Implementations.Registration;
 [ControllerGroup(
     "Registration"
 )]
-public sealed class ConfirmEmailController :
-    AnonymousArcController
-{
-    public ConfirmEmailController(
-        IConfirmEmailFacade
-            facade
-    ) : base(
+public sealed class ConfirmEmailController(
+    IConfirmEmailFacade
         facade
-    ) { }
-
+) :
+    AnonymousArcController(facade
+    )
+{
     [HttpPatch]
     [ProducesOkResponseType(
         typeof(string)

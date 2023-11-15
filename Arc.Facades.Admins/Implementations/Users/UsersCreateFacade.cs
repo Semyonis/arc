@@ -8,8 +8,16 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Facades.Admins.Implementations.Users;
 
-public sealed class UsersCreateFacade :
-    IUsersCreateFacade
+public sealed class UsersCreateFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        IUserCreateDomainFacade
+            userCreateDomainFacade,
+        ITransactionManager
+            transactionManager
+    )
+    :
+        IUsersCreateFacade
 {
     public Task Validate(
         AdminIdentity identity
@@ -30,11 +38,11 @@ public sealed class UsersCreateFacade :
 
         var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         await
-            _userCreateDomainFacade
+            userCreateDomainFacade
                 .Create(
                     internalCreateUserFacadeArgs
                 );
@@ -44,39 +52,7 @@ public sealed class UsersCreateFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUserCreateDomainFacade
-        _userCreateDomainFacade;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    public UsersCreateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IUserCreateDomainFacade
-            userCreateDomainFacade,
-        ITransactionManager
-            transactionManager
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _userCreateDomainFacade =
-            userCreateDomainFacade;
-
-        _transactionManager =
-            transactionManager;
-    }
-
-#endregion
 }

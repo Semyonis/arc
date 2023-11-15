@@ -8,8 +8,16 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Facades.Admins.Implementations.Admins;
 
-public sealed class AdminsCreateFacade :
-    IAdminsCreateFacade
+public sealed class AdminsCreateFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        IAdminCreateDomainFacade
+            adminCreateDomainFacade,
+        ITransactionManager
+            transactionManager
+    )
+    :
+        IAdminsCreateFacade
 {
     public async Task<Response> Execute(
         AdminCreateRequest request,
@@ -18,7 +26,7 @@ public sealed class AdminsCreateFacade :
     {
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         var admin =
@@ -31,7 +39,7 @@ public sealed class AdminsCreateFacade :
 
         var adminId =
             await
-                _adminCreateDomainFacade
+                adminCreateDomainFacade
                     .Create(
                         admin
                     );
@@ -41,41 +49,9 @@ public sealed class AdminsCreateFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     adminId
                 );
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IAdminCreateDomainFacade
-        _adminCreateDomainFacade;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    public AdminsCreateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IAdminCreateDomainFacade
-            adminCreateDomainFacade,
-        ITransactionManager
-            transactionManager
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _adminCreateDomainFacade =
-            adminCreateDomainFacade;
-
-        _transactionManager =
-            transactionManager;
-    }
-
-#endregion
 }

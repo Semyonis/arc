@@ -9,4 +9,4 @@ public interface IAdminsPasswordUpdateFacade :
     <
         AdminPasswordRequest,
         AdminIdentity
-    > { }
+    >;

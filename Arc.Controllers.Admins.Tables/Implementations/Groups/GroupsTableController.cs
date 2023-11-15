@@ -11,16 +11,13 @@ namespace Arc.Controllers.Admins.Tables.Implementations.Groups;
 [ControllerGroup(
     "Groups"
 )]
-public sealed class GroupsTableController :
-    BaseTableAuthorizedController
-{
-    public GroupsTableController(
-        IGroupsTableFacade
-            facade
-    ) : base(
+public sealed class GroupsTableController(
+    IGroupsTableFacade
         facade
-    ) { }
-
+) :
+    BaseTableAuthorizedController(facade
+    )
+{
     [HttpGet]
     [ProducesOkResponseType(
         typeof(IReadOnlyList<GroupReadResponse>)

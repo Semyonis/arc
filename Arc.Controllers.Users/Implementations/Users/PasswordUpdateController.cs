@@ -8,16 +8,13 @@ namespace Arc.Controllers.Users.Implementations.Users;
 [ControllerGroup(
     "User"
 )]
-public sealed class PasswordUpdateController :
-    UserAuthorizedArcController
-{
-    public PasswordUpdateController(
-        IPasswordUpdateFacade
-            facade
-    ) : base(
+public sealed class PasswordUpdateController(
+    IPasswordUpdateFacade
         facade
-    ) { }
-
+) :
+    UserAuthorizedArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType(
         typeof(string)

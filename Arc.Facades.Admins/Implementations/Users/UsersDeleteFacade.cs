@@ -7,8 +7,16 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Facades.Admins.Implementations.Users;
 
-public sealed class UsersDeleteFacade :
-    IUsersDeleteFacade
+public sealed class UsersDeleteFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        ITransactionManager
+            transactionManager,
+        IUserDeleteDomainFacade
+            userDeleteDomainFacade
+    )
+    :
+        IUsersDeleteFacade
 {
     public async Task<Response> Execute(
         DeleteEntityAdminRequest request,
@@ -17,11 +25,11 @@ public sealed class UsersDeleteFacade :
     {
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         await
-            _userDeleteDomainFacade
+            userDeleteDomainFacade
                 .Delete(
                     request.Id
                 );
@@ -31,39 +39,7 @@ public sealed class UsersDeleteFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    private readonly IUserDeleteDomainFacade
-        _userDeleteDomainFacade;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    public UsersDeleteFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IUserDeleteDomainFacade
-            userDeleteDomainFacade
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _transactionManager =
-            transactionManager;
-
-        _userDeleteDomainFacade =
-            userDeleteDomainFacade;
-    }
-
-#endregion
 }

@@ -9,20 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations;
 
-public sealed class DeleteRepository :
-    Repository,
-    IDeleteRepository
-{
-    public DeleteRepository(
+public sealed class DeleteRepository(
         ArcDatabaseContext
             context,
         IDictionariesManager
             dictionariesManager
-    ) : base(
-        context,
-        dictionariesManager
-    ) { }
-
+    )
+    :
+        Repository(
+            context,
+            dictionariesManager
+        ),
+        IDeleteRepository
+{
     public async Task<int> DeleteAsync<TEntity>(
         TEntity item,
         CancellationToken cancellationToken = default

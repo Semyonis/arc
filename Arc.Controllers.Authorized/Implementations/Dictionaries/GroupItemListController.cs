@@ -10,16 +10,13 @@ namespace Arc.Controllers.Authorized.Implementations.Dictionaries;
 [ControllerGroup(
     "Dictionaries"
 )]
-public sealed class GroupItemListController :
-    AuthorizedArcController
-{
-    public GroupItemListController(
-        IGroupItemListFacade
-            facade
-    ) : base(
+public sealed class GroupItemListController(
+    IGroupItemListFacade
         facade
-    ) { }
-
+) :
+    AuthorizedArcController(facade
+    )
+{
     [HttpGet]
     [ProducesOkResponseType(
         typeof(IReadOnlyList<ListItemResponse>)

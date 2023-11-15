@@ -3,4 +3,4 @@
 namespace Arc.Facades.Admins.Tables.Interfaces.SimpleProperties;
 
 public interface ISimplePropertiesTableDeleteFacade :
-    IExtendedTableDeleteFacade { }
+    IExtendedTableDeleteFacade;

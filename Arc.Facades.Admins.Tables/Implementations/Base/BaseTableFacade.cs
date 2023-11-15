@@ -20,7 +20,20 @@ public abstract class BaseTableFacade
 <
     TEntity,
     TReadEntityResponse
->
+>(
+    IReadRepositoryBase<TEntity>
+        readRepository,
+    IPageResponsesDomainFacade
+        internalResponsesFacade,
+    IConverterBase<TEntity, TReadEntityResponse>
+        readConverter,
+    IOrderingService
+        orderingService,
+    IGenericFilterPropertyFromStringValueFactoryService
+        baseFilterPropertyRequestRequestToBaseFilterParameterConverter,
+    IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+)
     where TEntity : class, IWithIdentifier
 {
     public async Task<Response> Execute(
@@ -29,7 +42,7 @@ public abstract class BaseTableFacade
     )
     {
         var filterModels =
-            _filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
                 .Convert(
                     request.Filters
                 );
@@ -40,7 +53,7 @@ public abstract class BaseTableFacade
         foreach (var filterModel in filterModels)
         {
             var filter =
-                _baseFilterPropertyRequestRequestToBaseFilterParameterConverter
+                baseFilterPropertyRequestRequestToBaseFilterParameterConverter
                     .GetProperty<TEntity>(
                         filterModel
                     );
@@ -53,13 +66,13 @@ public abstract class BaseTableFacade
 
         var totalCount =
             await
-                _readRepository
+                readRepository
                     .GetCountByFiltersAsync(
                         filters
                     );
 
         var orderingParam =
-            _orderingService
+            orderingService
                 .GetOrderingExpression
                 <
                     TEntity,
@@ -80,7 +93,7 @@ public abstract class BaseTableFacade
 
         var entityList =
             await
-                _readRepository
+                readRepository
                     .GetListByFiltersAsync(
                         filters,
                         includes,
@@ -90,7 +103,7 @@ public abstract class BaseTableFacade
                     );
 
         var responsePage =
-            _readConverter
+            readConverter
                 .Convert(
                     entityList
                 );
@@ -110,7 +123,7 @@ public abstract class BaseTableFacade
             );
 
         return
-            _internalResponsesFacade
+            internalResponsesFacade
                 .CreatePageResponse(
                     args
                 );
@@ -122,60 +135,4 @@ public abstract class BaseTableFacade
             IQueryable<TEntity>,
             IIncludableQueryable<TEntity, object>
         >? GetInclude() => default;
-
-#region Constructor
-
-    private readonly IConverterBase<TEntity, TReadEntityResponse>
-        _readConverter;
-
-    private readonly IPageResponsesDomainFacade
-        _internalResponsesFacade;
-
-    private readonly IOrderingService
-        _orderingService;
-
-    private readonly IReadRepositoryBase<TEntity>
-        _readRepository;
-
-    private readonly IGenericFilterPropertyFromStringValueFactoryService
-        _baseFilterPropertyRequestRequestToBaseFilterParameterConverter;
-
-    private readonly IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
-        _filterPropertyRequestRequestToFilterPropertyRequestModelConverter;
-
-    protected BaseTableFacade(
-        IReadRepositoryBase<TEntity>
-            readRepository,
-        IPageResponsesDomainFacade
-            internalResponsesFacade,
-        IConverterBase<TEntity, TReadEntityResponse>
-            readConverter,
-        IOrderingService
-            orderingService,
-        IGenericFilterPropertyFromStringValueFactoryService
-            baseFilterPropertyRequestRequestToBaseFilterParameterConverter,
-        IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
-            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    )
-    {
-        _readRepository =
-            readRepository;
-
-        _internalResponsesFacade =
-            internalResponsesFacade;
-
-        _readConverter =
-            readConverter;
-
-        _orderingService =
-            orderingService;
-
-        _baseFilterPropertyRequestRequestToBaseFilterParameterConverter =
-            baseFilterPropertyRequestRequestToBaseFilterParameterConverter;
-
-        _filterPropertyRequestRequestToFilterPropertyRequestModelConverter =
-            filterPropertyRequestRequestToFilterPropertyRequestModelConverter;
-    }
-
-#endregion
 }

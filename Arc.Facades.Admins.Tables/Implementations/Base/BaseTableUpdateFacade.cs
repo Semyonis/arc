@@ -18,7 +18,18 @@ public abstract class BaseTableUpdateFacade
 <
     TEntity,
     TUpdateEntityRequest
->
+>(
+    IUpdateRepository
+        repository,
+    IResponsesDomainFacade
+        internalFacade,
+    IConverterBase<TUpdateEntityRequest, TEntity>
+        updateConverter,
+    ITransactionManager
+        transactionManager,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
+)
     where TEntity : class, IWithIdentifier
     where TUpdateEntityRequest : IWithIdentifier
 {
@@ -59,7 +70,7 @@ public abstract class BaseTableUpdateFacade
 
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         await
@@ -68,14 +79,14 @@ public abstract class BaseTableUpdateFacade
             );
 
         var updatedEntityList =
-            _updateConverter
+            updateConverter
                 .Convert(
                     updateEntities
                 );
 
         var updatedCount =
             await
-                _repository
+                repository
                     .UpdateCollectionAsync(
                         updatedEntityList
                     );
@@ -99,7 +110,7 @@ public abstract class BaseTableUpdateFacade
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     result
                 );
@@ -122,7 +133,7 @@ public abstract class BaseTableUpdateFacade
         if (updateEntities.IsEmpty())
         {
             throw
-                _badDataExceptionDescriptor
+                badDataExceptionDescriptor
                     .CreateException(
                         "Empty list of update entities"
                     );
@@ -131,52 +142,4 @@ public abstract class BaseTableUpdateFacade
         return
             Task.CompletedTask;
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUpdateRepository
-        _repository;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    private readonly IConverterBase<TUpdateEntityRequest, TEntity>
-        _updateConverter;
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    protected BaseTableUpdateFacade(
-        IUpdateRepository
-            repository,
-        IResponsesDomainFacade
-            internalFacade,
-        IConverterBase<TUpdateEntityRequest, TEntity>
-            updateConverter,
-        ITransactionManager
-            transactionManager,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    {
-        _repository =
-            repository;
-
-        _internalFacade =
-            internalFacade;
-
-        _updateConverter =
-            updateConverter;
-
-        _transactionManager =
-            transactionManager;
-
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-    }
-
-#endregion
 }

@@ -5,13 +5,10 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
-public sealed class ComplexPropertyDescriptionsReadRepository :
-    IdReadRepositoryBase<ComplexPropertyDescription>,
-    IComplexPropertyDescriptionsReadRepository
-{
-    public ComplexPropertyDescriptionsReadRepository(
-        ArcDatabaseContext context
-    ) : base(
+public sealed class ComplexPropertyDescriptionsReadRepository(
+    ArcDatabaseContext context
+) :
+    IdReadRepositoryBase<ComplexPropertyDescription>(
         context
-    ) { }
-}
+    ),
+    IComplexPropertyDescriptionsReadRepository;

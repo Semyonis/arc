@@ -7,4 +7,4 @@ public interface IComplexPropertiesTableUpdateFacade :
     IExtendedTableUpdateFacade
     <
         ComplexPropertyTableUpdateRequest
-    > { }
+    >;

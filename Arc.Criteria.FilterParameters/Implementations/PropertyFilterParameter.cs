@@ -3,31 +3,10 @@
 namespace Arc.Criteria.FilterParameters.Implementations;
 
 public sealed class PropertyFilterParameter
-<
-    TEntity,
-    TProperty
-> :
-    FilterParameterBase
     <
-        TEntity
-    >
-{
-    private readonly Expression
-        <
-            Func<TProperty, TProperty, bool>
-        >
-        _compareFunction;
-
-    private readonly Expression
-        <
-            Func<TEntity, TProperty>
-        >
-        _propertyPredicate;
-
-    private readonly TProperty
-        _value;
-
-    public PropertyFilterParameter(
+        TEntity,
+        TProperty
+    >(
         Expression
             <
                 Func<TEntity, TProperty>
@@ -41,28 +20,23 @@ public sealed class PropertyFilterParameter
         TProperty
             value
     )
-    {
-        _propertyPredicate =
-            propertyPredicate;
-
-        _compareFunction =
-            compareFunction;
-
-        _value =
-            value;
-    }
-
+    :
+        FilterParameterBase
+    <
+        TEntity
+    >
+{
     public override Expression
     <
         Func<TEntity, bool>
     > GetPredicate() =>
         entity =>
-            _compareFunction
+            compareFunction
                 .Invoke(
-                    _propertyPredicate
+                    propertyPredicate
                         .Invoke(
                             entity
                         ),
-                    _value
+                    value
                 );
 }

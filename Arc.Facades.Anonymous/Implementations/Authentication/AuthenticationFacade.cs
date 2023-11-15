@@ -11,8 +11,22 @@ using Arc.Models.Views.Anonymous.Models;
 
 namespace Arc.Facades.Anonymous.Implementations.Authentication;
 
-public sealed class AuthenticationFacade :
-    IAuthenticationFacade
+public sealed class AuthenticationFacade(
+        IUserManagerService
+            userManagerService,
+        ISignInManagerDecorator
+            signInManagerDecorator,
+        IResponsesDomainFacade
+            internalFacade,
+        IActorsReadRepository
+            actorsReadRepository,
+        IAuthenticationTokensCreateDomainFacade
+            authenticationTokensCreateDomainFacade,
+        IWrongCredentialsExceptionDescriptor
+            wrongCredentialsExceptionDescriptor
+    )
+    :
+        IAuthenticationFacade
 {
     public async Task<Response> Execute(
         LoginRequest model
@@ -25,7 +39,7 @@ public sealed class AuthenticationFacade :
 
         var identity =
             await
-                _userManagerService
+                userManagerService
                     .FindByEmail(
                         email
                     );
@@ -33,13 +47,13 @@ public sealed class AuthenticationFacade :
         if (identity == default)
         {
             throw
-                _wrongCredentialsExceptionDescriptor
+                wrongCredentialsExceptionDescriptor
                     .CreateException();
         }
 
         var signInResult =
             await
-                _signInManagerDecorator
+                signInManagerDecorator
                     .PasswordSignIn(
                         identity.UserName!,
                         password
@@ -48,7 +62,7 @@ public sealed class AuthenticationFacade :
         if (signInResult is not { Succeeded: true, })
         {
             throw
-                _wrongCredentialsExceptionDescriptor
+                wrongCredentialsExceptionDescriptor
                     .CreateException();
         }
 
@@ -66,7 +80,7 @@ public sealed class AuthenticationFacade :
 
         var authenticationModel =
             await
-                _authenticationTokensCreateDomainFacade
+                authenticationTokensCreateDomainFacade
                     .CreateTokens(
                         args
                     );
@@ -79,7 +93,7 @@ public sealed class AuthenticationFacade :
             );
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     response
                 );
@@ -91,7 +105,7 @@ public sealed class AuthenticationFacade :
     {
         var actor =
             await
-                _actorsReadRepository
+                actorsReadRepository
                     .GetByEmail(
                         email
                     );
@@ -108,60 +122,4 @@ public sealed class AuthenticationFacade :
                 actorTypes
             );
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly ISignInManagerDecorator
-        _signInManagerDecorator;
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly IActorsReadRepository
-        _actorsReadRepository;
-
-    private readonly IAuthenticationTokensCreateDomainFacade
-        _authenticationTokensCreateDomainFacade;
-
-    private readonly IWrongCredentialsExceptionDescriptor
-        _wrongCredentialsExceptionDescriptor;
-
-    public AuthenticationFacade(
-        IUserManagerService
-            userManagerService,
-        ISignInManagerDecorator
-            signInManagerDecorator,
-        IResponsesDomainFacade
-            internalFacade,
-        IActorsReadRepository
-            actorsReadRepository,
-        IAuthenticationTokensCreateDomainFacade
-            authenticationTokensCreateDomainFacade,
-        IWrongCredentialsExceptionDescriptor
-            wrongCredentialsExceptionDescriptor
-    )
-    {
-        _userManagerService =
-            userManagerService;
-
-        _signInManagerDecorator =
-            signInManagerDecorator;
-
-        _internalFacade =
-            internalFacade;
-
-        _actorsReadRepository =
-            actorsReadRepository;
-
-        _authenticationTokensCreateDomainFacade =
-            authenticationTokensCreateDomainFacade;
-
-        _wrongCredentialsExceptionDescriptor =
-            wrongCredentialsExceptionDescriptor;
-    }
-
-#endregion
 }

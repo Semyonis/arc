@@ -8,16 +8,13 @@ namespace Arc.Controllers.Anonymous.Implementations.Registration;
 [ControllerGroup(
     "Registration"
 )]
-public sealed class RegistrationController :
-    AnonymousArcController
-{
-    public RegistrationController(
-        IRegistrationFacade
-            facade
-    ) : base(
+public sealed class RegistrationController(
+    IRegistrationFacade
         facade
-    ) { }
-
+) :
+    AnonymousArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType(
         typeof(string)

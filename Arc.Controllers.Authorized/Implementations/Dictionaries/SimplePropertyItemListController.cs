@@ -10,16 +10,14 @@ namespace Arc.Controllers.Authorized.Implementations.Dictionaries;
 [ControllerGroup(
     "Dictionaries"
 )]
-public sealed class SimplePropertyItemListController :
-    AuthorizedArcController
-{
-    public SimplePropertyItemListController(
+public sealed class SimplePropertyItemListController(
         ISimplePropertyItemListFacade
             facade
-    ) : base(
-        facade
-    ) { }
-
+    )
+    :
+        AuthorizedArcController(facade
+    )
+{
     [HttpGet]
     [ProducesOkResponseType(
         typeof(IReadOnlyList<ListItemResponse>)

@@ -5,8 +5,12 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
-public sealed class EnumerationCompareFunctions :
-    IEnumerationCompareFunctions
+public sealed class EnumerationCompareFunctions(
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
+    )
+    :
+        IEnumerationCompareFunctions
 {
     public Expression<Func<string, string, bool>> GetFunction(
         string operation
@@ -19,7 +23,7 @@ public sealed class EnumerationCompareFunctions :
                 GetEnumerationIsNotEqualFunction(),
             _ =>
                 throw
-                    _unsupportedOperationExceptionDescriptor.CreateException(),
+                    unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<string, string, bool>>
@@ -37,18 +41,4 @@ public sealed class EnumerationCompareFunctions :
                 second
             ) =>
             first != second;
-
-#region Constructor
-
-    private readonly IUnsupportedOperationExceptionDescriptor
-        _unsupportedOperationExceptionDescriptor;
-
-    public EnumerationCompareFunctions(
-        IUnsupportedOperationExceptionDescriptor
-            unsupportedOperationExceptionDescriptor
-    ) =>
-        _unsupportedOperationExceptionDescriptor =
-            unsupportedOperationExceptionDescriptor;
-
-#endregion
 }

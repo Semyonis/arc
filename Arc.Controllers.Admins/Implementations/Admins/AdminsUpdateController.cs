@@ -5,16 +5,13 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Controllers.Admins.Implementations.Admins;
 
-public sealed class AdminsUpdateController :
-    AdminAuthorizedArcController
-{
-    public AdminsUpdateController(
-        IAdminsUpdateFacade
-            facade
-    ) : base(
+public sealed class AdminsUpdateController(
+    IAdminsUpdateFacade
         facade
-    ) { }
-
+) :
+    AdminAuthorizedArcController(facade
+    )
+{
     [HttpPut]
     [ProducesOkResponseType]
     public async Task<IActionResult> Call(

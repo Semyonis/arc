@@ -19,24 +19,7 @@ using static Arc.Infrastructure.Common.Enums.OperationType;
 
 namespace Arc.Facades.Admins.Tables.Implementations.Groups;
 
-public sealed class GroupsTableUpdateFacade :
-    BaseTableUpdateFacade
-    <
-        Group,
-        GroupUpdateResponse
-    >,
-    IGroupsTableUpdateFacade
-{
-    private readonly IGroupDescriptionPropertyFilter
-        _groupDescriptionPropertyFilter;
-
-    private readonly IGroupDescriptionsReadRepository
-        _testDescriptionsReadRepository;
-
-    private readonly IDeleteRepository
-        _testDescriptionsRepository;
-
-    public GroupsTableUpdateFacade(
+public sealed class GroupsTableUpdateFacade(
         IUpdateRepository
             repository,
         IResponsesDomainFacade
@@ -53,24 +36,21 @@ public sealed class GroupsTableUpdateFacade :
             badDataExceptionDescriptor,
         IGroupDescriptionPropertyFilter
             groupDescriptionPropertyFilter
-    ) : base(
-        repository,
-        internalFacade,
-        updateConverter,
-        transactionManager,
-        badDataExceptionDescriptor
     )
-    {
-        _testDescriptionsRepository =
-            testDescriptionsRepository;
-
-        _testDescriptionsReadRepository =
-            testDescriptionsReadRepository;
-
-        _groupDescriptionPropertyFilter =
-            groupDescriptionPropertyFilter;
-    }
-
+    :
+        BaseTableUpdateFacade
+        <
+            Group,
+            GroupUpdateResponse
+        >(
+            repository,
+            internalFacade,
+            updateConverter,
+            transactionManager,
+            badDataExceptionDescriptor
+        ),
+        IGroupsTableUpdateFacade
+{
     public async Task<Response> Execute(
         GroupTableUpdateRequest tableRequest,
         AdminIdentity identity
@@ -96,20 +76,20 @@ public sealed class GroupsTableUpdateFacade :
         var filters =
             testIds
                 .Select(
-                    _groupDescriptionPropertyFilter
+                    groupDescriptionPropertyFilter
                         .GetGroupIdEqualFilter
                 );
 
         var descriptions =
             await
-                _testDescriptionsReadRepository
+                testDescriptionsReadRepository
                     .GetListByFiltersAsync(
                         filters.ToList(),
                         operationType: Or
                     );
 
         await
-            _testDescriptionsRepository
+            testDescriptionsRepository
                 .DeleteAsync(
                     descriptions
                 );

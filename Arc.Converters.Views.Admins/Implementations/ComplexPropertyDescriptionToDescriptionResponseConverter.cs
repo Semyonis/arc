@@ -6,4 +6,4 @@ namespace Arc.Converters.Views.Admins.Implementations;
 
 public sealed class ComplexPropertyDescriptionToDescriptionResponseConverter :
     BaseDescriptionResponseConverter<ComplexPropertyDescription>,
-    IComplexPropertyDescriptionToDescriptionResponseConverter { }
+    IComplexPropertyDescriptionToDescriptionResponseConverter;

@@ -4,16 +4,13 @@ using Arc.Facades.Admins.Interfaces.Backdoors;
 
 namespace Arc.Controllers.Admins.Implementations.Backdoors;
 
-public sealed class DictionaryUpdateController :
-    AdminAuthorizedArcController
-{
-    public DictionaryUpdateController(
-        IDictionaryUpdateFacade
-            facade
-    ) : base(
+public sealed class DictionaryUpdateController(
+    IDictionaryUpdateFacade
         facade
-    ) { }
-
+) :
+    AdminAuthorizedArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType]
     public async Task<IActionResult> Call() =>

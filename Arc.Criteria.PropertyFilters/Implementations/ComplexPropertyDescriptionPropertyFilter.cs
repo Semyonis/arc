@@ -8,19 +8,13 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
-public sealed class ComplexPropertyDescriptionPropertyFilter :
-    IComplexPropertyDescriptionPropertyFilter
-{
-    private readonly IItemCompareFunctions
-        _itemCompareFunctions;
-
-    public ComplexPropertyDescriptionPropertyFilter(
+public sealed class ComplexPropertyDescriptionPropertyFilter(
         IItemCompareFunctions
             itemCompareFunctions
-    ) =>
-        _itemCompareFunctions =
-            itemCompareFunctions;
-
+    )
+    :
+        IComplexPropertyDescriptionPropertyFilter
+{
     public PropertyFilterParameter<ComplexPropertyDescription, int> GetComplexPropertyIdEqualFilter(
         int pattern
     )
@@ -29,7 +23,7 @@ public sealed class ComplexPropertyDescriptionPropertyFilter :
             ComplexPropertyDescriptionExpressions.GetComplexPropertyId();
 
         var compareFunction =
-            _itemCompareFunctions
+            itemCompareFunctions
                 .GetFunction(
                     Equal
                 );

@@ -4,16 +4,13 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Controllers.Admins.Implementations.Users;
 
-public sealed class UsersDeleteController :
-    AdminAuthorizedArcController
-{
-    public UsersDeleteController(
-        IUsersDeleteFacade
-            facade
-    ) : base(
+public sealed class UsersDeleteController(
+    IUsersDeleteFacade
         facade
-    ) { }
-
+) :
+    AdminAuthorizedArcController(facade
+    )
+{
     [HttpDelete]
     public async Task<IActionResult> Call(
         DeleteEntityAdminRequest request

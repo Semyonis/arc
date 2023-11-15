@@ -9,4 +9,4 @@ public interface ISimplePropertyToSimplePropertyReadResponseConverter :
     <
         SimpleProperty,
         SimplePropertyReadResponse
-    > { }
+    >;

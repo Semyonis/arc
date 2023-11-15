@@ -5,8 +5,12 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
-public sealed class StringCompareFunctions :
-    IStringCompareFunctions
+public sealed class StringCompareFunctions(
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
+    )
+    :
+        IStringCompareFunctions
 {
     public Expression<Func<string, string, bool>>
         GetFunction(
@@ -24,7 +28,7 @@ public sealed class StringCompareFunctions :
                 GetStringIsNotContainsFunction(),
             _ =>
                 throw
-                    _unsupportedOperationExceptionDescriptor.CreateException(),
+                    unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<string, string, bool>>
@@ -64,18 +68,4 @@ public sealed class StringCompareFunctions :
                 .Contains(
                     second
                 );
-
-#region Constructor
-
-    private readonly IUnsupportedOperationExceptionDescriptor
-        _unsupportedOperationExceptionDescriptor;
-
-    public StringCompareFunctions(
-        IUnsupportedOperationExceptionDescriptor
-            unsupportedOperationExceptionDescriptor
-    ) =>
-        _unsupportedOperationExceptionDescriptor =
-            unsupportedOperationExceptionDescriptor;
-
-#endregion
 }

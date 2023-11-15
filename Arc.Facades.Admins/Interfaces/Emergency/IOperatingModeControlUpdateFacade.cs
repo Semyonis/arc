@@ -9,4 +9,4 @@ public interface IOperatingModeControlUpdateFacade :
     <
         ServiceModeAdminEditRequest,
         AdminIdentity
-    > { }
+    >;

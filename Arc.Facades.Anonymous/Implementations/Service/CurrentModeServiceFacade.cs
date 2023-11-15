@@ -7,14 +7,20 @@ using Arc.Models.Views.Common.Models;
 
 namespace Arc.Facades.Anonymous.Implementations.Service;
 
-public sealed class CurrentModeServiceFacade :
-    ICurrentModeServiceFacade
+public sealed class CurrentModeServiceFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        IServiceModesReadRepository
+            serviceModesReadRepository
+    )
+    :
+        ICurrentModeServiceFacade
 {
     public async Task<Response> Execute()
     {
         var currentMode =
             await
-                _serviceModesReadRepository
+                serviceModesReadRepository
                     .GetCurrent();
 
         var currentState =
@@ -27,33 +33,9 @@ public sealed class CurrentModeServiceFacade :
             );
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     response
                 );
     }
-
-#region Constructor
-
-    private readonly IServiceModesReadRepository
-        _serviceModesReadRepository;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    public CurrentModeServiceFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IServiceModesReadRepository
-            serviceModesReadRepository
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _serviceModesReadRepository =
-            serviceModesReadRepository;
-    }
-
-#endregion
 }

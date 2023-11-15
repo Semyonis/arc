@@ -8,16 +8,13 @@ namespace Arc.Controllers.Users.Implementations.Users;
 [ControllerGroup(
     "Users"
 )]
-public sealed class CurrentController :
-    UserAuthorizedArcController
-{
-    public CurrentController(
-        ICurrentFacade
-            facade
-    ) : base(
+public sealed class CurrentController(
+    ICurrentFacade
         facade
-    ) { }
-
+) :
+    UserAuthorizedArcController(facade
+    )
+{
     [HttpGet]
     [ProducesOkResponseType(
         typeof(UserResponse)

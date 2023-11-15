@@ -9,4 +9,4 @@ public interface IFilterPropertyRequestRequestToFilterPropertyRequestModelConver
     <
         FilterPropertyRequestRequest,
         FilterPropertyRequestModel
-    > { }
+    >;

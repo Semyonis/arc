@@ -8,16 +8,12 @@ namespace Arc.Controllers.Admins.Tables.Implementations.Groups;
 [ControllerGroup(
     "Groups"
 )]
-public sealed class GroupsTableUpdateController :
+public sealed class GroupsTableUpdateController(
+    IGroupsTableUpdateFacade
+        facade
+) :
     BaseTableAuthorizedUpdateController
     <
         GroupTableUpdateRequest
-    >
-{
-    public GroupsTableUpdateController(
-        IGroupsTableUpdateFacade
-            facade
-    ) : base(
-        facade
-    ) { }
-}
+    >(facade
+    );

@@ -11,15 +11,7 @@ using Arc.Models.Views.Admins.Tables.Models.SimpleProperties;
 
 namespace Arc.Facades.Admins.Tables.Implementations.SimpleProperties;
 
-public sealed class SimplePropertiesTableCreateFacade :
-    BaseTableCreateFacade
-    <
-        SimpleProperty,
-        SimplePropertyCreateRequest
-    >,
-    ISimplePropertiesTableCreateFacade
-{
-    public SimplePropertiesTableCreateFacade(
+public sealed class SimplePropertiesTableCreateFacade(
         ICreateRepository
             repository,
         IResponsesDomainFacade
@@ -28,13 +20,20 @@ public sealed class SimplePropertiesTableCreateFacade :
             createConverter,
         ITransactionManager
             transactionManager
-    ) : base(
-        repository,
-        internalFacade,
-        createConverter,
-        transactionManager
-    ) { }
-
+    )
+    :
+        BaseTableCreateFacade
+        <
+            SimpleProperty,
+            SimplePropertyCreateRequest
+        >(
+            repository,
+            internalFacade,
+            createConverter,
+            transactionManager
+        ),
+        ISimplePropertiesTableCreateFacade
+{
     public async Task<Response> Execute(
         SimplePropertyTableCreateRequest tableRequest,
         AdminIdentity identity

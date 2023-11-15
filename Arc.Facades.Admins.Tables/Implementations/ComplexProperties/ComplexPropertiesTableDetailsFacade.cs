@@ -12,12 +12,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
-public sealed class ComplexPropertiesTableDetailsFacade :
-    BaseTableDetailsFacade
-    <ComplexProperty, ComplexPropertyReadResponse>,
-    IComplexPropertiesTableDetailsFacade
-{
-    public ComplexPropertiesTableDetailsFacade(
+public sealed class ComplexPropertiesTableDetailsFacade(
         IComplexPropertiesReadRepository
             readRepository,
         IResponsesDomainFacade
@@ -26,13 +21,17 @@ public sealed class ComplexPropertiesTableDetailsFacade :
             readConverter,
         IEntityNotFoundExceptionDescriptor
             entityNotFoundExceptionDescriptor
-    ) : base(
-        readRepository,
-        internalFacade,
-        readConverter,
-        entityNotFoundExceptionDescriptor
-    ) { }
-
+    )
+    :
+        BaseTableDetailsFacade
+        <ComplexProperty, ComplexPropertyReadResponse>(
+            readRepository,
+            internalFacade,
+            readConverter,
+            entityNotFoundExceptionDescriptor
+        ),
+        IComplexPropertiesTableDetailsFacade
+{
     protected override
         Func<
             IQueryable<ComplexProperty>,

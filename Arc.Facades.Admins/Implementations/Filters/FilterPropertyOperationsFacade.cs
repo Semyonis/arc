@@ -11,29 +11,15 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterPropertyType;
 
 namespace Arc.Facades.Admins.Implementations.Filters;
 
-public sealed class FilterPropertyOperationsFacade :
-    IFilterPropertyOperationsFacade
-{
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    public FilterPropertyOperationsFacade(
+public sealed class FilterPropertyOperationsFacade(
         IResponsesDomainFacade
             internalFacade,
         IBadDataExceptionDescriptor
             badDataExceptionDescriptor
     )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-    }
-
+    :
+        IFilterPropertyOperationsFacade
+{
     public Task Validate(
         AdminIdentity identity
     ) =>
@@ -74,11 +60,11 @@ public sealed class FilterPropertyOperationsFacade :
                     GetDateListOperators(),
                 _ =>
                     throw
-                        _badDataExceptionDescriptor.CreateException(),
+                        badDataExceptionDescriptor.CreateException(),
             };
 
         var responseDto =
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     operations
                 );

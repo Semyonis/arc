@@ -2,7 +2,10 @@
 
 namespace Arc.Dependencies.Logger.Implementations;
 
-public sealed class LoggerDecorator :
+public sealed class LoggerDecorator(
+    ILogger<LoggerDecorator>
+        logger
+) :
     ILoggerDecorator
 {
     public void Log(
@@ -10,7 +13,7 @@ public sealed class LoggerDecorator :
         string message,
         Exception exception
     ) =>
-        _logger
+        logger
             .Log(
                 logLevel,
                 exception,
@@ -22,24 +25,10 @@ public sealed class LoggerDecorator :
         Exception exception,
         string message
     ) =>
-        _logger
+        logger
             .LogError(
                 exception,
                 "{Message}",
                 message
             );
-
-#region Constructor
-
-    private readonly ILogger<LoggerDecorator>
-        _logger;
-
-    public LoggerDecorator(
-        ILogger<LoggerDecorator>
-            logger
-    ) =>
-        _logger =
-            logger;
-
-#endregion
 }

@@ -5,13 +5,10 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
-public sealed class GroupDescriptionsReadRepository :
-    IdReadRepositoryBase<GroupDescription>,
-    IGroupDescriptionsReadRepository
-{
-    public GroupDescriptionsReadRepository(
-        ArcDatabaseContext context
-    ) : base(
+public sealed class GroupDescriptionsReadRepository(
+    ArcDatabaseContext context
+) :
+    IdReadRepositoryBase<GroupDescription>(
         context
-    ) { }
-}
+    ),
+    IGroupDescriptionsReadRepository;

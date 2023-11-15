@@ -9,82 +9,7 @@ using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Admins.Implementations.Users;
 
-public sealed class ConfirmUserEmailFacade :
-    IConfirmUserEmailFacade
-{
-    public async Task<Response> Execute(
-        int userId,
-        AdminIdentity identity
-    )
-    {
-        var userEmail =
-            await
-                _usersReadRepository
-                    .GetEmailById(
-                        userId
-                    );
-
-        if (userEmail.IsEmpty())
-        {
-            throw
-                _userNotFoundExceptionDescriptor.CreateException();
-        }
-
-        var user =
-            await
-                _userManagerService
-                    .FindByEmail(
-                        userEmail
-                    );
-
-        if (user == default)
-        {
-            throw
-                _userNotFoundExceptionDescriptor.CreateException();
-        }
-
-        var token =
-            await
-                _userTokenManagerService
-                    .GetEmailChangeToken(
-                        user,
-                        userEmail
-                    );
-
-        var oldEmail =
-            user.Email!;
-
-        await
-            _userManagerService
-                .ConfirmNewEmail(
-                    token,
-                    oldEmail,
-                    oldEmail
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse();
-    }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly IUserTokenManagerService
-        _userTokenManagerService;
-
-    private readonly IUsersReadRepository
-        _usersReadRepository;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public ConfirmUserEmailFacade(
+public sealed class ConfirmUserEmailFacade(
         IUserManagerService
             userManagerService,
         IResponsesDomainFacade
@@ -96,22 +21,61 @@ public sealed class ConfirmUserEmailFacade :
         IUserNotFoundExceptionDescriptor
             userNotFoundExceptionDescriptor
     )
+    :
+        IConfirmUserEmailFacade
+{
+    public async Task<Response> Execute(
+        int userId,
+        AdminIdentity identity
+    )
     {
-        _userManagerService =
-            userManagerService;
+        var userEmail =
+            await
+                usersReadRepository
+                    .GetEmailById(
+                        userId
+                    );
 
-        _internalFacade =
-            internalFacade;
+        if (userEmail.IsEmpty())
+        {
+            throw
+                userNotFoundExceptionDescriptor.CreateException();
+        }
 
-        _userTokenManagerService =
-            userTokenManagerService;
+        var user =
+            await
+                userManagerService
+                    .FindByEmail(
+                        userEmail
+                    );
 
-        _usersReadRepository =
-            usersReadRepository;
+        if (user == default)
+        {
+            throw
+                userNotFoundExceptionDescriptor.CreateException();
+        }
 
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
+        var token =
+            await
+                userTokenManagerService
+                    .GetEmailChangeToken(
+                        user,
+                        userEmail
+                    );
+
+        var oldEmail =
+            user.Email!;
+
+        await
+            userManagerService
+                .ConfirmNewEmail(
+                    token,
+                    oldEmail,
+                    oldEmail
+                );
+
+        return
+            internalFacade
+                .CreateOkResponse();
     }
-
-#endregion
 }

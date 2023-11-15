@@ -6,66 +6,7 @@ using Arc.Infrastructure.Repositories.Read.Interfaces;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class UserDeleteDomainFacade :
-    IUserDeleteDomainFacade
-{
-    public async Task Delete(
-        int userId
-    )
-    {
-        var user =
-            await
-                _usersReadRepository
-                    .GetById(
-                        userId,
-                        default,
-                        false
-                    );
-
-        if (user == default)
-        {
-            throw
-                _userNotFoundExceptionDescriptor.CreateException();
-        }
-
-        await
-            _usersRepository
-                .DeleteAsync(
-                    user
-                );
-
-        var identityUser =
-            await
-                _userManagerService
-                    .FindByEmail(
-                        user.Email
-                    );
-
-        if (identityUser != default)
-        {
-            await
-                _userManagerService
-                    .Delete(
-                        identityUser
-                    );
-        }
-    }
-
-#region Constrctor
-
-    private readonly IUsersReadRepository
-        _usersReadRepository;
-
-    private readonly IDeleteRepository
-        _usersRepository;
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public UserDeleteDomainFacade(
+public sealed class UserDeleteDomainFacade(
         IUsersReadRepository
             usersReadRepository,
         IDeleteRepository
@@ -75,19 +16,52 @@ public sealed class UserDeleteDomainFacade :
         IUserNotFoundExceptionDescriptor
             userNotFoundExceptionDescriptor
     )
+    :
+        IUserDeleteDomainFacade
+{
+    public async Task Delete(
+        int userId
+    )
     {
-        _usersReadRepository =
-            usersReadRepository;
+        var user =
+            await
+                usersReadRepository
+                    .GetById(
+                        userId,
+                        default,
+                        false
+                    );
 
-        _usersRepository =
-            usersRepository;
+        if (user == default)
+        {
+            throw
+                userNotFoundExceptionDescriptor.CreateException();
+        }
 
-        _userManagerService =
-            userManagerService;
+        await
+            usersRepository
+                .DeleteAsync(
+                    user
+                );
 
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
+        var identityUser =
+            await
+                userManagerService
+                    .FindByEmail(
+                        user.Email
+                    );
+
+        if (identityUser != default)
+        {
+            await
+                userManagerService
+                    .Delete(
+                        identityUser
+                    );
+        }
     }
+
+#region Constrctor
 
 #endregion
 }

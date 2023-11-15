@@ -8,4 +8,4 @@ namespace Arc.Infrastructure.Services.Attributes;
     | AttributeTargets.Parameter
 )]
 public sealed class DontNormalizeStringAttribute :
-    Attribute { }
+    Attribute;

@@ -16,7 +16,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Arc.Executable.WebApi;
 
-public sealed class Startup
+public sealed class Startup(IConfiguration
+        configuration,
+    ILoggerFactory
+        loggerFactory)
 {
     public void ConfigureServices(
         IServiceCollection services
@@ -33,10 +36,10 @@ public sealed class Startup
         services
             .SetupIdentity()
             .SetupAuthentication(
-                _configuration
+                configuration
             )
             .SetupCors(
-                _configuration
+                configuration
             )
             .Configure<ForwardedHeadersOptions>(
                 options =>
@@ -50,8 +53,8 @@ public sealed class Startup
             )
             .SetupSwagger()
             .SetupContext(
-                _loggerFactory,
-                _configuration
+                loggerFactory,
+                configuration
             )
             .AddDistributedMemoryCache()
             /*.AddStackExchangeRedisCache(
@@ -62,7 +65,7 @@ public sealed class Startup
                 }
             )*/
             .SetupSettings(
-                _configuration
+                configuration
             )
             .SetupFilters()
             .AddJsonOptions(
@@ -108,7 +111,7 @@ public sealed class Startup
 
         builder
             .RegisterSwagger(
-                _configuration
+                configuration
             );
 
         builder.UseWebSockets();
@@ -117,28 +120,4 @@ public sealed class Startup
         builder.UseAuthorization();
         builder.SetupControllers();
     }
-
-#region Constructor
-
-    private readonly IConfiguration
-        _configuration;
-
-    private readonly ILoggerFactory
-        _loggerFactory;
-
-    public Startup(
-        IConfiguration
-            configuration,
-        ILoggerFactory
-            loggerFactory
-    )
-    {
-        _configuration =
-            configuration;
-
-        _loggerFactory =
-            loggerFactory;
-    }
-
-#endregion
 }

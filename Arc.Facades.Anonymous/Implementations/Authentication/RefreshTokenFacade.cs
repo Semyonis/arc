@@ -16,8 +16,24 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Arc.Facades.Anonymous.Implementations.Authentication;
 
-public sealed class RefreshTokenFacade :
-    IRefreshTokenFacade
+public sealed class RefreshTokenFacade(
+        IUserManagerService
+            userManagerService,
+        IResponsesDomainFacade
+            internalFacade,
+        IUserTokenManagerService
+            userTokenManagerService,
+        IAuthenticationTokensCreateDomainFacade
+            authenticationTokensCreateDomainFacade,
+        IInvalidTokenExceptionDescriptor
+            invalidTokenExceptionDescriptor,
+        IBadDataExceptionDescriptor
+            badDataExceptionDescriptor,
+        IUserNotFoundExceptionDescriptor
+            userNotFoundExceptionDescriptor
+    )
+    :
+        IRefreshTokenFacade
 {
     public async Task<Response> Execute(
         RefreshTokenRequest model
@@ -44,7 +60,7 @@ public sealed class RefreshTokenFacade :
 
         var identity =
             await
-                _userManagerService
+                userManagerService
                     .FindByEmail(
                         email!
                     );
@@ -52,12 +68,12 @@ public sealed class RefreshTokenFacade :
         if (identity == default)
         {
             throw
-                _userNotFoundExceptionDescriptor.CreateException();
+                userNotFoundExceptionDescriptor.CreateException();
         }
 
         var refreshToken =
             await
-                _userTokenManagerService
+                userTokenManagerService
                     .GetAuthenticationToken(
                         identity
                     );
@@ -65,7 +81,7 @@ public sealed class RefreshTokenFacade :
         if (refreshToken != model.TokenRefresh)
         {
             throw
-                _invalidTokenExceptionDescriptor
+                invalidTokenExceptionDescriptor
                     .CreateException();
         }
 
@@ -77,7 +93,7 @@ public sealed class RefreshTokenFacade :
 
         var authenticationModel =
             await
-                _authenticationTokensCreateDomainFacade
+                authenticationTokensCreateDomainFacade
                     .CreateTokens(
                         args
                     );
@@ -90,7 +106,7 @@ public sealed class RefreshTokenFacade :
             );
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     response
                 );
@@ -111,7 +127,7 @@ public sealed class RefreshTokenFacade :
         if (hasNoToken)
         {
             throw
-                _badDataExceptionDescriptor.CreateException();
+                badDataExceptionDescriptor.CreateException();
         }
 
         var canReadToken =
@@ -130,7 +146,7 @@ public sealed class RefreshTokenFacade :
         }
 
         throw
-            _invalidTokenExceptionDescriptor
+            invalidTokenExceptionDescriptor
                 .CreateException();
     }
 
@@ -141,14 +157,14 @@ public sealed class RefreshTokenFacade :
         if (token == default)
         {
             throw
-                _invalidTokenExceptionDescriptor
+                invalidTokenExceptionDescriptor
                     .CreateException();
         }
 
         if (token.ValidTo < DateTime.UtcNow)
         {
             throw
-                _invalidTokenExceptionDescriptor
+                invalidTokenExceptionDescriptor
                     .CreateException();
         }
     }
@@ -237,68 +253,4 @@ public sealed class RefreshTokenFacade :
                     claim.Value
             )
             .SingleOrDefault();
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly IUserTokenManagerService
-        _userTokenManagerService;
-
-    private readonly IAuthenticationTokensCreateDomainFacade
-        _authenticationTokensCreateDomainFacade;
-
-    private readonly IInvalidTokenExceptionDescriptor
-        _invalidTokenExceptionDescriptor;
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public RefreshTokenFacade(
-        IUserManagerService
-            userManagerService,
-        IResponsesDomainFacade
-            internalFacade,
-        IUserTokenManagerService
-            userTokenManagerService,
-        IAuthenticationTokensCreateDomainFacade
-            authenticationTokensCreateDomainFacade,
-        IInvalidTokenExceptionDescriptor
-            invalidTokenExceptionDescriptor,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    {
-        _userManagerService =
-            userManagerService;
-
-        _internalFacade =
-            internalFacade;
-
-        _userTokenManagerService =
-            userTokenManagerService;
-
-        _authenticationTokensCreateDomainFacade =
-            authenticationTokensCreateDomainFacade;
-
-        _invalidTokenExceptionDescriptor =
-            invalidTokenExceptionDescriptor;
-
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
-    }
-
-#endregion
 }

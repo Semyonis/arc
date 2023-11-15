@@ -8,16 +8,13 @@ namespace Arc.Controllers.Anonymous.Implementations.Authentication;
 [ControllerGroup(
     "Authentication"
 )]
-public sealed class RefreshTokenController :
-    AnonymousArcController
-{
-    public RefreshTokenController(
-        IRefreshTokenFacade
-            facade
-    ) : base(
+public sealed class RefreshTokenController(
+    IRefreshTokenFacade
         facade
-    ) { }
-
+) :
+    AnonymousArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType(
         typeof(AuthenticationResponse)

@@ -8,8 +8,16 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Facades.Admins.Implementations.Users;
 
-public sealed class UsersUpdateFacade :
-    IUsersUpdateFacade
+public sealed class UsersUpdateFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        ITransactionManager
+            transactionManager,
+        IUserUpdateDomainFacade
+            userUpdateDomainFacade
+    )
+    :
+        IUsersUpdateFacade
 {
     public async Task<Response> Execute(
         UserAdminEditRequest request,
@@ -18,7 +26,7 @@ public sealed class UsersUpdateFacade :
     {
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         var newUser =
@@ -29,7 +37,7 @@ public sealed class UsersUpdateFacade :
             );
 
         await
-            _userUpdateDomainFacade
+            userUpdateDomainFacade
                 .Update(
                     newUser
                 );
@@ -39,39 +47,7 @@ public sealed class UsersUpdateFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    private readonly IUserUpdateDomainFacade
-        _userUpdateDomainFacade;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    public UsersUpdateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IUserUpdateDomainFacade
-            userUpdateDomainFacade
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _transactionManager =
-            transactionManager;
-
-        _userUpdateDomainFacade =
-            userUpdateDomainFacade;
-    }
-
-#endregion
 }

@@ -9,7 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations.Base;
 
-public abstract class Repository
+public abstract class Repository(ArcDatabaseContext
+        context,
+    IDictionariesManager
+        dictionariesManager)
 {
     protected async Task<int> InvokeActionAndSaveChangesAsync<TEntity>(
         TEntity item,
@@ -56,7 +59,7 @@ public abstract class Repository
         where TEntity : class
     {
         var entitySet =
-            _context
+            context
                 .Set<TEntity>();
 
         action(
@@ -72,7 +75,7 @@ public abstract class Repository
         where TEntity : class
     {
         var entitySet =
-            _context
+            context
                 .Set<TEntity>();
 
         action(
@@ -86,19 +89,19 @@ public abstract class Repository
     )
     {
         var updatedEntitiesCount =
-            _context
+            context
                 .SaveChangesAsync(
                     cancellationToken
                 );
 
         var databaseCurrentTransaction =
-            _context
+            context
                 .Database
                 .CurrentTransaction;
 
         if (databaseCurrentTransaction == default)
         {
-            _dictionariesManager
+            dictionariesManager
                 .Update(
                     typeof(TEntity)
                 );
@@ -106,28 +109,4 @@ public abstract class Repository
 
         return updatedEntitiesCount;
     }
-
-#region Constructor
-
-    private readonly ArcDatabaseContext
-        _context;
-
-    private readonly IDictionariesManager
-        _dictionariesManager;
-
-    protected Repository(
-        ArcDatabaseContext
-            context,
-        IDictionariesManager
-            dictionariesManager
-    )
-    {
-        _context =
-            context;
-
-        _dictionariesManager =
-            dictionariesManager;
-    }
-
-#endregion
 }

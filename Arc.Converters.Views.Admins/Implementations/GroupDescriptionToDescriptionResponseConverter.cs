@@ -6,4 +6,4 @@ namespace Arc.Converters.Views.Admins.Implementations;
 
 public sealed class GroupDescriptionToDescriptionResponseConverter :
     BaseDescriptionResponseConverter<GroupDescription>,
-    IGroupDescriptionToDescriptionResponseConverter { }
+    IGroupDescriptionToDescriptionResponseConverter;

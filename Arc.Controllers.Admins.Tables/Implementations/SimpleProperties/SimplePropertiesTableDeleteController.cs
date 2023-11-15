@@ -7,13 +7,10 @@ namespace Arc.Controllers.Admins.Tables.Implementations.SimpleProperties;
 [ControllerGroup(
     "SimpleProperties"
 )]
-public sealed class SimplePropertiesTableDeleteController :
-    BaseTableAuthorizedDeleteController
-{
-    public SimplePropertiesTableDeleteController(
+public sealed class SimplePropertiesTableDeleteController(
         ISimplePropertiesTableDeleteFacade
             facade
-    ) : base(
-        facade
-    ) { }
-}
+    )
+    :
+        BaseTableAuthorizedDeleteController(facade
+    );

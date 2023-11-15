@@ -4,4 +4,4 @@ using Arc.Models.BusinessLogic.Models.Identities;
 namespace Arc.Dependencies.Cache.Interfaces;
 
 public interface IUserIdentityCache :
-    IIntegerCacheBase<UserIdentity> { }
+    IIntegerCacheBase<UserIdentity>;

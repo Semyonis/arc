@@ -9,4 +9,4 @@ public interface IAdminToListItemResponseConverter :
     <
         Admin,
         ListItemResponse
-    > { }
+    >;

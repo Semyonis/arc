@@ -11,15 +11,7 @@ using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
-public sealed class ComplexPropertiesTableCreateFacade :
-    BaseTableCreateFacade
-    <
-        ComplexProperty,
-        ComplexPropertyCreateRequest
-    >,
-    IComplexPropertiesTableCreateFacade
-{
-    public ComplexPropertiesTableCreateFacade(
+public sealed class ComplexPropertiesTableCreateFacade(
         ICreateRepository
             repository,
         IResponsesDomainFacade
@@ -28,13 +20,20 @@ public sealed class ComplexPropertiesTableCreateFacade :
             createConverter,
         ITransactionManager
             transactionManager
-    ) : base(
-        repository,
-        internalFacade,
-        createConverter,
-        transactionManager
-    ) { }
-
+    )
+    :
+        BaseTableCreateFacade
+        <
+            ComplexProperty,
+            ComplexPropertyCreateRequest
+        >(
+            repository,
+            internalFacade,
+            createConverter,
+            transactionManager
+        ),
+        IComplexPropertiesTableCreateFacade
+{
     public async Task<Response> Execute(
         ComplexPropertyTableCreateRequest request,
         AdminIdentity identity

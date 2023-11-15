@@ -9,4 +9,4 @@ public interface IGroupModelToListItemResponseConverter :
     <
         GroupModel,
         ListItemResponse
-    > { }
+    >;

@@ -11,8 +11,16 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.FilterParameters.Factories.Implementations;
 
-public class DateTimeFilterParameterFactory :
-    IDateTimeFilterParameterFactory
+public class DateTimeFilterParameterFactory(
+        ISerializationDecorator
+            serializationDecorator,
+        IBadDataExceptionDescriptor
+            badDataExceptionDescriptor,
+        IDateCompareFunctions
+            dateCompareFunctions
+    )
+    :
+        IDateTimeFilterParameterFactory
 {
     public FilterParameterBase<TEntity> GetFilterParameter
     <
@@ -28,7 +36,7 @@ public class DateTimeFilterParameterFactory :
         if (filter.Operation == InRange)
         {
             var range =
-                _serializationDecorator
+                serializationDecorator
                     .Deserialize
                     <
                         DateTimeRangeModel
@@ -39,7 +47,7 @@ public class DateTimeFilterParameterFactory :
             if (range == default)
             {
                 throw
-                    _badDataExceptionDescriptor.CreateException();
+                    badDataExceptionDescriptor.CreateException();
             }
 
             return
@@ -68,7 +76,7 @@ public class DateTimeFilterParameterFactory :
                     );
 
                 var compareFunction =
-                    _dateCompareFunctions.GetFunction(
+                    dateCompareFunctions.GetFunction(
                         filter.Operation
                     );
 
@@ -85,39 +93,7 @@ public class DateTimeFilterParameterFactory :
             }
             default:
                 throw
-                    _badDataExceptionDescriptor.CreateException();
+                    badDataExceptionDescriptor.CreateException();
         }
     }
-
-#region Constructor
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    private readonly IDateCompareFunctions
-        _dateCompareFunctions;
-
-    private readonly ISerializationDecorator
-        _serializationDecorator;
-
-    public DateTimeFilterParameterFactory(
-        ISerializationDecorator
-            serializationDecorator,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IDateCompareFunctions
-            dateCompareFunctions
-    )
-    {
-        _serializationDecorator =
-            serializationDecorator;
-
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-
-        _dateCompareFunctions =
-            dateCompareFunctions;
-    }
-
-#endregion
 }

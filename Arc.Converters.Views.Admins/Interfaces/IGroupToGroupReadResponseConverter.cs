@@ -9,4 +9,4 @@ public interface IGroupToGroupReadResponseConverter :
     <
         Group,
         GroupReadResponse
-    > { }
+    >;

@@ -5,16 +5,14 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Controllers.Admins.Implementations.Admins;
 
-public sealed class AdminsPasswordUpdateController :
-    AdminAuthorizedArcController
-{
-    public AdminsPasswordUpdateController(
+public sealed class AdminsPasswordUpdateController(
         IAdminsPasswordUpdateFacade
             facade
-    ) : base(
-        facade
-    ) { }
-
+    )
+    :
+        AdminAuthorizedArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType]
     public async Task<IActionResult> Call(

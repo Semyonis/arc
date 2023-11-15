@@ -4,20 +4,14 @@ using Arc.Infrastructure.Repositories.Read.Interfaces;
 
 namespace Arc.Facades.Domain.Filters.Implementations;
 
-public sealed class OperatingModeFilterFacade :
-    IOperatingModeFilterFacade
-{
-#region Constructor
-
-    private readonly IServiceModesReadRepository
-        _serviceModesReadRepository;
-
-    public OperatingModeFilterFacade(
+public sealed class OperatingModeFilterFacade(
         IServiceModesReadRepository
             serviceModesReadRepository
-    ) =>
-        _serviceModesReadRepository =
-            serviceModesReadRepository;
+    )
+    :
+        IOperatingModeFilterFacade
+{
+#region Constructor
 
 #endregion
 
@@ -25,7 +19,7 @@ public sealed class OperatingModeFilterFacade :
     {
         var currentMode =
             await
-                _serviceModesReadRepository
+                serviceModesReadRepository
                     .GetCurrent();
 
         return

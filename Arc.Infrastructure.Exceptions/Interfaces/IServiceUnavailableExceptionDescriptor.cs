@@ -3,4 +3,4 @@
 namespace Arc.Infrastructure.Exceptions.Interfaces;
 
 public interface IServiceUnavailableExceptionDescriptor :
-    IExceptionDescriptorBase { }
+    IExceptionDescriptorBase;

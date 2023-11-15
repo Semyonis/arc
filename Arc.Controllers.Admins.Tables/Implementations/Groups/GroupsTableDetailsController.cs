@@ -10,16 +10,13 @@ namespace Arc.Controllers.Admins.Tables.Implementations.Groups;
 [ControllerGroup(
     "Groups"
 )]
-public sealed class GroupsTableDetailsController :
-    BaseTableAuthorizedDetailsController
-{
-    public GroupsTableDetailsController(
-        IGroupsTableDetailsFacade
-            facade
-    ) : base(
+public sealed class GroupsTableDetailsController(
+    IGroupsTableDetailsFacade
         facade
-    ) { }
-
+) :
+    BaseTableAuthorizedDetailsController(facade
+    )
+{
     [HttpGet(
         "{entityId:int}"
     )]

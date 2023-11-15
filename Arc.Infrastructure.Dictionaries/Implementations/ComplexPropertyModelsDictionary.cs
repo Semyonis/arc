@@ -7,18 +7,17 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Infrastructure.Dictionaries.Implementations;
 
-public sealed class ComplexPropertyModelsDictionary :
-    ModelDictionaryBaseIntegerKeys<ComplexPropertyModel>,
-    IComplexPropertyModelsDictionary
-{
-    public ComplexPropertyModelsDictionary(
+public sealed class ComplexPropertyModelsDictionary(
         IDictionariesManager dictionaryManager,
         IDataCache dataCache
-    ) : base(
-        dictionaryManager,
-        dataCache
-    ) { }
-
+    )
+    :
+        ModelDictionaryBaseIntegerKeys<ComplexPropertyModel>(
+            dictionaryManager,
+            dataCache
+        ),
+        IComplexPropertyModelsDictionary
+{
     protected override IReadOnlyList<Type> GetDependencies() =>
         new[]
         {

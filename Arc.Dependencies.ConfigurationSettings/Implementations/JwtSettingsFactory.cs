@@ -1,12 +1,9 @@
 ﻿namespace Arc.Dependencies.ConfigurationSettings.Implementations;
 
-public sealed class JwtSettingsFactory :
-    SettingsFactoryBase<JwtSettings>,
-    IJwtSettingsFactory
-{
-    public JwtSettingsFactory(
-        IOptions<JwtSettings> option
-    ) : base(
+public sealed class JwtSettingsFactory(
+    IOptions<JwtSettings> option
+) :
+    SettingsFactoryBase<JwtSettings>(
         option
-    ) { }
-}
+    ),
+    IJwtSettingsFactory;

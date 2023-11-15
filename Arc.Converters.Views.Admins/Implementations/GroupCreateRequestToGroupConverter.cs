@@ -4,30 +4,24 @@ using Arc.Models.Views.Admins.Tables.Models.Groups;
 
 namespace Arc.Converters.Views.Admins.Implementations;
 
-public sealed class GroupCreateRequestToGroupConverter :
-    ConverterBase
-    <
-        GroupCreateRequest,
-        Group
-    >,
-    IGroupCreateRequestToGroupConverter
-{
-    private readonly IDescriptionCreateRequestToGroupDescriptionConverter
-        _descriptionCreateRequestToGroupDescriptionConverter;
-
-    public GroupCreateRequestToGroupConverter(
+public sealed class GroupCreateRequestToGroupConverter(
         IDescriptionCreateRequestToGroupDescriptionConverter
             descriptionCreateRequestToGroupDescriptionConverter
-    ) =>
-        _descriptionCreateRequestToGroupDescriptionConverter =
-            descriptionCreateRequestToGroupDescriptionConverter;
-
+    )
+    :
+        ConverterBase
+        <
+            GroupCreateRequest,
+            Group
+        >,
+        IGroupCreateRequestToGroupConverter
+{
     public override Group Convert(
         GroupCreateRequest entityCreate
     )
     {
         var description =
-            _descriptionCreateRequestToGroupDescriptionConverter
+            descriptionCreateRequestToGroupDescriptionConverter
                 .Convert(
                     entityCreate.Description
                 );

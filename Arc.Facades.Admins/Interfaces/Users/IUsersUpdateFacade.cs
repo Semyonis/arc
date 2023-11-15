@@ -9,4 +9,4 @@ public interface IUsersUpdateFacade :
     <
         UserAdminEditRequest,
         AdminIdentity
-    > { }
+    >;

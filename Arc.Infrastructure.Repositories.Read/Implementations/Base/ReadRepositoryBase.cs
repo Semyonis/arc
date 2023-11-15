@@ -12,18 +12,14 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations.Base;
 
-public abstract class ReadRepositoryBase<TEntity>
+public abstract class ReadRepositoryBase<TEntity>(
+    DbContext context
+)
     where TEntity : class
 {
     private readonly DbSet<TEntity>
-        _entitySet;
-
-    protected ReadRepositoryBase(
-        DbContext context
-    ) =>
-        _entitySet =
-            context
-                .Set<TEntity>();
+        _entitySet = context
+            .Set<TEntity>();
 
     public async Task<int> GetCountByFiltersAsync(
         IReadOnlyList<FilterParameterBase<TEntity>>? filters = default,

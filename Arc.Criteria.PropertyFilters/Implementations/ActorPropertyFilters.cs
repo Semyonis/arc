@@ -9,19 +9,13 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Ac
 
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
-public sealed class ActorPropertyFilters :
-    IActorPropertyFilters
-{
-    private readonly IGenericFilterPropertyFromExpressionFactoryService
-        _genericFilterPropertyFromExpressionFactoryService;
-
-    public ActorPropertyFilters(
+public sealed class ActorPropertyFilters(
         IGenericFilterPropertyFromExpressionFactoryService
             genericFilterPropertyFromExpressionFactoryService
-    ) =>
-        _genericFilterPropertyFromExpressionFactoryService =
-            genericFilterPropertyFromExpressionFactoryService;
-
+    )
+    :
+        IActorPropertyFilters
+{
     public FilterParameterBase<Actor> GetEmailEqualFilter(
         string pattern
     )
@@ -33,7 +27,7 @@ public sealed class ActorPropertyFilters :
             );
 
         return
-            _genericFilterPropertyFromExpressionFactoryService
+            genericFilterPropertyFromExpressionFactoryService
                 .GetProperty(
                     GetEmail(),
                     filterPropertyRequestModel

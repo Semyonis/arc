@@ -8,13 +8,10 @@ namespace Arc.Controllers.Admins.Tables.Implementations.SimpleProperties;
 [ControllerGroup(
     "SimpleProperties"
 )]
-public sealed class SimplePropertiesTableCreateController :
-    BaseTableAuthorizedCreateController<SimplePropertyTableCreateRequest>
-{
-    public SimplePropertiesTableCreateController(
+public sealed class SimplePropertiesTableCreateController(
         ISimplePropertiesTableCreateFacade
             facade
-    ) : base(
-        facade
-    ) { }
-}
+    )
+    :
+        BaseTableAuthorizedCreateController<SimplePropertyTableCreateRequest>(facade
+    );

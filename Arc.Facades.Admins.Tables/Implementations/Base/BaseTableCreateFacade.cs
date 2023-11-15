@@ -13,7 +13,16 @@ public abstract class BaseTableCreateFacade
 <
     TEntity,
     TCreateEntityRequest
->
+>(
+    ICreateRepository
+        repository,
+    IResponsesDomainFacade
+        internalFacade,
+    IConverterBase<TCreateEntityRequest, TEntity>
+        createConverter,
+    ITransactionManager
+        transactionManager
+)
     where TEntity : class, IWithIdentifier
 {
     protected async Task<Response> Execute(
@@ -28,19 +37,19 @@ public abstract class BaseTableCreateFacade
             );
 
         var entityList =
-            _createConverter
+            createConverter
                 .Convert(
                     newEntities
                 );
 
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         var createdCount =
             await
-                _repository
+                repository
                     .CreateCollectionAsync(
                       entityList
                     );
@@ -64,7 +73,7 @@ public abstract class BaseTableCreateFacade
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     result
                 );
@@ -75,44 +84,4 @@ public abstract class BaseTableCreateFacade
         AdminIdentity identity
     ) =>
         Task.CompletedTask;
-
-#region Constructor
-
-    private readonly IConverterBase<TCreateEntityRequest, TEntity>
-        _createConverter;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly ICreateRepository
-        _repository;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    protected BaseTableCreateFacade(
-        ICreateRepository
-            repository,
-        IResponsesDomainFacade
-            internalFacade,
-        IConverterBase<TCreateEntityRequest, TEntity>
-            createConverter,
-        ITransactionManager
-            transactionManager
-    )
-    {
-        _repository =
-            repository;
-
-        _internalFacade =
-            internalFacade;
-
-        _createConverter =
-            createConverter;
-
-        _transactionManager =
-            transactionManager;
-    }
-
-#endregion
 }

@@ -10,4 +10,4 @@ public interface IBaseDescriptionResponseConverter<in TEntity> :
         TEntity,
         DescriptionResponse
     >
-    where TEntity : BaseDescription { }
+    where TEntity : BaseDescription;

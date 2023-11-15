@@ -10,7 +10,10 @@ using Microsoft.Extensions.Logging;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class ExceptionLogDomainFacade :
+public sealed class ExceptionLogDomainFacade(
+    ILoggerDecorator
+        logger
+) :
     IExceptionLogDomainFacade
 {
     private static readonly JsonSerializerOptions
@@ -38,7 +41,7 @@ public sealed class ExceptionLogDomainFacade :
         if (exception is ServerException serverException)
         {
             HandleServerException(
-                _logger,
+                logger,
                 errorData,
                 serverException
             );
@@ -52,7 +55,7 @@ public sealed class ExceptionLogDomainFacade :
                         JsonSerializerOptions
                     );
 
-            _logger
+            logger
                 .LogError(
                     exception,
                     message
@@ -92,18 +95,4 @@ public sealed class ExceptionLogDomainFacade :
                 serverException
             );
     }
-
-#region Constructor
-
-    private readonly ILoggerDecorator
-        _logger;
-
-    public ExceptionLogDomainFacade(
-        ILoggerDecorator
-            logger
-    ) =>
-        _logger =
-            logger;
-
-#endregion
 }

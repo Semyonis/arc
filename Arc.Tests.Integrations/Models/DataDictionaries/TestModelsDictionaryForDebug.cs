@@ -5,13 +5,10 @@ using Arc.Tests.Integrations.Models.DataDictionaries.Base;
 
 namespace Arc.Tests.Integrations.Models.DataDictionaries;
 
-public sealed class TestModelsDictionaryForDebug :
-    ModelDictionaryBaseForDebug<int, GroupModel>,
-    IGroupModelsDictionary
-{
-    public TestModelsDictionaryForDebug(
-        IDictionariesManager dictionaryManager
-    ) : base(
+public sealed class TestModelsDictionaryForDebug(
+    IDictionariesManager dictionaryManager
+) :
+    ModelDictionaryBaseForDebug<int, GroupModel>(
         dictionaryManager
-    ) { }
-}
+    ),
+    IGroupModelsDictionary;

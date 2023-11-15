@@ -8,16 +8,13 @@ namespace Arc.Controllers.Anonymous.Implementations.Authentication;
 [ControllerGroup(
     "Authentication"
 )]
-public sealed class ForgotPasswordController :
-    AnonymousArcController
-{
-    public ForgotPasswordController(
-        IForgotPasswordFacade
-            facade
-    ) : base(
+public sealed class ForgotPasswordController(
+    IForgotPasswordFacade
         facade
-    ) { }
-
+) :
+    AnonymousArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType(
         typeof(string)

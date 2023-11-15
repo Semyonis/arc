@@ -8,4 +8,4 @@ public interface IExtendedTableDetailsFacade :
     <
         int,
         AdminIdentity
-    > { }
+    >;

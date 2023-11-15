@@ -8,8 +8,16 @@ using Arc.Models.Views.Users.Models;
 
 namespace Arc.Facades.Users.Implementations;
 
-public sealed class PasswordUpdateFacade :
-    IPasswordUpdateFacade
+public sealed class PasswordUpdateFacade(
+        IUsersReadRepository
+            usersReadRepository,
+        IResponsesDomainFacade
+            internalFacade,
+        IUserPasswordManagerService
+            userPasswordManagerService
+    )
+    :
+        IPasswordUpdateFacade
 {
     public async Task<Response> Execute(
         ChangePasswordRequest model,
@@ -18,13 +26,13 @@ public sealed class PasswordUpdateFacade :
     {
         var user =
             await
-                _usersReadRepository
+                usersReadRepository
                     .GetById(
                         identity.Id
                     );
 
         await
-            _userPasswordManagerService
+            userPasswordManagerService
                 .ChangePassword(
                     user!.Email,
                     model.CurrentPassword,
@@ -32,39 +40,7 @@ public sealed class PasswordUpdateFacade :
                 );
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUserPasswordManagerService
-        _userPasswordManagerService;
-
-    private readonly IUsersReadRepository
-        _usersReadRepository;
-
-    public PasswordUpdateFacade(
-        IUsersReadRepository
-            usersReadRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        IUserPasswordManagerService
-            userPasswordManagerService
-    )
-    {
-        _usersReadRepository =
-            usersReadRepository;
-
-        _internalFacade =
-            internalFacade;
-
-        _userPasswordManagerService =
-            userPasswordManagerService;
-    }
-
-#endregion
 }

@@ -8,18 +8,15 @@ namespace Arc.Controllers.Base.Implementations;
 
 [ApiController]
 [DefaultApiRoute]
-public abstract class BaseArcController :
+public abstract class BaseArcController(
+    object
+        executionFacade
+) :
     ControllerBase
 {
     protected readonly object
-        facade;
+        facade = executionFacade;
 
-    protected BaseArcController(
-        object
-            executionFacade
-    ) =>
-        facade =
-            executionFacade;
     protected static ResultContainer<TItem> GetItem<TItem>(
         HttpContext httpContext,
         string key

@@ -7,45 +7,7 @@ using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Users.Implementations;
 
-public sealed class CurrentFacade :
-    ICurrentFacade
-{
-    public async Task<Response> Execute(
-        UserIdentity identity
-    )
-    {
-        var user =
-            await
-                _usersReadRepository
-                    .GetById(
-                        identity.Id
-                    );
-
-        var response =
-            _userToUserResponseConverter
-                .Convert(
-                    user!
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse(
-                    response
-                );
-    }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUsersReadRepository
-        _usersReadRepository;
-
-    private readonly IUserToUserResponseConverter
-        _userToUserResponseConverter;
-
-    public CurrentFacade(
+public sealed class CurrentFacade(
         IResponsesDomainFacade
             internalFacade,
         IUsersReadRepository
@@ -53,16 +15,30 @@ public sealed class CurrentFacade :
         IUserToUserResponseConverter
             userToUserResponseConverter
     )
+    :
+        ICurrentFacade
+{
+    public async Task<Response> Execute(
+        UserIdentity identity
+    )
     {
-        _internalFacade =
-            internalFacade;
+        var user =
+            await
+                usersReadRepository
+                    .GetById(
+                        identity.Id
+                    );
 
-        _usersReadRepository =
-            usersReadRepository;
+        var response =
+            userToUserResponseConverter
+                .Convert(
+                    user!
+                );
 
-        _userToUserResponseConverter =
-            userToUserResponseConverter;
+        return
+            internalFacade
+                .CreateOkResponse(
+                    response
+                );
     }
-
-#endregion
 }

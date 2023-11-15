@@ -15,14 +15,22 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace Arc.Infrastructure.Storages.Implementations.Base;
 
 public abstract class ModelStorageBase
-<
-    TKey,
-    TModel,
-    TEntity,
-    TDictionary,
-    TConverter
-> :
-    IModelStorageBase<TKey, TModel>
+    <
+        TKey,
+        TModel,
+        TEntity,
+        TDictionary,
+        TConverter
+    >(
+        IReadRepositoryBase<TEntity>
+            readRepository,
+        TDictionary
+            dictionary,
+        TConverter
+            converter
+    )
+    :
+        IModelStorageBase<TKey, TModel>
     where TKey : notnull
     where TModel : class, IWithIdentifier
     where TEntity : class, IWithIdentifier
@@ -72,7 +80,7 @@ public abstract class ModelStorageBase
 
         var entities =
             await
-                _readRepository
+                readRepository
                     .GetListByFiltersAsync(
                         GetFilters(),
                         include
@@ -149,32 +157,10 @@ public abstract class ModelStorageBase
 #region Constructor
 
     private readonly TConverter
-        _converter;
+        _converter = converter;
 
     private readonly TDictionary
-        _dictionary;
-
-    private readonly IReadRepositoryBase<TEntity>
-        _readRepository;
-
-    protected ModelStorageBase(
-        IReadRepositoryBase<TEntity>
-            readRepository,
-        TDictionary
-            dictionary,
-        TConverter
-            converter
-    )
-    {
-        _dictionary =
-            dictionary;
-
-        _converter =
-            converter;
-
-        _readRepository =
-            readRepository;
-    }
+        _dictionary = dictionary;
 
 #endregion
 }

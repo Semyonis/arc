@@ -2,18 +2,17 @@
 
 namespace Arc.Infrastructure.Common.Models.Dependencies;
 
-public sealed record ScopeDependency :
-    DependencyBase
-{
-    public ScopeDependency(
-        Type @interface,
-        Type implementation
-    ) : base(
-        @interface,
-        implementation,
+public sealed record ScopeDependency(
+        Type Interface,
+        Type Implementation
+    )
+    :
+        DependencyBase(
+        Interface,
+        Implementation,
         LifeTimeType.Scoped
-    ) { }
-
+    )
+{
     public static implicit operator ScopeDependency(
         (Type iterface, Type implementation) pair
     ) =>

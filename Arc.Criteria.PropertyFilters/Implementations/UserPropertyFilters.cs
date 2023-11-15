@@ -9,19 +9,13 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
-public sealed class UserPropertyFilters :
-    IUserPropertyFilters
-{
-    private readonly IGenericFilterPropertyFromExpressionFactoryService
-        _genericFilterPropertyFromExpressionFactoryService;
-
-    public UserPropertyFilters(
+public sealed class UserPropertyFilters(
         IGenericFilterPropertyFromExpressionFactoryService
             genericFilterPropertyFromExpressionFactoryService
-    ) =>
-        _genericFilterPropertyFromExpressionFactoryService =
-            genericFilterPropertyFromExpressionFactoryService;
-
+    )
+    :
+        IUserPropertyFilters
+{
     public FilterParameterBase<User> GetEmailEqualFilter(
         string pattern
     )
@@ -33,7 +27,7 @@ public sealed class UserPropertyFilters :
             );
 
         return
-            _genericFilterPropertyFromExpressionFactoryService
+            genericFilterPropertyFromExpressionFactoryService
                 .GetProperty(
                     UserExpressions.GetEmail(),
                     filterPropertyRequestModel

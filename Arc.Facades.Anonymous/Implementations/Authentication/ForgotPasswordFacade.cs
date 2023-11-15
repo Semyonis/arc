@@ -7,46 +7,7 @@ using Arc.Models.Views.Anonymous.Models;
 
 namespace Arc.Facades.Anonymous.Implementations.Authentication;
 
-public sealed class ForgotPasswordFacade :
-    IForgotPasswordFacade
-{
-    public async Task<Response> Execute(
-        ForgotPasswordRequest model
-    )
-    {
-        var user =
-            await
-                _userManagerService
-                    .FindByEmail(
-                        model.Email
-                    );
-
-        if (user == default)
-        {
-            throw
-                _userNotFoundExceptionDescriptor
-                    .CreateException(
-                        model.Email
-                    );
-        }
-
-        return
-            _internalFacade
-                .CreateOkResponse();
-    }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public ForgotPasswordFacade(
+public sealed class ForgotPasswordFacade(
         IUserManagerService
             userManagerService,
         IResponsesDomainFacade
@@ -54,16 +15,31 @@ public sealed class ForgotPasswordFacade :
         IUserNotFoundExceptionDescriptor
             userNotFoundExceptionDescriptor
     )
+    :
+        IForgotPasswordFacade
+{
+    public async Task<Response> Execute(
+        ForgotPasswordRequest model
+    )
     {
-        _userManagerService =
-            userManagerService;
+        var user =
+            await
+                userManagerService
+                    .FindByEmail(
+                        model.Email
+                    );
 
-        _internalFacade =
-            internalFacade;
+        if (user == default)
+        {
+            throw
+                userNotFoundExceptionDescriptor
+                    .CreateException(
+                        model.Email
+                    );
+        }
 
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
+        return
+            internalFacade
+                .CreateOkResponse();
     }
-
-#endregion
 }

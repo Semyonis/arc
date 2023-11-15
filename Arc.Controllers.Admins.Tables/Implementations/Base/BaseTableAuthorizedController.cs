@@ -5,16 +5,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arc.Controllers.Admins.Tables.Implementations.Base;
 
-public abstract class BaseTableAuthorizedController :
-    AdminAuthorizedArcController
-{
-    protected BaseTableAuthorizedController(
-        IExtendedTableFacade
-            facade
-    ) : base(
+public abstract class BaseTableAuthorizedController(
+    IExtendedTableFacade
         facade
-    ) { }
-
+) :
+    AdminAuthorizedArcController(facade
+    )
+{
     [HttpGet]
     public abstract Task<IActionResult> Read(
         [FromQuery]

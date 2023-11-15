@@ -5,8 +5,14 @@ using Arc.Infrastructure.Common.Extensions;
 
 namespace Arc.Dependencies.Cache.Implementations.Base;
 
-public abstract class CacheBase<TKey, TEntity> :
-    ICacheBase<TKey, TEntity>
+public abstract class CacheBase<TKey, TEntity>(
+        IDistributedCache
+            distributedCache,
+        ISerializationDecorator
+            serializationDecorator
+    )
+    :
+        ICacheBase<TKey, TEntity>
     where TEntity : class
 {
     private readonly DistributedCacheEntryOptions
@@ -30,14 +36,14 @@ public abstract class CacheBase<TKey, TEntity> :
             );
 
         var resultJson =
-            _distributedCache
+            distributedCache
                 .GetString(
                     strKey
                 );
 
         if (resultJson.IsEmpty())
         {
-            _distributedCache
+            distributedCache
                 .Remove(
                     strKey
                 );
@@ -46,14 +52,14 @@ public abstract class CacheBase<TKey, TEntity> :
         }
 
         var result =
-            _serializationDecorator
+            serializationDecorator
                 .Deserialize<TEntity>(
                     resultJson
                 );
 
         if (result == default)
         {
-            _distributedCache
+            distributedCache
                 .Remove(
                     strKey
                 );
@@ -61,7 +67,7 @@ public abstract class CacheBase<TKey, TEntity> :
             return default;
         }
 
-        _distributedCache
+        distributedCache
             .Refresh(
                 strKey
             );
@@ -82,7 +88,7 @@ public abstract class CacheBase<TKey, TEntity> :
             );
 
         var responseJson =
-            _serializationDecorator
+            serializationDecorator
                 .Serialize(
                     response
                 );
@@ -90,7 +96,7 @@ public abstract class CacheBase<TKey, TEntity> :
         options ??=
             _defaultOptions;
 
-        _distributedCache
+        distributedCache
             .SetString(
                 strKey,
                 responseJson,
@@ -107,7 +113,7 @@ public abstract class CacheBase<TKey, TEntity> :
                 key
             );
 
-        _distributedCache
+        distributedCache
             .Remove(
                 strKey
             );
@@ -116,28 +122,4 @@ public abstract class CacheBase<TKey, TEntity> :
     protected abstract string GetKey(
         TKey key
     );
-
-#region Constructor
-
-    private readonly IDistributedCache
-        _distributedCache;
-
-    private readonly ISerializationDecorator
-        _serializationDecorator;
-
-    protected CacheBase(
-        IDistributedCache
-            distributedCache,
-        ISerializationDecorator
-            serializationDecorator
-    )
-    {
-        _distributedCache =
-            distributedCache;
-
-        _serializationDecorator =
-            serializationDecorator;
-    }
-
-#endregion
 }

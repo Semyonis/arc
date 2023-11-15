@@ -5,13 +5,10 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
-public sealed class ItemsReadRepository :
-    IdReadRepositoryBase<Item>,
-    IItemsReadRepository
-{
-    public ItemsReadRepository(
-        ArcDatabaseContext context
-    ) : base(
+public sealed class ItemsReadRepository(
+    ArcDatabaseContext context
+) :
+    IdReadRepositoryBase<Item>(
         context
-    ) { }
-}
+    ),
+    IItemsReadRepository;

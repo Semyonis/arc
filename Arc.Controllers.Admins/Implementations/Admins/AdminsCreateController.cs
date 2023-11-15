@@ -5,16 +5,13 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Controllers.Admins.Implementations.Admins;
 
-public sealed class AdminsCreateController :
-    AdminAuthorizedArcController
-{
-    public AdminsCreateController(
-        IAdminsCreateFacade
-            facade
-    ) : base(
+public sealed class AdminsCreateController(
+    IAdminsCreateFacade
         facade
-    ) { }
-
+) :
+    AdminAuthorizedArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType(
         typeof(int)

@@ -4,41 +4,27 @@ using Arc.Infrastructure.Transactions.Interfaces;
 
 namespace Arc.Infrastructure.Transactions.Implementations;
 
-public sealed class TransactionManager :
-    ITransactionManager
-{
-    private readonly ArcDatabaseContext
-        _context;
-
-    private readonly IDictionariesManager
-        _dictionariesManager;
-
-    public TransactionManager(
+public sealed class TransactionManager(
         ArcDatabaseContext context,
         IDictionariesManager
             dictionariesManager
     )
-    {
-        _context =
-            context;
-
-        _dictionariesManager =
-            dictionariesManager;
-    }
-
+    :
+        ITransactionManager
+{
     public async Task<ITransaction> BeginTransaction()
     {
         var transactionDb =
             await
-                _context
+                context
                     .Database
                     .BeginTransactionAsync();
 
         return
             new Transaction(
-                _context,
+                context,
                 transactionDb,
-                _dictionariesManager
+                dictionariesManager
             );
     }
 }

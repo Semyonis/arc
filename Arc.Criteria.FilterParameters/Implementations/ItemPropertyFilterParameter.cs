@@ -4,32 +4,10 @@ using Arc.Infrastructure.Common.Interfaces;
 namespace Arc.Criteria.FilterParameters.Implementations;
 
 public sealed class ItemPropertyFilterParameter
-<
-    TEntity,
-    TProperty
-> :
-    FilterParameterBase
     <
-        TEntity
-    >
-    where TProperty : IWithIdentifier
-{
-    private readonly Expression
-        <
-            Func<TEntity, TProperty>
-        >
-        _collectionPropertyPredicate;
-
-    private readonly Expression
-        <
-            Func<int, int, bool>
-        >
-        _compareFunction;
-
-    private readonly int
-        _value;
-
-    public ItemPropertyFilterParameter(
+        TEntity,
+        TProperty
+    >(
         Expression
             <
                 Func<TEntity, TProperty>
@@ -43,29 +21,25 @@ public sealed class ItemPropertyFilterParameter
         int
             value
     )
-    {
-        _collectionPropertyPredicate =
-            collectionPropertyPredicate;
-
-        _compareFunction =
-            compareFunction;
-
-        _value =
-            value;
-    }
-
+    :
+        FilterParameterBase
+        <
+            TEntity
+        >
+    where TProperty : IWithIdentifier
+{
     public override Expression
     <
         Func<TEntity, bool>
     > GetPredicate() =>
         entity =>
-            _compareFunction
+            compareFunction
                 .Invoke(
-                    _collectionPropertyPredicate
+                    collectionPropertyPredicate
                         .Invoke(
                             entity
                         )
                         .Id,
-                    _value
+                    value
                 );
 }

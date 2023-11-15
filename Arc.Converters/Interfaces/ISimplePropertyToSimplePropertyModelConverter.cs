@@ -9,4 +9,4 @@ public interface ISimplePropertyToSimplePropertyModelConverter :
     <
         SimpleProperty,
         SimplePropertyModel
-    > { }
+    >;

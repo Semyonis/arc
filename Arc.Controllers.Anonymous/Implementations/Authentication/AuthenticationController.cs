@@ -8,16 +8,13 @@ namespace Arc.Controllers.Anonymous.Implementations.Authentication;
 [ControllerGroup(
     "Authentication"
 )]
-public sealed class AuthenticationController :
-    AnonymousArcController
-{
-    public AuthenticationController(
-        IAuthenticationFacade
-            facade
-    ) : base(
+public sealed class AuthenticationController(
+    IAuthenticationFacade
         facade
-    ) { }
-
+) :
+    AnonymousArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType(
         typeof(AuthenticationResponse)

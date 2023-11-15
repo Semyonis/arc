@@ -5,8 +5,12 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
-public sealed class NullableIntegerCompareFunctions :
-    INullableIntegerCompareFunctions
+public sealed class NullableIntegerCompareFunctions(
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
+    )
+    :
+        INullableIntegerCompareFunctions
 {
     public Expression<Func<int?, int?, bool>> GetFunction(
         string operation
@@ -31,7 +35,7 @@ public sealed class NullableIntegerCompareFunctions :
                 GetIntegerIsNotEmptyFunction(),
             _ =>
                 throw
-                    _unsupportedOperationExceptionDescriptor.CreateException(),
+                    unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<int?, int?, bool>>
@@ -97,18 +101,4 @@ public sealed class NullableIntegerCompareFunctions :
                 _
             ) =>
             value != default;
-
-#region Constructor
-
-    private readonly IUnsupportedOperationExceptionDescriptor
-        _unsupportedOperationExceptionDescriptor;
-
-    public NullableIntegerCompareFunctions(
-        IUnsupportedOperationExceptionDescriptor
-            unsupportedOperationExceptionDescriptor
-    ) =>
-        _unsupportedOperationExceptionDescriptor =
-            unsupportedOperationExceptionDescriptor;
-
-#endregion
 }

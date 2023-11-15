@@ -5,8 +5,12 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
-public sealed class DateCompareFunctions :
-    IDateCompareFunctions
+public sealed class DateCompareFunctions(
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
+    )
+    :
+        IDateCompareFunctions
 {
     public Expression<Func<DateTime, DateTime, bool>> GetFunction(
         string operation
@@ -27,7 +31,7 @@ public sealed class DateCompareFunctions :
                 GetIntegerIsLowerOrEqualFunction(),
             _ =>
                 throw
-                    _unsupportedOperationExceptionDescriptor.CreateException(),
+                    unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<DateTime, DateTime, bool>>
@@ -77,18 +81,4 @@ public sealed class DateCompareFunctions :
                 second
             ) =>
             first <= second;
-
-#region Constructor
-
-    private readonly IUnsupportedOperationExceptionDescriptor
-        _unsupportedOperationExceptionDescriptor;
-
-    public DateCompareFunctions(
-        IUnsupportedOperationExceptionDescriptor
-            unsupportedOperationExceptionDescriptor
-    ) =>
-        _unsupportedOperationExceptionDescriptor =
-            unsupportedOperationExceptionDescriptor;
-
-#endregion
 }

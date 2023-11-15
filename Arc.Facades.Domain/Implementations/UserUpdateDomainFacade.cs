@@ -6,8 +6,16 @@ using Arc.Infrastructure.Repositories.Read.Interfaces;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class UserUpdateDomainFacade :
-    IUserUpdateDomainFacade
+public sealed class UserUpdateDomainFacade(
+        IUsersReadRepository
+            usersReadRepository,
+        IUpdateRepository
+            usersRepository,
+        IUserNotFoundExceptionDescriptor
+            userNotFoundExceptionDescriptor
+    )
+    :
+        IUserUpdateDomainFacade
 {
     public async Task Update(
         UserUpdateDomainFacadeArgs args
@@ -15,7 +23,7 @@ public sealed class UserUpdateDomainFacade :
     {
         var user =
             await
-                _usersReadRepository
+                usersReadRepository
                     .GetById(
                         args.Id
                     );
@@ -23,7 +31,7 @@ public sealed class UserUpdateDomainFacade :
         if (user == default)
         {
             throw
-                _userNotFoundExceptionDescriptor.CreateException();
+                userNotFoundExceptionDescriptor.CreateException();
         }
 
         user.FirstName =
@@ -33,41 +41,9 @@ public sealed class UserUpdateDomainFacade :
             args.LastName;
 
         await
-            _usersRepository
+            usersRepository
                 .UpdateAsync(
                     user
                 );
     }
-
-#region Constructor
-
-    private readonly IUsersReadRepository
-        _usersReadRepository;
-
-    private readonly IUpdateRepository
-        _usersRepository;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public UserUpdateDomainFacade(
-        IUsersReadRepository
-            usersReadRepository,
-        IUpdateRepository
-            usersRepository,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    {
-        _usersReadRepository =
-            usersReadRepository;
-
-        _usersRepository =
-            usersRepository;
-
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
-    }
-
-#endregion
 }

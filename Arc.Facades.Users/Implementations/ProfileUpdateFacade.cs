@@ -9,8 +9,20 @@ using Arc.Models.Views.Users.Models;
 
 namespace Arc.Facades.Users.Implementations;
 
-public sealed class ProfileUpdateFacade :
-    IProfileUpdateFacade
+public sealed class ProfileUpdateFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        IUsersReadRepository
+            usersReadRepository,
+        ITransactionManager
+            transactionManager,
+        IUserNotFoundExceptionDescriptor
+            userNotFoundExceptionDescriptor,
+        IAccessDeniedExceptionDescriptor
+            accessDeniedExceptionDescriptor
+    )
+    :
+        IProfileUpdateFacade
 {
     public async Task<Response> Execute(
         UserRequest userProfile,
@@ -20,16 +32,16 @@ public sealed class ProfileUpdateFacade :
         if (userProfile.Id != identity.Id)
         {
             throw
-                _accessDeniedExceptionDescriptor.CreateException();
+                accessDeniedExceptionDescriptor.CreateException();
         }
 
         using var transaction =
             await
-                _transactionManager.BeginTransaction();
+                transactionManager.BeginTransaction();
 
         var user =
             await
-                _usersReadRepository
+                usersReadRepository
                     .GetById(
                         userProfile.Id,
                         asNoTracking: false
@@ -38,7 +50,7 @@ public sealed class ProfileUpdateFacade :
         if (user == default)
         {
             throw
-                _userNotFoundExceptionDescriptor.CreateException();
+                userNotFoundExceptionDescriptor.CreateException();
         }
 
         user.FirstName =
@@ -52,55 +64,7 @@ public sealed class ProfileUpdateFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    private readonly IUsersReadRepository
-        _usersReadRepository;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    private readonly IAccessDeniedExceptionDescriptor
-        _accessDeniedExceptionDescriptor;
-
-    public ProfileUpdateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        IUsersReadRepository
-            usersReadRepository,
-        ITransactionManager
-            transactionManager,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor,
-        IAccessDeniedExceptionDescriptor
-            accessDeniedExceptionDescriptor
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _usersReadRepository =
-            usersReadRepository;
-
-        _transactionManager =
-            transactionManager;
-
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
-
-        _accessDeniedExceptionDescriptor =
-            accessDeniedExceptionDescriptor;
-    }
-
-#endregion
 }

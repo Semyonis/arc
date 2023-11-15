@@ -4,8 +4,16 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 
 namespace Arc.Dependencies.Identity.Implementations;
 
-public sealed class UserPasswordManagerService :
-    IUserPasswordManagerService
+public sealed class UserPasswordManagerService(
+        IUserManagerDecorator
+            userManagerDecorator,
+        IIdentityErrorExceptionDescriptor
+            identityErrorExceptionDescriptor,
+        IUserNotFoundExceptionDescriptor
+            userNotFoundExceptionDescriptor
+    )
+    :
+        IUserPasswordManagerService
 {
     public async Task ResetPassword(
         IdentityUser user,
@@ -15,7 +23,7 @@ public sealed class UserPasswordManagerService :
     {
         var result =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .ResetPasswordAsync(
                         user,
                         token,
@@ -31,7 +39,7 @@ public sealed class UserPasswordManagerService :
                     .Code;
 
             throw
-                _identityErrorExceptionDescriptor
+                identityErrorExceptionDescriptor
                     .CreateException(
                         errorCode
                     );
@@ -46,7 +54,7 @@ public sealed class UserPasswordManagerService :
     {
         var user =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .FindByEmailAsync(
                         email
                     );
@@ -54,7 +62,7 @@ public sealed class UserPasswordManagerService :
         if (user == default)
         {
             throw
-                _userNotFoundExceptionDescriptor
+                userNotFoundExceptionDescriptor
                     .CreateException(
                         email
                     );
@@ -62,7 +70,7 @@ public sealed class UserPasswordManagerService :
 
         var result =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .ChangePasswordAsync(
                         user,
                         currentPassword,
@@ -78,7 +86,7 @@ public sealed class UserPasswordManagerService :
                     .Code;
 
             throw
-                _identityErrorExceptionDescriptor
+                identityErrorExceptionDescriptor
                     .CreateException(
                         errorCode
                     );
@@ -92,7 +100,7 @@ public sealed class UserPasswordManagerService :
     {
         var identityUser =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .FindByEmailAsync(
                         email
                     );
@@ -100,7 +108,7 @@ public sealed class UserPasswordManagerService :
         if (identityUser == default)
         {
             throw
-                _userNotFoundExceptionDescriptor
+                userNotFoundExceptionDescriptor
                     .CreateException(
                         email
                     );
@@ -108,7 +116,7 @@ public sealed class UserPasswordManagerService :
 
         var result =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .RemovePasswordAsync(
                         identityUser
                     );
@@ -122,7 +130,7 @@ public sealed class UserPasswordManagerService :
                     .Code;
 
             throw
-                _identityErrorExceptionDescriptor
+                identityErrorExceptionDescriptor
                     .CreateException(
                         errorCode
                     );
@@ -130,7 +138,7 @@ public sealed class UserPasswordManagerService :
 
         result =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .AddPasswordAsync(
                         identityUser,
                         password
@@ -145,42 +153,10 @@ public sealed class UserPasswordManagerService :
                     .Code;
 
             throw
-                _identityErrorExceptionDescriptor
+                identityErrorExceptionDescriptor
                     .CreateException(
                         errorCode
                     );
         }
     }
-
-#region Constructor
-
-    private readonly IIdentityErrorExceptionDescriptor
-        _identityErrorExceptionDescriptor;
-
-    private readonly IUserManagerDecorator
-        _userManagerDecorator;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public UserPasswordManagerService(
-        IUserManagerDecorator
-            userManagerDecorator,
-        IIdentityErrorExceptionDescriptor
-            identityErrorExceptionDescriptor,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    {
-        _userManagerDecorator =
-            userManagerDecorator;
-
-        _identityErrorExceptionDescriptor =
-            identityErrorExceptionDescriptor;
-
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
-    }
-
-#endregion
 }

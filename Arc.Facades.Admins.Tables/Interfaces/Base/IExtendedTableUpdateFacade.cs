@@ -11,4 +11,4 @@ public interface IExtendedTableUpdateFacade
     <
         TUpdateRequest,
         AdminIdentity
-    > { }
+    >;

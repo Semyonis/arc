@@ -14,15 +14,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Arc.Facades.Admins.Tables.Implementations.Groups;
 
-public sealed class GroupsTableFacade :
-    BaseTableFacade
-    <
-        Group,
-        GroupReadResponse
-    >,
-    IGroupsTableFacade
-{
-    public GroupsTableFacade(
+public sealed class GroupsTableFacade(
         IGroupsReadRepository
             readRepository,
         IPageResponsesDomainFacade
@@ -35,15 +27,22 @@ public sealed class GroupsTableFacade :
             filterParameterConverter,
         IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
             filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    ) : base(
-        readRepository,
-        internalResponsesFacade,
-        readConverter,
-        orderingService,
-        filterParameterConverter,
-        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    ) { }
-
+    )
+    :
+        BaseTableFacade
+        <
+            Group,
+            GroupReadResponse
+        >(
+            readRepository,
+            internalResponsesFacade,
+            readConverter,
+            orderingService,
+            filterParameterConverter,
+            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        ),
+        IGroupsTableFacade
+{
     protected override
         Func<IQueryable<Group>, IIncludableQueryable<Group, object>>
         GetInclude() =>

@@ -3,27 +3,21 @@ using Arc.Infrastructure.Services.Interfaces;
 
 namespace Arc.Facades.Domain.Filters.Implementations;
 
-public sealed class ObjectNormalizeStringFacade :
-    IObjectNormalizeStringFacade
-{
-#region Constructor
-
-    private readonly IStringNormalizationService
-        _stringNormalizationService;
-
-    public ObjectNormalizeStringFacade(
+public sealed class ObjectNormalizeStringFacade(
         IStringNormalizationService
             stringNormalizationService
-    ) =>
-        _stringNormalizationService =
-            stringNormalizationService;
+    )
+    :
+        IObjectNormalizeStringFacade
+{
+#region Constructor
 
 #endregion
 
     public object NormalizeStringFields(
         object value
     ) =>
-        _stringNormalizationService
+        stringNormalizationService
             .Normalize(
                 value
             );

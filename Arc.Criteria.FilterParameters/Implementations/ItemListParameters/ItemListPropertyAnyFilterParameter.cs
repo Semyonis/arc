@@ -2,25 +2,7 @@
 
 namespace Arc.Criteria.FilterParameters.Implementations.ItemListParameters;
 
-public sealed class ItemListPropertyAnyFilterParameter<TEntity, TProperty> :
-    FilterParameterBase<TEntity>
-{
-    private readonly Expression
-        <
-            Func<TEntity, ICollection<TProperty>>
-        >
-        _collectionPropertyPredicate;
-
-    private readonly Expression
-        <
-            Func<TProperty, int>
-        >
-        _propertyValuePredicate;
-
-    private readonly int
-        _value;
-
-    public ItemListPropertyAnyFilterParameter(
+public sealed class ItemListPropertyAnyFilterParameter<TEntity, TProperty>(
         Expression
             <
                 Func<TEntity, ICollection<TProperty>>
@@ -34,32 +16,24 @@ public sealed class ItemListPropertyAnyFilterParameter<TEntity, TProperty> :
         int
             value
     )
-    {
-        _collectionPropertyPredicate =
-            collectionPropertyPredicate;
-
-        _propertyValuePredicate =
-            propertyValuePredicate;
-
-        _value =
-            value;
-    }
-
+    :
+        FilterParameterBase<TEntity>
+{
     public override Expression
     <
         Func<TEntity, bool>
     > GetPredicate() =>
         entity =>
-            _collectionPropertyPredicate
+            collectionPropertyPredicate
                 .Invoke(
                     entity
                 )
                 .Any(
                     property =>
-                        _propertyValuePredicate
+                        propertyValuePredicate
                             .Invoke(
                                 property
                             )
-                        == _value
+                        == value
                 );
 }

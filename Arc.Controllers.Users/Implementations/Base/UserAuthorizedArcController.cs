@@ -8,19 +8,16 @@ namespace Arc.Controllers.Users.Implementations.Base;
 
 [UserAuthorize]
 [UserApiRoute]
-public abstract class UserAuthorizedArcController :
+public abstract class UserAuthorizedArcController(
+    object
+        facade
+) :
     BaseAuthorizedArcController
     <
         UserIdentity
-    >
+    >(facade
+    )
 {
-    protected UserAuthorizedArcController(
-        object
-            facade
-    ) : base(
-        facade
-    ) { }
-
     protected override ResultContainer<UserIdentity> ReadActorIdentity() =>
         GetItem<UserIdentity>(
             HttpContext,

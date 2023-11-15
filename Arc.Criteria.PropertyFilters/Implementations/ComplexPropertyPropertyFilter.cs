@@ -8,19 +8,13 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
-public sealed class ComplexPropertyPropertyFilter :
-    IComplexPropertyPropertyFilter
-{
-    private readonly IItemCompareFunctions
-        _itemCompareFunctions;
-
-    public ComplexPropertyPropertyFilter(
+public sealed class ComplexPropertyPropertyFilter(
         IItemCompareFunctions
             itemCompareFunctions
-    ) =>
-        _itemCompareFunctions =
-            itemCompareFunctions;
-
+    )
+    :
+        IComplexPropertyPropertyFilter
+{
     public PropertyFilterParameter<ComplexProperty, int> GetGroupIdEqualFilter(
         int pattern
     )
@@ -29,7 +23,7 @@ public sealed class ComplexPropertyPropertyFilter :
             ComplexPropertyExpressions.GetGroupId();
 
         var compareFunction =
-            _itemCompareFunctions
+            itemCompareFunctions
                 .GetFunction(
                     Equal
                 );

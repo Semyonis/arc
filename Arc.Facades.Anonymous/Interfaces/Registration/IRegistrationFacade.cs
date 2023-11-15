@@ -4,4 +4,4 @@ using Arc.Models.Views.Anonymous.Models;
 namespace Arc.Facades.Anonymous.Interfaces.Registration;
 
 public interface IRegistrationFacade :
-    IFunctionFacade<CreateUserRequest> { }
+    IFunctionFacade<CreateUserRequest>;

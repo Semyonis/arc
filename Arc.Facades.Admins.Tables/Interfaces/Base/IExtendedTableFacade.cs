@@ -9,4 +9,4 @@ public interface IExtendedTableFacade :
     <
         TableReadRequest,
         AdminIdentity
-    > { }
+    >;

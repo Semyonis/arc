@@ -9,4 +9,4 @@ public interface IGroupToGroupModelConverter :
     <
         Group,
         GroupModel
-    > { }
+    >;

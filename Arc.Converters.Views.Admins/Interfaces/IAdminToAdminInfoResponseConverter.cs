@@ -9,4 +9,4 @@ public interface IAdminToAdminInfoResponseConverter :
     <
         Admin,
         AdminResponse
-    > { }
+    >;

@@ -2,11 +2,6 @@
 
 namespace Arc.Controllers.Base.Attributes;
 
-public sealed class AdminApiRouteAttribute :
-    RouteAttribute
-{
-    public AdminApiRouteAttribute() :
-        base(
-            $"{AdminRoutePrefix}{ControllerRoute}"
-        ) { }
-}
+public sealed class AdminApiRouteAttribute() :
+    RouteAttribute($"{AdminRoutePrefix}{ControllerRoute}"
+    );

@@ -2,23 +2,15 @@ using Arc.Infrastructure.Common.Constants;
 
 namespace Arc.Infrastructure.Exceptions.Models;
 
-public sealed class ServerException :
-    ApplicationException
-{
-    public ServerException(
+public sealed class ServerException(
         ExceptionInfo exceptionInfo,
         int responseCode =
             HttpResponseCodeConstants.BadRequest
     )
-    {
-        ResponseCode =
-            responseCode;
+    :
+        ApplicationException
+{
+    public int ResponseCode { get; } = responseCode;
 
-        ExceptionInfo =
-            exceptionInfo;
-    }
-
-    public int ResponseCode { get; }
-
-    public ExceptionInfo ExceptionInfo { get; }
+    public ExceptionInfo ExceptionInfo { get; } = exceptionInfo;
 }

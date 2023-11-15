@@ -10,23 +10,17 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Ad
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
-public sealed class AdminsReadRepository :
-    IdReadRepositoryBase<Admin>,
-    IAdminsReadRepository
-{
-    private readonly IAdminPropertyFilters
-        _adminPropertyFilters;
-
-    public AdminsReadRepository(
+public sealed class AdminsReadRepository(
         ArcDatabaseContext context,
         IAdminPropertyFilters
             adminPropertyFilters
-    ) : base(
-        context
-    ) =>
-        _adminPropertyFilters =
-            adminPropertyFilters;
-
+    )
+    :
+        IdReadRepositoryBase<Admin>(
+            context
+        ),
+        IAdminsReadRepository
+{
     public async Task<Admin?> GetByEmail(
         string email,
         Func
@@ -38,7 +32,7 @@ public sealed class AdminsReadRepository :
     )
     {
         var propertyFilterParameter =
-            _adminPropertyFilters
+            adminPropertyFilters
                 .GetEmailEqualFilter(
                     email
                 );

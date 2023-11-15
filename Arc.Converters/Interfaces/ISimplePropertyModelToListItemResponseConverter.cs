@@ -9,4 +9,4 @@ public interface ISimplePropertyModelToListItemResponseConverter :
     <
         SimplePropertyModel,
         ListItemResponse
-    > { }
+    >;

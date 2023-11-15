@@ -9,4 +9,4 @@ public interface IServiceModeModelToServiceModeAdminReadResponseConverter :
     <
         ServiceModeModel,
         ServiceModeAdminReadResponse
-    > { }
+    >;

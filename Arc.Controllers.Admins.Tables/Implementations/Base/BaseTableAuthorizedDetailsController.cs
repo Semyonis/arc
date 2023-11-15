@@ -4,16 +4,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arc.Controllers.Admins.Tables.Implementations.Base;
 
-public abstract class BaseTableAuthorizedDetailsController :
-    AdminAuthorizedArcController
-{
-    protected BaseTableAuthorizedDetailsController(
+public abstract class BaseTableAuthorizedDetailsController(
         IExtendedTableDetailsFacade
             facade
-    ) : base(
-        facade
-    ) { }
-
+    )
+    :
+        AdminAuthorizedArcController(facade
+    )
+{
     [HttpGet(
         "{entityId:int}"
     )]

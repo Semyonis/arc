@@ -7,14 +7,22 @@ using Arc.Models.BusinessLogic.Models;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class ModeControlDetailedDomainFacade :
-    IModeControlDetailedDomainFacade
+public sealed class ModeControlDetailedDomainFacade(
+        IAdminsReadRepository
+            adminReadRepository,
+        IServiceModesReadRepository
+            serviceModesReadRepository,
+        IUserNotFoundExceptionDescriptor
+            userNotFoundExceptionDescriptor
+    )
+    :
+        IModeControlDetailedDomainFacade
 {
     public async Task<ServiceModeModel> GetDetailedCurrentMode()
     {
         var currentMode =
             await
-                _serviceModesReadRepository
+                serviceModesReadRepository
                     .GetCurrent();
 
         if (currentMode == default)
@@ -30,7 +38,7 @@ public sealed class ModeControlDetailedDomainFacade :
 
         var adminEmail =
             await
-                _adminReadRepository
+                adminReadRepository
                     .GetEmailById(
                         currentMode.UpdatedById
                     );
@@ -38,7 +46,7 @@ public sealed class ModeControlDetailedDomainFacade :
         if (adminEmail.IsEmpty())
         {
             throw
-                _userNotFoundExceptionDescriptor.CreateException();
+                userNotFoundExceptionDescriptor.CreateException();
         }
 
         return
@@ -49,36 +57,4 @@ public sealed class ModeControlDetailedDomainFacade :
                 adminEmail
             );
     }
-
-#region Constructor
-
-    private readonly IAdminsReadRepository
-        _adminReadRepository;
-
-    private readonly IServiceModesReadRepository
-        _serviceModesReadRepository;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public ModeControlDetailedDomainFacade(
-        IAdminsReadRepository
-            adminReadRepository,
-        IServiceModesReadRepository
-            serviceModesReadRepository,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    {
-        _adminReadRepository =
-            adminReadRepository;
-
-        _serviceModesReadRepository =
-            serviceModesReadRepository;
-
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
-    }
-
-#endregion
 }

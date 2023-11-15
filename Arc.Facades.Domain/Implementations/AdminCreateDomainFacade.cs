@@ -9,126 +9,7 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class AdminCreateDomainFacade :
-    IAdminCreateDomainFacade
-{
-    public async Task<int> Create(
-        AdminCreateDomainFacadeArgs request
-    )
-    {
-        if (request == default)
-        {
-            throw
-                _badDataExceptionDescriptor.CreateException();
-        }
-
-        await
-            ValidateCreate(
-                request.Email
-            );
-
-        var user =
-            await
-                _userManagerService
-                    .CreateIdentityForEmail(
-                        request.Email
-                    );
-
-        await
-            _userManagerService
-                .Create(
-                    user,
-                    request.Password
-                );
-
-        await
-            _userRoleManagerService
-                .AddToRoleAsync(
-                    user,
-                    ActorTypeConstants.Admin
-                );
-
-        var newAdmin =
-            new Admin
-            {
-                Email = request.Email,
-                FirstName = request.FirstName,
-                LastName = request.LastName,
-            };
-
-        await
-            _adminsRepository
-                .CreateAsync(
-                    newAdmin
-                );
-
-        return
-            newAdmin.Id;
-    }
-
-    private async Task ValidateCreate(
-        string email
-    )
-    {
-        var admin =
-            await
-                _adminsReadRepository
-                    .GetByEmail(
-                        email
-                    );
-
-        var hasAdmin =
-            admin != default;
-
-        if (hasAdmin)
-        {
-            throw
-                _emailUsedByAdminExceptionDescriptor
-                    .CreateException();
-        }
-
-        var user =
-            await
-                _usersReadRepository
-                    .GetByEmail(
-                        email
-                    );
-
-        var hasUser =
-            user != default;
-
-        if (hasUser)
-        {
-            throw
-                _emailUsedByAdminExceptionDescriptor
-                    .CreateException();
-        }
-    }
-
-#region Constructor
-
-    private readonly IAdminsReadRepository
-        _adminsReadRepository;
-
-    private readonly ICreateRepository
-        _adminsRepository;
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly IUserManagerDecorator
-        _userRoleManagerService;
-
-    private readonly IUsersReadRepository
-        _usersReadRepository;
-
-    private readonly IEmailUsedByAdminExceptionDescriptor
-        _emailUsedByAdminExceptionDescriptor;
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    public AdminCreateDomainFacade(
+public sealed class AdminCreateDomainFacade(
         IAdminsReadRepository
             adminsReadRepository,
         ICreateRepository
@@ -144,28 +25,99 @@ public sealed class AdminCreateDomainFacade :
         IBadDataExceptionDescriptor
             badDataExceptionDescriptor
     )
+    :
+        IAdminCreateDomainFacade
+{
+    public async Task<int> Create(
+        AdminCreateDomainFacadeArgs request
+    )
     {
-        _adminsReadRepository =
-            adminsReadRepository;
+        if (request == default)
+        {
+            throw
+                badDataExceptionDescriptor.CreateException();
+        }
 
-        _adminsRepository =
-            adminsRepository;
+        await
+            ValidateCreate(
+                request.Email
+            );
 
-        _userManagerService =
-            userManagerService;
+        var user =
+            await
+                userManagerService
+                    .CreateIdentityForEmail(
+                        request.Email
+                    );
 
-        _userRoleManagerService =
-            userRoleManagerService;
+        await
+            userManagerService
+                .Create(
+                    user,
+                    request.Password
+                );
 
-        _usersReadRepository =
-            usersReadRepository;
+        await
+            userRoleManagerService
+                .AddToRoleAsync(
+                    user,
+                    ActorTypeConstants.Admin
+                );
 
-        _emailUsedByAdminExceptionDescriptor =
-            emailUsedByAdminExceptionDescriptor;
+        var newAdmin =
+            new Admin
+            {
+                Email = request.Email,
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+            };
 
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
+        await
+            adminsRepository
+                .CreateAsync(
+                    newAdmin
+                );
+
+        return
+            newAdmin.Id;
     }
 
-#endregion
+    private async Task ValidateCreate(
+        string email
+    )
+    {
+        var admin =
+            await
+                adminsReadRepository
+                    .GetByEmail(
+                        email
+                    );
+
+        var hasAdmin =
+            admin != default;
+
+        if (hasAdmin)
+        {
+            throw
+                emailUsedByAdminExceptionDescriptor
+                    .CreateException();
+        }
+
+        var user =
+            await
+                usersReadRepository
+                    .GetByEmail(
+                        email
+                    );
+
+        var hasUser =
+            user != default;
+
+        if (hasUser)
+        {
+            throw
+                emailUsedByAdminExceptionDescriptor
+                    .CreateException();
+        }
+    }
 }

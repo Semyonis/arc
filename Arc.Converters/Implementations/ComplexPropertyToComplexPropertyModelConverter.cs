@@ -4,26 +4,32 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Converters.Implementations;
 
-public sealed class ComplexPropertyToComplexPropertyModelConverter :
-    ConverterBase
-    <
-        ComplexProperty,
-        ComplexPropertyModel
-    >,
-    IComplexPropertyToComplexPropertyModelConverter
+public sealed class ComplexPropertyToComplexPropertyModelConverter(
+        IGroupToGroupModelConverter
+            testToGroupModelConverter,
+        IBaseDescriptionToDescriptionModelConverter
+            descriptionModelConverter
+    )
+    :
+        ConverterBase
+        <
+            ComplexProperty,
+            ComplexPropertyModel
+        >,
+        IComplexPropertyToComplexPropertyModelConverter
 {
     public override ComplexPropertyModel Convert(
         ComplexProperty entity
     )
     {
         var testModel =
-            _testToGroupModelConverter
+            testToGroupModelConverter
                 .Convert(
                     entity.Group
                 );
 
         var descriptionModel =
-            _descriptionModelConverter
+            descriptionModelConverter
                 .Convert(
                     entity.Description
                 );
@@ -36,28 +42,4 @@ public sealed class ComplexPropertyToComplexPropertyModelConverter :
                 descriptionModel
             );
     }
-
-#region Constructor
-
-    private readonly IBaseDescriptionToDescriptionModelConverter
-        _descriptionModelConverter;
-
-    private readonly IGroupToGroupModelConverter
-        _testToGroupModelConverter;
-
-    public ComplexPropertyToComplexPropertyModelConverter(
-        IGroupToGroupModelConverter
-            testToGroupModelConverter,
-        IBaseDescriptionToDescriptionModelConverter
-            descriptionModelConverter
-    )
-    {
-        _testToGroupModelConverter =
-            testToGroupModelConverter;
-
-        _descriptionModelConverter =
-            descriptionModelConverter;
-    }
-
-#endregion
 }

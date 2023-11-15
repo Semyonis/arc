@@ -7,4 +7,4 @@ public interface IAdminsUpdateFacade :
     IFunctionFacade
     <
         AdminUpdateRequest
-    > { }
+    >;

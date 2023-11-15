@@ -4,4 +4,4 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Converters.Views.Admins.Interfaces;
 
 public interface IGroupDescriptionToDescriptionResponseConverter :
-    IBaseDescriptionResponseConverter<GroupDescription> { }
+    IBaseDescriptionResponseConverter<GroupDescription>;

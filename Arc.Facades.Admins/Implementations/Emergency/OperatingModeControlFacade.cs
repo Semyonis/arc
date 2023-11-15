@@ -6,44 +6,7 @@ using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Admins.Implementations.Emergency;
 
-public sealed class OperatingModeControlFacade :
-    IOperatingModeControlFacade
-{
-    public async Task<Response> Execute(
-        AdminIdentity identity
-    )
-    {
-        var responseModel =
-            await
-                _internalModeControlFacade
-                    .GetDetailedCurrentMode();
-
-        var response =
-            _serviceModeModeModelToServiceModeAdminReadResponseConverter
-                .Convert(
-                    responseModel
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse(
-                    response
-                );
-    }
-
-#region Constructor
-
-    private readonly IModeControlDetailedDomainFacade
-        _internalModeControlFacade;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly
-        IServiceModeModelToServiceModeAdminReadResponseConverter
-        _serviceModeModeModelToServiceModeAdminReadResponseConverter;
-
-    public OperatingModeControlFacade(
+public sealed class OperatingModeControlFacade(
         IModeControlDetailedDomainFacade
             internalModeControlFacade,
         IResponsesDomainFacade
@@ -51,16 +14,28 @@ public sealed class OperatingModeControlFacade :
         IServiceModeModelToServiceModeAdminReadResponseConverter
             serviceModeModeModelToServiceModeAdminReadResponseConverter
     )
+    :
+        IOperatingModeControlFacade
+{
+    public async Task<Response> Execute(
+        AdminIdentity identity
+    )
     {
-        _internalModeControlFacade =
-            internalModeControlFacade;
+        var responseModel =
+            await
+                internalModeControlFacade
+                    .GetDetailedCurrentMode();
 
-        _internalFacade =
-            internalFacade;
+        var response =
+            serviceModeModeModelToServiceModeAdminReadResponseConverter
+                .Convert(
+                    responseModel
+                );
 
-        _serviceModeModeModelToServiceModeAdminReadResponseConverter =
-            serviceModeModeModelToServiceModeAdminReadResponseConverter;
+        return
+            internalFacade
+                .CreateOkResponse(
+                    response
+                );
     }
-
-#endregion
 }

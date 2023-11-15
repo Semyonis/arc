@@ -6,40 +6,7 @@ using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Authorized.Implementations.Dictionaries;
 
-public sealed class GroupItemListFacade :
-    IGroupItemListFacade
-{
-    public async Task<Response> Execute()
-    {
-        var entities =
-            await
-                _complexPropertyModelsStorage.Read();
-
-        var results =
-            _groupModelToListItemResponseConverter
-                .Convert(
-                    entities
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse(
-                    results
-                );
-    }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IGroupModelsStorage
-        _complexPropertyModelsStorage;
-
-    private readonly IGroupModelToListItemResponseConverter
-        _groupModelToListItemResponseConverter;
-
-    public GroupItemListFacade(
+public sealed class GroupItemListFacade(
         IResponsesDomainFacade
             internalFacade,
         IGroupModelsStorage
@@ -47,16 +14,25 @@ public sealed class GroupItemListFacade :
         IGroupModelToListItemResponseConverter
             groupModelToListItemResponseConverter
     )
+    :
+        IGroupItemListFacade
+{
+    public async Task<Response> Execute()
     {
-        _internalFacade =
-            internalFacade;
+        var entities =
+            await
+                complexPropertyModelsStorage.Read();
 
-        _complexPropertyModelsStorage =
-            complexPropertyModelsStorage;
+        var results =
+            groupModelToListItemResponseConverter
+                .Convert(
+                    entities
+                );
 
-        _groupModelToListItemResponseConverter =
-            groupModelToListItemResponseConverter;
+        return
+            internalFacade
+                .CreateOkResponse(
+                    results
+                );
     }
-
-#endregion
 }

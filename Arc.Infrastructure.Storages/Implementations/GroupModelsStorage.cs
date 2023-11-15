@@ -11,29 +11,28 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Arc.Infrastructure.Storages.Implementations;
 
-public sealed class GroupModelsStorage :
-    IntegerKeysModelStorageBase
-    <
-        GroupModel,
-        Group,
-        IGroupModelsDictionary,
-        IGroupToGroupModelConverter
-    >,
-    IGroupModelsStorage
-{
-    public GroupModelsStorage(
+public sealed class GroupModelsStorage(
         IGroupsReadRepository
             readRepository,
         IGroupModelsDictionary
             dictionary,
         IGroupToGroupModelConverter
             converter
-    ) : base(
-        readRepository,
-        dictionary,
-        converter
-    ) { }
-
+    )
+    :
+        IntegerKeysModelStorageBase
+        <
+            GroupModel,
+            Group,
+            IGroupModelsDictionary,
+            IGroupToGroupModelConverter
+        >(
+            readRepository,
+            dictionary,
+            converter
+        ),
+        IGroupModelsStorage
+{
     protected override Func
         <
             IQueryable<Group>,

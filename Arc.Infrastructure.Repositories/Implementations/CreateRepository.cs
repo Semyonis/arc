@@ -9,20 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations;
 
-public sealed class CreateRepository :
-    Repository,
-    ICreateRepository
-{
-    public CreateRepository(
+public sealed class CreateRepository(
         ArcDatabaseContext
             context,
         IDictionariesManager
             dictionariesManager
-    ) : base(
-        context,
-        dictionariesManager
-    ) { }
-
+    )
+    :
+        Repository(
+            context,
+            dictionariesManager
+        ),
+        ICreateRepository
+{
     public async Task<int> CreateAsync<TEntity>(
         TEntity item,
         CancellationToken cancellationToken = default

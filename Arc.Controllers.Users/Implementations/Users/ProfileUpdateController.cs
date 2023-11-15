@@ -8,16 +8,14 @@ namespace Arc.Controllers.Users.Implementations.Users;
 [ControllerGroup(
     "User"
 )]
-public sealed class ProfileUpdateController :
-    UserAuthorizedArcController
-{
-    public ProfileUpdateController(
+public sealed class ProfileUpdateController(
         IProfileUpdateFacade
             executionFacade
-    ) : base(
-        executionFacade
-    ) { }
-
+    )
+    :
+        UserAuthorizedArcController(executionFacade
+    )
+{
     [HttpPut]
     [ProducesOkResponseType]
     public async Task<IActionResult> Call(

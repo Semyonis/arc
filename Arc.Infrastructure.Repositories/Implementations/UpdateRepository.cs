@@ -9,20 +9,19 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arc.Infrastructure.Repositories.Implementations;
 
-public sealed class UpdateRepository :
-    Repository,
-    IUpdateRepository
-{
-    public UpdateRepository(
+public sealed class UpdateRepository(
         ArcDatabaseContext
             context,
         IDictionariesManager
             dictionariesManager
-    ) : base(
-        context,
-        dictionariesManager
-    ) { }
-
+    )
+    :
+        Repository(
+            context,
+            dictionariesManager
+        ),
+        IUpdateRepository
+{
     public async Task<int> UpdateAsync<TEntity>(
         TEntity item,
         CancellationToken cancellationToken = default

@@ -8,26 +8,20 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
-public sealed class ActorsReadRepository :
-    IdReadRepositoryBase
-    <
-        Actor
-    >,
-    IActorsReadRepository
-{
-    private readonly IActorPropertyFilters
-        _actorPropertyFilters;
-
-    public ActorsReadRepository(
+public sealed class ActorsReadRepository(
         ArcDatabaseContext context,
         IActorPropertyFilters
             actorPropertyFilters
-    ) : base(
-        context
-    ) =>
-        _actorPropertyFilters =
-            actorPropertyFilters;
-
+    )
+    :
+        IdReadRepositoryBase
+        <
+            Actor
+        >(
+            context
+        ),
+        IActorsReadRepository
+{
     public async Task<Actor?> GetByEmail(
         string email,
         Func
@@ -39,7 +33,7 @@ public sealed class ActorsReadRepository :
     )
     {
         var propertyFilterParameter =
-            _actorPropertyFilters
+            actorPropertyFilters
                 .GetEmailEqualFilter(
                     email
                 );

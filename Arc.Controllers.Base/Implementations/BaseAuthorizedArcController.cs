@@ -8,17 +8,15 @@ using Arc.Models.BusinessLogic.Models.Identities;
 
 namespace Arc.Controllers.Base.Implementations;
 
-public abstract class BaseAuthorizedArcController<TIdentity> :
-    BaseArcController
+public abstract class BaseAuthorizedArcController<TIdentity>(
+    object
+        facade
+) :
+    BaseArcController(
+        facade
+    )
     where TIdentity : BaseIdentity
 {
-    protected BaseAuthorizedArcController(
-        object
-            facade
-    ) : base(
-        facade
-    ) { }
-
     protected async Task<IActionResult> Invoke
     <
         TRequestArgs

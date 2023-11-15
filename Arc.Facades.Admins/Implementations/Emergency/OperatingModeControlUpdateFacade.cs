@@ -8,8 +8,16 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Facades.Admins.Implementations.Emergency;
 
-public sealed class OperatingModeControlUpdateFacade :
-    IOperatingModeControlUpdateFacade
+public sealed class OperatingModeControlUpdateFacade(
+        IModeControlDomainFacade
+            modeControlDomainFacade,
+        IResponsesDomainFacade
+            internalFacade,
+        ITransactionManager
+            transactionManager
+    )
+    :
+        IOperatingModeControlUpdateFacade
 {
     public async Task<Response> Execute(
         ServiceModeAdminEditRequest request,
@@ -18,7 +26,7 @@ public sealed class OperatingModeControlUpdateFacade :
     {
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         var requestModel =
@@ -28,7 +36,7 @@ public sealed class OperatingModeControlUpdateFacade :
             );
 
         await
-            _modeControlDomainFacade
+            modeControlDomainFacade
                 .SetMode(
                     requestModel
                 );
@@ -38,39 +46,7 @@ public sealed class OperatingModeControlUpdateFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly IModeControlDomainFacade
-        _modeControlDomainFacade;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    public OperatingModeControlUpdateFacade(
-        IModeControlDomainFacade
-            modeControlDomainFacade,
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager
-    )
-    {
-        _modeControlDomainFacade =
-            modeControlDomainFacade;
-
-        _internalFacade =
-            internalFacade;
-
-        _transactionManager =
-            transactionManager;
-    }
-
-#endregion
 }

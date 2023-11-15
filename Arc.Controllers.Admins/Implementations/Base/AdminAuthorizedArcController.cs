@@ -8,19 +8,16 @@ namespace Arc.Controllers.Admins.Implementations.Base;
 
 [AdminAuthorize]
 [AdminApiRoute]
-public abstract class AdminAuthorizedArcController :
+public abstract class AdminAuthorizedArcController(
+    object
+        facade
+) :
     BaseAuthorizedArcController
     <
         AdminIdentity
-    >
+    >(facade
+    )
 {
-    protected AdminAuthorizedArcController(
-        object
-            facade
-    ) : base(
-        facade
-    ) { }
-
     protected override ResultContainer<AdminIdentity> ReadActorIdentity() =>
         GetItem<AdminIdentity>(
             HttpContext,

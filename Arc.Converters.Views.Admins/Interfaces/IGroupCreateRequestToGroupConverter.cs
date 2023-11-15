@@ -9,4 +9,4 @@ public interface IGroupCreateRequestToGroupConverter :
     <
         GroupCreateRequest,
         Group
-    > { }
+    >;

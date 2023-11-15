@@ -7,8 +7,14 @@ using Microsoft.AspNetCore.Http;
 
 namespace Arc.Middleware.Filters.Implementations;
 
-public sealed class ExceptionFilter :
-    IExceptionFilter
+public sealed class ExceptionFilter(
+        IErrorResponseFacade
+            errorResponseFacade,
+        IExceptionLogDomainFacade
+            internalFacade
+    )
+    :
+        IExceptionFilter
 {
     public void OnException(
         ExceptionContext context
@@ -32,7 +38,7 @@ public sealed class ExceptionFilter :
         );
 
         var result =
-            _errorResponseFacade
+            errorResponseFacade
                 .CreateErrorResponse(
                     exception,
                     traceId
@@ -71,7 +77,7 @@ public sealed class ExceptionFilter :
                 errorData
             );
 
-        _internalFacade
+        internalFacade
             .Log(
                 args
             );
@@ -131,28 +137,4 @@ public sealed class ExceptionFilter :
         return
             $"{method} {path} {queryString}";
     }
-
-#region Constructor
-
-    private readonly IErrorResponseFacade
-        _errorResponseFacade;
-
-    private readonly IExceptionLogDomainFacade
-        _internalFacade;
-
-    public ExceptionFilter(
-        IErrorResponseFacade
-            errorResponseFacade,
-        IExceptionLogDomainFacade
-            internalFacade
-    )
-    {
-        _errorResponseFacade =
-            errorResponseFacade;
-
-        _internalFacade =
-            internalFacade;
-    }
-
-#endregion
 }

@@ -7,20 +7,14 @@ namespace Arc.Criteria.FilterParameters.Factories.Implementations;
 /// For api requests 
 /// </summary>
 // todo : should be replaced by LambdaBuilderService instead ?
-public sealed class GenericFilterPropertyFromStringValueFactoryService :
-    IGenericFilterPropertyFromStringValueFactoryService
-{
-#region Constructor
-
-    private readonly IGenericFilterPropertyFromExpressionFactoryService
-        _genericFilterPropertyFromExpressionFactoryService;
-
-    public GenericFilterPropertyFromStringValueFactoryService(
+public sealed class GenericFilterPropertyFromStringValueFactoryService(
         IGenericFilterPropertyFromExpressionFactoryService
             genericFilterPropertyFromExpressionFactoryService
-    ) =>
-        _genericFilterPropertyFromExpressionFactoryService =
-            genericFilterPropertyFromExpressionFactoryService;
+    )
+    :
+        IGenericFilterPropertyFromStringValueFactoryService
+{
+#region Constructor
 
 #endregion
     public FilterParameterBase<TEntity> GetProperty<TEntity>(
@@ -91,7 +85,7 @@ public sealed class GenericFilterPropertyFromStringValueFactoryService :
             );
 
         return
-            _genericFilterPropertyFromExpressionFactoryService
+            genericFilterPropertyFromExpressionFactoryService
                 .GetProperty(
                     propertyLambda,
                     filterPropertyModel

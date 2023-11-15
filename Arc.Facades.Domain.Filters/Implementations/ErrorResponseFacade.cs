@@ -7,8 +7,12 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arc.Facades.Domain.Filters.Implementations;
 
-public sealed class ErrorResponseFacade :
-    IErrorResponseFacade
+public sealed class ErrorResponseFacade(
+        IDomainErrorsContainerService
+            internalErrorsContainerService
+    )
+    :
+        IErrorResponseFacade
 {
     public IActionResult CreateErrorResponse(
         Exception exception,
@@ -21,7 +25,7 @@ public sealed class ErrorResponseFacade :
             );
 
         var errorResponse =
-            _internalErrorsContainerService
+            internalErrorsContainerService
                 .GetErrorsContainer(
                     exception,
                     traceId
@@ -47,19 +51,4 @@ public sealed class ErrorResponseFacade :
             _ =>
                 HttpResponseCodeConstants.ServerError,
         };
-
-#region Constructor
-
-    private readonly
-        IDomainErrorsContainerService
-        _internalErrorsContainerService;
-
-    public ErrorResponseFacade(
-        IDomainErrorsContainerService
-            internalErrorsContainerService
-    ) =>
-        _internalErrorsContainerService =
-            internalErrorsContainerService;
-
-#endregion
 }

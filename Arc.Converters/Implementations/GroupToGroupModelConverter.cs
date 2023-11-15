@@ -4,30 +4,24 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Converters.Implementations;
 
-public sealed class GroupToGroupModelConverter :
-    ConverterBase
-    <
-        Group,
-        GroupModel
-    >,
-    IGroupToGroupModelConverter
-{
-    private readonly IBaseDescriptionToDescriptionModelConverter
-        _descriptionModelConverter;
-
-    public GroupToGroupModelConverter(
+public sealed class GroupToGroupModelConverter(
         IBaseDescriptionToDescriptionModelConverter
             descriptionModelConverter
-    ) =>
-        _descriptionModelConverter =
-            descriptionModelConverter;
-
+    )
+    :
+        ConverterBase
+        <
+            Group,
+            GroupModel
+        >,
+        IGroupToGroupModelConverter
+{
     public override GroupModel Convert(
         Group entity
     )
     {
         var descriptionModel =
-            _descriptionModelConverter
+            descriptionModelConverter
                 .Convert(
                     entity.Description
                 );

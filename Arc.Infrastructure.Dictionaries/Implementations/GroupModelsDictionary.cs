@@ -7,18 +7,17 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Infrastructure.Dictionaries.Implementations;
 
-public sealed class GroupModelsDictionary :
-    ModelDictionaryBaseIntegerKeys<GroupModel>,
-    IGroupModelsDictionary
-{
-    public GroupModelsDictionary(
+public sealed class GroupModelsDictionary(
         IDictionariesManager dictionaryManager,
         IDataCache dataCache
-    ) : base(
-        dictionaryManager,
-        dataCache
-    ) { }
-
+    )
+    :
+        ModelDictionaryBaseIntegerKeys<GroupModel>(
+            dictionaryManager,
+            dataCache
+        ),
+        IGroupModelsDictionary
+{
     protected override IReadOnlyList<Type> GetDependencies() =>
         new[]
         {

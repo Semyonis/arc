@@ -9,4 +9,4 @@ public interface IComplexPropertyModelToListItemResponseConverter :
     <
         ComplexPropertyModel,
         ListItemResponse
-    > { }
+    >;

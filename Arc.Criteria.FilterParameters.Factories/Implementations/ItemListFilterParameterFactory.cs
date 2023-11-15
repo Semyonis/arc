@@ -8,8 +8,12 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.FilterParameters.Factories.Implementations;
 
-public sealed class ItemListFilterParameterFactory :
-    IItemListFilterParameterFactory
+public sealed class ItemListFilterParameterFactory(
+        IBadDataExceptionDescriptor
+            badDataExceptionDescriptor
+    )
+    :
+        IItemListFilterParameterFactory
 {
     public FilterParameterBase<TEntity> GetFilterParameter
     <
@@ -87,21 +91,7 @@ public sealed class ItemListFilterParameterFactory :
                     );
             default:
                 throw
-                    _badDataExceptionDescriptor.CreateException();
+                    badDataExceptionDescriptor.CreateException();
         }
     }
-
-#region Constructor
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    public ItemListFilterParameterFactory(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    ) =>
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-
-#endregion
 }

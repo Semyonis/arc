@@ -7,43 +7,7 @@ using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Admins.Implementations.Admins;
 
-public sealed class AdminItemListReadFacade :
-    IAdminItemListReadFacade
-{
-    public async Task<Response> Execute(
-        AdminIdentity identity
-    )
-    {
-        var admins =
-            await
-                _adminsReadRepository
-                    .GetAll();
-
-        var responses =
-            _adminToListItemResponseConverter
-                .Convert(
-                    admins
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse(
-                    responses
-                );
-    }
-
-#region Constructor
-
-    private readonly IAdminToListItemResponseConverter
-        _adminToListItemResponseConverter;
-
-    private readonly IAdminsReadRepository
-        _adminsReadRepository;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    public AdminItemListReadFacade(
+public sealed class AdminItemListReadFacade(
         IAdminToListItemResponseConverter
             adminToListItemResponseConverter,
         IAdminsReadRepository
@@ -51,16 +15,28 @@ public sealed class AdminItemListReadFacade :
         IResponsesDomainFacade
             internalFacade
     )
+    :
+        IAdminItemListReadFacade
+{
+    public async Task<Response> Execute(
+        AdminIdentity identity
+    )
     {
-        _adminToListItemResponseConverter =
-            adminToListItemResponseConverter;
+        var admins =
+            await
+                adminsReadRepository
+                    .GetAll();
 
-        _adminsReadRepository =
-            adminsReadRepository;
+        var responses =
+            adminToListItemResponseConverter
+                .Convert(
+                    admins
+                );
 
-        _internalFacade =
-            internalFacade;
+        return
+            internalFacade
+                .CreateOkResponse(
+                    responses
+                );
     }
-
-#endregion
 }

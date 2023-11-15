@@ -3,8 +3,12 @@ using Arc.Infrastructure.Common.Extensions;
 
 namespace Arc.Middleware.Filters.Implementations;
 
-public sealed class StringNormalizationFilter :
-    IAsyncActionFilter
+public sealed class StringNormalizationFilter(
+        IObjectNormalizeStringFacade
+            objectNormalizeStringFacade
+    )
+    :
+        IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
@@ -36,7 +40,7 @@ public sealed class StringNormalizationFilter :
                 context.ActionArguments[key];
 
             var normalizeStringFields =
-                _objectNormalizeStringFacade
+                objectNormalizeStringFacade
                     .NormalizeStringFields(
                         contextActionArgument
                     );
@@ -48,18 +52,4 @@ public sealed class StringNormalizationFilter :
         await
             next();
     }
-
-#region Constructor
-
-    private readonly IObjectNormalizeStringFacade
-        _objectNormalizeStringFacade;
-
-    public StringNormalizationFilter(
-        IObjectNormalizeStringFacade
-            objectNormalizeStringFacade
-    ) =>
-        _objectNormalizeStringFacade =
-            objectNormalizeStringFacade;
-
-#endregion
 }

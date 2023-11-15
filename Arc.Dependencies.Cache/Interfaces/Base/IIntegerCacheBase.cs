@@ -2,4 +2,4 @@
 
 public interface IIntegerCacheBase<TEntity> :
     ICacheBase<int, TEntity>
-    where TEntity : class { }
+    where TEntity : class;

@@ -11,17 +11,15 @@ namespace Arc.Infrastructure.Repositories.Read.Implementations.Base;
 public abstract class IdReadRepositoryBase
 <
     TEntity
-> :
-    ReadRepositoryBase<TEntity>,
+>(
+    ArcDatabaseContext context
+) :
+    ReadRepositoryBase<TEntity>(
+        context
+    ),
     IReadRepositoryBase<TEntity>
     where TEntity : class, IWithIdentifier
 {
-    protected IdReadRepositoryBase(
-        ArcDatabaseContext context
-    ) : base(
-        context
-    ) { }
-
     public async Task<TEntity?> GetById(
         int entityId,
         Func

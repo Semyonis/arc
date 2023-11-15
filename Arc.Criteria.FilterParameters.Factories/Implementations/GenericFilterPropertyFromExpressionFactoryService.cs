@@ -12,8 +12,20 @@ namespace Arc.Criteria.FilterParameters.Factories.Implementations;
 /// <summary>
 /// For internal use in ReadRepository
 /// </summary>
-public sealed class GenericFilterPropertyFromExpressionFactoryService :
-    IGenericFilterPropertyFromExpressionFactoryService
+public sealed class GenericFilterPropertyFromExpressionFactoryService(
+        IBadDataExceptionDescriptor
+            badDataExceptionDescriptor,
+        IIntegerCompareFunctions
+            integerCompareFunctions,
+        IStringCompareFunctions
+            stringCompareFunctions,
+        IBooleanCompareFunctions
+            booleanCompareFunctions,
+        IDateTimeFilterParameterFactory
+            dateTimeFilterParameterFactory
+    )
+    :
+        IGenericFilterPropertyFromExpressionFactoryService
 {
    public FilterParameterBase<TEntity> GetProperty<TEntity, TProperty>(
         Expression<Func<TEntity, TProperty>> expression,
@@ -118,7 +130,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService :
         }
 
         throw
-            _badDataExceptionDescriptor.CreateException();
+            badDataExceptionDescriptor.CreateException();
     }
 
     private  Type GetPropertyType<TEntity, TProperty>(
@@ -134,7 +146,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService :
         }
 
         throw
-            _badDataExceptionDescriptor.CreateException();
+            badDataExceptionDescriptor.CreateException();
     }
     private PropertyFilterParameter<TEntity, bool> GetBoolFilterParameter<TEntity>(
         string operation,
@@ -143,7 +155,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService :
     )
     {
         var compareFunction =
-            _booleanCompareFunctions
+            booleanCompareFunctions
                 .GetFunction(
                     operation
                 );
@@ -168,7 +180,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService :
     )
     {
         var compareFunction =
-            _integerCompareFunctions
+            integerCompareFunctions
                 .GetFunction(
                     operation
                 );
@@ -192,7 +204,7 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService :
     )
     {
         var compareFunction =
-            _stringCompareFunctions
+            stringCompareFunctions
                 .GetFunction(
                     operation
                 );
@@ -217,58 +229,10 @@ public sealed class GenericFilterPropertyFromExpressionFactoryService :
             );
 
         return
-            _dateTimeFilterParameterFactory
+            dateTimeFilterParameterFactory
                 .GetFilterParameter(
                     filterPropertyModel,
                     property
                 );
     }
-
-#region Constructor
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    private readonly IBooleanCompareFunctions
-        _booleanCompareFunctions;
-
-    private readonly IIntegerCompareFunctions
-        _integerCompareFunctions;
-
-    private readonly IStringCompareFunctions
-        _stringCompareFunctions;
-
-    private readonly IDateTimeFilterParameterFactory
-        _dateTimeFilterParameterFactory;
-
-    public GenericFilterPropertyFromExpressionFactoryService(
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IIntegerCompareFunctions
-            integerCompareFunctions,
-        IStringCompareFunctions
-            stringCompareFunctions,
-        IBooleanCompareFunctions
-            booleanCompareFunctions,
-        IDateTimeFilterParameterFactory
-            dateTimeFilterParameterFactory
-    )
-    {
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-
-        _integerCompareFunctions =
-            integerCompareFunctions;
-
-        _stringCompareFunctions =
-            stringCompareFunctions;
-
-        _booleanCompareFunctions =
-            booleanCompareFunctions;
-
-        _dateTimeFilterParameterFactory =
-            dateTimeFilterParameterFactory;
-    }
-
-#endregion
 }

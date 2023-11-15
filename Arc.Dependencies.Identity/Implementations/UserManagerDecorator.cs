@@ -1,14 +1,18 @@
 ﻿namespace Arc.Dependencies.Identity.Implementations;
 
-public sealed class UserManagerDecorator :
-    IUserManagerDecorator
+public sealed class UserManagerDecorator(
+        UserManager<IdentityUser>
+            userManager
+    )
+    :
+        IUserManagerDecorator
 {
     public async Task AddToRoleAsync(
         IdentityUser user,
         string role
     ) =>
         await
-            _userManager
+            userManager
                 .AddToRoleAsync(
                     user,
                     role
@@ -18,7 +22,7 @@ public sealed class UserManagerDecorator :
         IdentityUser user
     ) =>
         await
-            _userManager
+            userManager
                 .GetRolesAsync(
                     user
                 );
@@ -27,7 +31,7 @@ public sealed class UserManagerDecorator :
         string id
     ) =>
         await
-            _userManager
+            userManager
                 .FindByIdAsync(
                     id
                 );
@@ -36,7 +40,7 @@ public sealed class UserManagerDecorator :
         string email
     ) =>
         await
-            _userManager
+            userManager
                 .FindByEmailAsync(
                     email
                 );
@@ -44,7 +48,7 @@ public sealed class UserManagerDecorator :
     public Task<IdentityResult> DeleteAsync(
         IdentityUser user
     ) =>
-        _userManager
+        userManager
             .DeleteAsync(
                 user
             );
@@ -54,7 +58,7 @@ public sealed class UserManagerDecorator :
         string password
     ) =>
         await
-            _userManager
+            userManager
                 .CreateAsync(
                     user,
                     password
@@ -65,7 +69,7 @@ public sealed class UserManagerDecorator :
         string confirmationCode
     ) =>
         await
-            _userManager
+            userManager
                 .ConfirmEmailAsync(
                     user,
                     confirmationCode
@@ -75,7 +79,7 @@ public sealed class UserManagerDecorator :
         IdentityUser user
     ) =>
         await
-            _userManager
+            userManager
                 .GenerateEmailConfirmationTokenAsync(
                     user
                 );
@@ -84,7 +88,7 @@ public sealed class UserManagerDecorator :
         IdentityUser user
     ) =>
         await
-            _userManager
+            userManager
                 .GeneratePasswordResetTokenAsync(
                     user
                 );
@@ -95,7 +99,7 @@ public sealed class UserManagerDecorator :
         string tokenName
     ) =>
         await
-            _userManager
+            userManager
                 .GetAuthenticationTokenAsync(
                     user,
                     loginProvider,
@@ -108,7 +112,7 @@ public sealed class UserManagerDecorator :
         string newPassword
     ) =>
         await
-            _userManager
+            userManager
                 .ResetPasswordAsync(
                     user,
                     token,
@@ -121,7 +125,7 @@ public sealed class UserManagerDecorator :
         string newPassword
     ) =>
         await
-            _userManager
+            userManager
                 .ChangePasswordAsync(
                     user,
                     currentPassword,
@@ -134,7 +138,7 @@ public sealed class UserManagerDecorator :
         string tokenName
     ) =>
         await
-            _userManager
+            userManager
                 .RemoveAuthenticationTokenAsync(
                     user,
                     loginProvider,
@@ -148,7 +152,7 @@ public sealed class UserManagerDecorator :
         string tokenValue
     ) =>
         await
-            _userManager
+            userManager
                 .SetAuthenticationTokenAsync(
                     user,
                     loginProvider,
@@ -160,7 +164,7 @@ public sealed class UserManagerDecorator :
         IdentityUser user
     ) =>
         await
-            _userManager
+            userManager
                 .RemovePasswordAsync(
                     user
                 );
@@ -170,7 +174,7 @@ public sealed class UserManagerDecorator :
         string password
     ) =>
         await
-            _userManager
+            userManager
                 .AddPasswordAsync(
                     user,
                     password
@@ -181,7 +185,7 @@ public sealed class UserManagerDecorator :
         string newEmail
     ) =>
         await
-            _userManager
+            userManager
                 .GenerateChangeEmailTokenAsync(
                     user,
                     newEmail
@@ -193,7 +197,7 @@ public sealed class UserManagerDecorator :
         string token
     ) =>
         await
-            _userManager
+            userManager
                 .ChangeEmailAsync(
                     user,
                     newEmail,
@@ -204,22 +208,8 @@ public sealed class UserManagerDecorator :
         IdentityUser user
     ) =>
         await
-            _userManager
+            userManager
                 .UpdateAsync(
                     user
                 );
-
-#region Constructor
-
-    private readonly UserManager<IdentityUser>
-        _userManager;
-
-    public UserManagerDecorator(
-        UserManager<IdentityUser>
-            userManager
-    ) =>
-        _userManager =
-            userManager;
-
-#endregion
 }

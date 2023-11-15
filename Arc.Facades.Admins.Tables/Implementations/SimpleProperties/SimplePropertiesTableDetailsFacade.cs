@@ -9,12 +9,7 @@ using Arc.Models.Views.Admins.Tables.Models.SimpleProperties;
 
 namespace Arc.Facades.Admins.Tables.Implementations.SimpleProperties;
 
-public sealed class SimplePropertiesTableDetailsFacade :
-    BaseTableDetailsFacade
-    <SimpleProperty, SimplePropertyReadResponse>,
-    ISimplePropertiesTableDetailsFacade
-{
-    public SimplePropertiesTableDetailsFacade(
+public sealed class SimplePropertiesTableDetailsFacade(
         ISimplePropertiesReadRepository
             readRepository,
         IResponsesDomainFacade
@@ -23,10 +18,13 @@ public sealed class SimplePropertiesTableDetailsFacade :
             readConverter,
         IEntityNotFoundExceptionDescriptor
             entityNotFoundExceptionDescriptor
-    ) : base(
-        readRepository,
-        internalFacade,
-        readConverter,
-        entityNotFoundExceptionDescriptor
-    ) { }
-}
+    )
+    :
+        BaseTableDetailsFacade
+        <SimpleProperty, SimplePropertyReadResponse>(
+            readRepository,
+            internalFacade,
+            readConverter,
+            entityNotFoundExceptionDescriptor
+        ),
+        ISimplePropertiesTableDetailsFacade;

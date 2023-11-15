@@ -11,15 +11,7 @@ using Arc.Models.Views.Admins.Tables.Models.SimpleProperties;
 
 namespace Arc.Facades.Admins.Tables.Implementations.SimpleProperties;
 
-public sealed class SimplePropertiesTableFacade :
-    BaseTableFacade
-    <
-        SimpleProperty,
-        SimplePropertyReadResponse
-    >,
-    ISimplePropertiesTableFacade
-{
-    public SimplePropertiesTableFacade(
+public sealed class SimplePropertiesTableFacade(
         ISimplePropertiesReadRepository
             readRepository,
         IPageResponsesDomainFacade
@@ -32,12 +24,18 @@ public sealed class SimplePropertiesTableFacade :
             filterParameterConverter,
         IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
             filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    ) : base(
-        readRepository,
-        internalResponsesFacade,
-        readConverter,
-        orderingService,
-        filterParameterConverter,
-        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    ) { }
-}
+    )
+    :
+        BaseTableFacade
+        <
+            SimpleProperty,
+            SimplePropertyReadResponse
+        >(
+            readRepository,
+            internalResponsesFacade,
+            readConverter,
+            orderingService,
+            filterParameterConverter,
+            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        ),
+        ISimplePropertiesTableFacade;

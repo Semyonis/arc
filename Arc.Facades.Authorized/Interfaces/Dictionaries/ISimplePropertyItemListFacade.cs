@@ -3,4 +3,4 @@
 namespace Arc.Facades.Authorized.Interfaces.Dictionaries;
 
 public interface ISimplePropertyItemListFacade :
-    IMethodFacade { }
+    IMethodFacade;

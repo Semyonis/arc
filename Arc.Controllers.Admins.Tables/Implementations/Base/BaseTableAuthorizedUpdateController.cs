@@ -6,16 +6,14 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arc.Controllers.Admins.Tables.Implementations.Base;
 
-public abstract class BaseTableAuthorizedUpdateController<TUpdateRequest> :
-    AdminAuthorizedArcController
-{
-    protected BaseTableAuthorizedUpdateController(
+public abstract class BaseTableAuthorizedUpdateController<TUpdateRequest>(
         IExtendedTableUpdateFacade<TUpdateRequest>
             facade
-    ) : base(
-        facade
-    ) { }
-
+    )
+    :
+        AdminAuthorizedArcController(facade
+    )
+{
     [HttpPut]
     [ProducesOkResponseType(
         typeof(TableActionResultResponse)

@@ -4,30 +4,24 @@ using Arc.Models.Views.Admins.Tables.Models.Groups;
 
 namespace Arc.Converters.Views.Admins.Implementations;
 
-public sealed class GroupUpdateResponseToGroupsConverter :
-    ConverterBase
-    <
-        GroupUpdateResponse,
-        Group
-    >,
-    IGroupUpdateResponseToGroupsConverter
-{
-    private readonly IStringToGroupDescriptionConverter
-        _descriptionToDescriptionEntityConverter;
-
-    public GroupUpdateResponseToGroupsConverter(
+public sealed class GroupUpdateResponseToGroupsConverter(
         IStringToGroupDescriptionConverter
             descriptionToDescriptionEntityConverter
-    ) =>
-        _descriptionToDescriptionEntityConverter =
-            descriptionToDescriptionEntityConverter;
-
+    )
+    :
+        ConverterBase
+        <
+            GroupUpdateResponse,
+            Group
+        >,
+        IGroupUpdateResponseToGroupsConverter
+{
     public override Group Convert(
         GroupUpdateResponse entity
     )
     {
         var description =
-            _descriptionToDescriptionEntityConverter
+            descriptionToDescriptionEntityConverter
                 .Convert(
                     entity
                         .Description

@@ -3,4 +3,4 @@
 namespace Arc.Infrastructure.Exceptions.Interfaces;
 
 public interface IBadDataExceptionDescriptor :
-    IExceptionDescriptorBase { }
+    IExceptionDescriptorBase;

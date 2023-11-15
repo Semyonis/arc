@@ -8,4 +8,4 @@ public interface IBaseDescriptionCreateRequestConverter<out TEntity> :
     <
         DescriptionCreateRequest,
         TEntity
-    > { }
+    >;

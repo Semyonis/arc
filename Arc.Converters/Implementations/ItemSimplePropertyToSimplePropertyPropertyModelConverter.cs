@@ -3,28 +3,22 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Converters.Implementations;
 
-public sealed class ItemSimplePropertyToSimplePropertyPropertyModelConverter :
-    ConverterBase
-    <
-        ItemsSimpleProperties,
-        SimplePropertyModel
-    >,
-    IItemSimplePropertyToSimplePropertyPropertyModelConverter
-{
-    private readonly ISimplePropertyToItemSimplePropertyModelConverter
-        _breedToItemSimplePropertyModelConverter;
-
-    public ItemSimplePropertyToSimplePropertyPropertyModelConverter(
+public sealed class ItemSimplePropertyToSimplePropertyPropertyModelConverter(
         ISimplePropertyToItemSimplePropertyModelConverter
             breedToItemSimplePropertyModelConverter
-    ) =>
-        _breedToItemSimplePropertyModelConverter =
-            breedToItemSimplePropertyModelConverter;
-
+    )
+    :
+        ConverterBase
+        <
+            ItemsSimpleProperties,
+            SimplePropertyModel
+        >,
+        IItemSimplePropertyToSimplePropertyPropertyModelConverter
+{
     public override SimplePropertyModel Convert(
         ItemsSimpleProperties entity
     ) =>
-        _breedToItemSimplePropertyModelConverter
+        breedToItemSimplePropertyModelConverter
             .Convert(
                 entity.SimpleProperty
             );

@@ -10,23 +10,17 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Us
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
-public sealed class UsersReadRepository :
-    IdReadRepositoryBase<User>,
-    IUsersReadRepository
-{
-    private readonly IUserPropertyFilters
-        _userPropertyFilters;
-
-    public UsersReadRepository(
+public sealed class UsersReadRepository(
         ArcDatabaseContext context,
         IUserPropertyFilters
             userPropertyFilters
-    ) : base(
-        context
-    ) =>
-        _userPropertyFilters =
-            userPropertyFilters;
-
+    )
+    :
+        IdReadRepositoryBase<User>(
+            context
+        ),
+        IUsersReadRepository
+{
     public async Task<string?> GetEmailById(
         int userId
     ) =>
@@ -47,7 +41,7 @@ public sealed class UsersReadRepository :
     )
     {
         var propertyFilterParameter =
-            _userPropertyFilters
+            userPropertyFilters
                 .GetEmailEqualFilter(
                     email
                 );

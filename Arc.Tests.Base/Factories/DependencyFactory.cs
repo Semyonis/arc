@@ -6,36 +6,13 @@ using Arc.Tests.Base.Factories.Containers;
 
 namespace Arc.Tests.Base.Factories;
 
-public sealed class DependencyFactory
+public sealed class DependencyFactory(IDependencyContainer
+        dependencyContainer,
+    IMultipleConstructorsExceptionDescriptor
+        multipleConstructorsExceptionDescriptor,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor)
 {
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    private readonly IDependencyContainer
-        _dependencyContainer;
-
-    private readonly IMultipleConstructorsExceptionDescriptor
-        _multipleConstructorsExceptionDescriptor;
-
-    public DependencyFactory(
-        IDependencyContainer
-            dependencyContainer,
-        IMultipleConstructorsExceptionDescriptor
-            multipleConstructorsExceptionDescriptor,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    {
-        _dependencyContainer =
-            dependencyContainer;
-
-        _multipleConstructorsExceptionDescriptor =
-            multipleConstructorsExceptionDescriptor;
-
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-    }
-
     public TInterface GetImplementation<TInterface>() =>
         (TInterface)GetInstance(
             typeof(TInterface)
@@ -46,7 +23,7 @@ public sealed class DependencyFactory
     )
     {
         var resultContainer =
-            _dependencyContainer
+            dependencyContainer
                 .GetImplementationInstance(
                     interfaceType
                 );
@@ -137,7 +114,7 @@ public sealed class DependencyFactory
         if (constructors.IsEmpty())
         {
             throw
-                _badDataExceptionDescriptor.CreateException();
+                badDataExceptionDescriptor.CreateException();
         }
 
         if (constructors.Length == 1)
@@ -146,7 +123,7 @@ public sealed class DependencyFactory
         }
 
         throw
-            _multipleConstructorsExceptionDescriptor
+            multipleConstructorsExceptionDescriptor
                 .CreateException();
     }
 
@@ -163,7 +140,7 @@ public sealed class DependencyFactory
         }
 
         return
-            _dependencyContainer
+            dependencyContainer
                 .GetImplementationType(
                     type
                 );
@@ -174,7 +151,7 @@ public sealed class DependencyFactory
         object implementationType
     )
     {
-        _dependencyContainer
+        dependencyContainer
             .SetImplementationInstance(
                 interfaceType,
                 implementationType

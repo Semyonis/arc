@@ -6,8 +6,14 @@ using Arc.Models.Views.Common.Models;
 
 namespace Arc.Facades.Authorized.Implementations;
 
-public sealed class ActorTypeFacade :
-    IActorTypeFacade
+public sealed class ActorTypeFacade(
+        IActorsReadRepository
+            actorsReadRepository,
+        IResponsesDomainFacade
+            internalFacade
+    )
+    :
+        IActorTypeFacade
 {
     public async Task<Response> Execute(
         string email
@@ -15,7 +21,7 @@ public sealed class ActorTypeFacade :
     {
         var admin =
             await
-                _actorsReadRepository
+                actorsReadRepository
                     .GetByEmail(
                         email
                     );
@@ -27,33 +33,9 @@ public sealed class ActorTypeFacade :
             );
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     actor
                 );
     }
-
-#region Constructor
-
-    private readonly IActorsReadRepository
-        _actorsReadRepository;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    public ActorTypeFacade(
-        IActorsReadRepository
-            actorsReadRepository,
-        IResponsesDomainFacade
-            internalFacade
-    )
-    {
-        _actorsReadRepository =
-            actorsReadRepository;
-
-        _internalFacade =
-            internalFacade;
-    }
-
-#endregion
 }

@@ -9,8 +9,18 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Facades.Admins.Implementations.Admins;
 
-public sealed class AdminsPasswordUpdateFacade :
-    IAdminsPasswordUpdateFacade
+public sealed class AdminsPasswordUpdateFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        ITransactionManager
+            transactionManager,
+        IUserPasswordManagerService
+            userPasswordManagerService,
+        IAdminsReadRepository
+            adminReadRepository
+    )
+    :
+        IAdminsPasswordUpdateFacade
 {
     public async Task<Response> Execute(
         AdminPasswordRequest request,
@@ -19,18 +29,18 @@ public sealed class AdminsPasswordUpdateFacade :
     {
         var email =
             await
-                _adminReadRepository
+                adminReadRepository
                     .GetEmailById(
                         request.Id
                     );
 
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         await
-            _userPasswordManagerService
+            userPasswordManagerService
                 .SetPassword(
                     email!,
                     request.NewPassword
@@ -41,47 +51,7 @@ public sealed class AdminsPasswordUpdateFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    private readonly IUserPasswordManagerService
-        _userPasswordManagerService;
-
-    private readonly IAdminsReadRepository
-        _adminReadRepository;
-
-    public AdminsPasswordUpdateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IUserPasswordManagerService
-            userPasswordManagerService,
-        IAdminsReadRepository
-            adminReadRepository
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _transactionManager =
-            transactionManager;
-
-        _userPasswordManagerService =
-            userPasswordManagerService;
-
-        _adminReadRepository =
-            adminReadRepository;
-    }
-
-#endregion
 }

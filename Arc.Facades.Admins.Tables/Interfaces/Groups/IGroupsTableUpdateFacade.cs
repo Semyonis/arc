@@ -7,4 +7,4 @@ public interface IGroupsTableUpdateFacade :
     IExtendedTableUpdateFacade
     <
         GroupTableUpdateRequest
-    > { }
+    >;

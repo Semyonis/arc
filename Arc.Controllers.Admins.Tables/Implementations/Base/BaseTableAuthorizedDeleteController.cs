@@ -6,16 +6,13 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arc.Controllers.Admins.Tables.Implementations.Base;
 
-public abstract class BaseTableAuthorizedDeleteController :
-    AdminAuthorizedArcController
-{
-    protected BaseTableAuthorizedDeleteController(
-        IExtendedTableDeleteFacade
-            facade
-    ) : base(
+public abstract class BaseTableAuthorizedDeleteController(
+    IExtendedTableDeleteFacade
         facade
-    ) { }
-
+) :
+    AdminAuthorizedArcController(facade
+    )
+{
     [HttpDelete]
     [ProducesOkResponseType(
         typeof(TableActionResultResponse)

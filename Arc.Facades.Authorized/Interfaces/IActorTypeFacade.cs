@@ -3,4 +3,4 @@
 namespace Arc.Facades.Authorized.Interfaces;
 
 public interface IActorTypeFacade :
-    IFunctionFacade<string> { }
+    IFunctionFacade<string>;

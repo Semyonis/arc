@@ -5,16 +5,14 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Controllers.Admins.Implementations.Emergency;
 
-public sealed class OperatingModeControlController :
-    AdminAuthorizedArcController
-{
-    public OperatingModeControlController(
+public sealed class OperatingModeControlController(
         IOperatingModeControlFacade
             facade
-    ) : base(
-        facade
-    ) { }
-
+    )
+    :
+        AdminAuthorizedArcController(facade
+    )
+{
     [HttpGet]
     [ProducesOkResponseType(
         typeof(ServiceModeAdminReadResponse)

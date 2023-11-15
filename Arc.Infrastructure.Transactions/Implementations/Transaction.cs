@@ -8,26 +8,34 @@ using Microsoft.EntityFrameworkCore.Storage;
 
 namespace Arc.Infrastructure.Transactions.Implementations;
 
-public sealed class Transaction :
-    ITransaction
+public sealed class Transaction(
+        ArcDatabaseContext
+            context,
+        IDbContextTransaction
+            transaction,
+        IDictionariesManager
+            dictionariesManager
+    )
+    :
+        ITransaction
 {
     public void Dispose() =>
-        _transaction.Dispose();
+        transaction.Dispose();
 
     public async Task Commit()
     {
         await
-            _context.SaveChangesAsync();
+            context.SaveChangesAsync();
 
         await
-            _transaction.CommitAsync();
+            transaction.CommitAsync();
 
         var updatedEntities =
             GetUpdatedOrDeletedEntityTypes();
 
         foreach (var entityType in updatedEntities)
         {
-            _dictionariesManager
+            dictionariesManager
                 .Update(
                     entityType
                 );
@@ -35,7 +43,7 @@ public sealed class Transaction :
     }
 
     private IEnumerable<Type> GetUpdatedOrDeletedEntityTypes() =>
-        _context
+        context
             .ChangeTracker
             .Entries()
             .Where(
@@ -60,37 +68,5 @@ public sealed class Transaction :
             or EntityState.Deleted;
 
     public void Rollback() =>
-        _transaction.Rollback();
-
-#region Constructor
-
-    private readonly ArcDatabaseContext
-        _context;
-
-    private readonly IDbContextTransaction
-        _transaction;
-
-    private readonly IDictionariesManager
-        _dictionariesManager;
-
-    public Transaction(
-        ArcDatabaseContext
-            context,
-        IDbContextTransaction
-            transaction,
-        IDictionariesManager
-            dictionariesManager
-    )
-    {
-        _context =
-            context;
-
-        _transaction =
-            transaction;
-
-        _dictionariesManager =
-            dictionariesManager;
-    }
-
-#endregion
+        transaction.Rollback();
 }

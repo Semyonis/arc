@@ -4,16 +4,13 @@ using Arc.Facades.Admins.Interfaces.Users;
 
 namespace Arc.Controllers.Admins.Implementations.Users;
 
-public sealed class ConfirmUserEmailController :
-    AdminAuthorizedArcController
-{
-    public ConfirmUserEmailController(
-        IConfirmUserEmailFacade
-            facade
-    ) : base(
+public sealed class ConfirmUserEmailController(
+    IConfirmUserEmailFacade
         facade
-    ) { }
-
+) :
+    AdminAuthorizedArcController(facade
+    )
+{
     [HttpPut(
         "{userId:int}"
     )]

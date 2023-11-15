@@ -5,13 +5,10 @@ using Arc.Tests.Integrations.Models.DataDictionaries.Base;
 
 namespace Arc.Tests.Integrations.Models.DataDictionaries;
 
-public sealed class ComplexPropertyModelsDictionaryForDebug :
-    ModelDictionaryBaseForDebug<int, ComplexPropertyModel>,
-    IComplexPropertyModelsDictionary
-{
-    public ComplexPropertyModelsDictionaryForDebug(
-        IDictionariesManager dictionaryManager
-    ) : base(
+public sealed class ComplexPropertyModelsDictionaryForDebug(
+    IDictionariesManager dictionaryManager
+) :
+    ModelDictionaryBaseForDebug<int, ComplexPropertyModel>(
         dictionaryManager
-    ) { }
-}
+    ),
+    IComplexPropertyModelsDictionary;

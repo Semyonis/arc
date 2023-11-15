@@ -4,30 +4,24 @@ using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 
 namespace Arc.Converters.Views.Admins.Implementations;
 
-public sealed class ComplexPropertyUpdateRequestToComplexPropertiesConverter :
-    ConverterBase
-    <
-        ComplexPropertyUpdateRequest,
-        ComplexProperty
-    >,
-    IComplexPropertyUpdateRequestToComplexPropertiesConverter
-{
-    private readonly IStringToComplexPropertyDescriptionConverter
-        _descriptionToDescriptionEntityConverter;
-
-    public ComplexPropertyUpdateRequestToComplexPropertiesConverter(
+public sealed class ComplexPropertyUpdateRequestToComplexPropertiesConverter(
         IStringToComplexPropertyDescriptionConverter
             descriptionToDescriptionEntityConverter
-    ) =>
-        _descriptionToDescriptionEntityConverter =
-            descriptionToDescriptionEntityConverter;
-
+    )
+    :
+        ConverterBase
+        <
+            ComplexPropertyUpdateRequest,
+            ComplexProperty
+        >,
+        IComplexPropertyUpdateRequestToComplexPropertiesConverter
+{
     public override ComplexProperty Convert(
         ComplexPropertyUpdateRequest entity
     )
     {
         var description =
-            _descriptionToDescriptionEntityConverter
+            descriptionToDescriptionEntityConverter
                 .Convert(
                     entity
                         .Description

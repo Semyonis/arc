@@ -17,103 +17,7 @@ using static Arc.Infrastructure.Common.Enums.OperationType;
 
 namespace Arc.Facades.Admins.Tables.Implementations.Groups;
 
-public sealed class GroupsTableDeleteFacade :
-    BaseTableDeleteFacade
-    <Group>,
-    IGroupsTableDeleteFacade
-{
-    protected override async Task ValidateOnDelete(
-        IReadOnlyList<int> ids,
-        AdminIdentity adminIdentity
-    )
-    {
-        var filters =
-            ids
-                .Select(
-                    _complexPropertyPropertyFilter
-                        .GetGroupIdEqualFilter
-                );
-
-        var complexProperties =
-            await
-                _complexPropertiesReadRepository
-                    .GetListByFiltersAsync(
-                        filters.ToList(),
-                        operationType: Or,
-                        include:
-                        ComplexPropertiesIncludeExtensions.IncludeGroup
-                    );
-
-        if (complexProperties.IsNotEmpty())
-        {
-            var testId =
-                complexProperties
-                    .First()
-                    .Group
-                    .Id;
-
-            throw
-                _badDataExceptionDescriptor
-                    .CreateException(
-                        testId
-                    );
-        }
-    }
-
-    protected override async Task PrepareOnDelete(
-        IReadOnlyList<int> ids
-    )
-    {
-        var filters =
-            ids
-                .Select(
-                    _groupDescriptionPropertyFilter
-                        .GetGroupIdEqualFilter
-                );
-
-        var descriptions =
-            await
-                _groupDescriptionsReadRepository
-                    .GetListByFiltersAsync(
-                        filters.ToList(),
-                        operationType: Or
-                    );
-
-        await
-            _groupDescriptionsRepository
-                .DeleteAsync(
-                    descriptions
-                );
-    }
-
-    protected override
-        Func<IQueryable<Group>, IIncludableQueryable<Group, object>>
-        GetInclude() =>
-        entity =>
-            entity
-                .IncludeDescription();
-
-#region Constructor
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    private readonly IComplexPropertiesReadRepository
-        _complexPropertiesReadRepository;
-
-    private readonly IGroupDescriptionsReadRepository
-        _groupDescriptionsReadRepository;
-
-    private readonly IDeleteRepository
-        _groupDescriptionsRepository;
-
-    private readonly IComplexPropertyPropertyFilter
-        _complexPropertyPropertyFilter;
-
-    private readonly IGroupDescriptionPropertyFilter
-        _groupDescriptionPropertyFilter;
-
-    public GroupsTableDeleteFacade(
+public sealed class GroupsTableDeleteFacade(
         IDeleteRepository
             repository,
         IGroupsReadRepository
@@ -134,31 +38,85 @@ public sealed class GroupsTableDeleteFacade :
             complexPropertyPropertyFilter,
         IGroupDescriptionPropertyFilter
             groupDescriptionPropertyFilter
-    ) : base(
-        repository,
-        internalFacade,
-        transactionManager,
-        readRepository
+    )
+    :
+        BaseTableDeleteFacade
+        <Group>(
+            repository,
+            internalFacade,
+            transactionManager,
+            readRepository
+        ),
+        IGroupsTableDeleteFacade
+{
+    protected override async Task ValidateOnDelete(
+        IReadOnlyList<int> ids,
+        AdminIdentity adminIdentity
     )
     {
-        _groupDescriptionsRepository =
-            groupDescriptionsRepository;
+        var filters =
+            ids
+                .Select(
+                    complexPropertyPropertyFilter
+                        .GetGroupIdEqualFilter
+                );
 
-        _groupDescriptionsReadRepository =
-            groupDescriptionsReadRepository;
+        var complexProperties =
+            await
+                complexPropertiesReadRepository
+                    .GetListByFiltersAsync(
+                        filters.ToList(),
+                        operationType: Or,
+                        include:
+                        ComplexPropertiesIncludeExtensions.IncludeGroup
+                    );
 
-        _complexPropertiesReadRepository =
-            complexPropertiesReadRepository;
+        if (complexProperties.IsNotEmpty())
+        {
+            var testId =
+                complexProperties
+                    .First()
+                    .Group
+                    .Id;
 
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-
-        _complexPropertyPropertyFilter =
-            complexPropertyPropertyFilter;
-
-        _groupDescriptionPropertyFilter =
-            groupDescriptionPropertyFilter;
+            throw
+                badDataExceptionDescriptor
+                    .CreateException(
+                        testId
+                    );
+        }
     }
 
-#endregion
+    protected override async Task PrepareOnDelete(
+        IReadOnlyList<int> ids
+    )
+    {
+        var filters =
+            ids
+                .Select(
+                    groupDescriptionPropertyFilter
+                        .GetGroupIdEqualFilter
+                );
+
+        var descriptions =
+            await
+                groupDescriptionsReadRepository
+                    .GetListByFiltersAsync(
+                        filters.ToList(),
+                        operationType: Or
+                    );
+
+        await
+            groupDescriptionsRepository
+                .DeleteAsync(
+                    descriptions
+                );
+    }
+
+    protected override
+        Func<IQueryable<Group>, IIncludableQueryable<Group, object>>
+        GetInclude() =>
+        entity =>
+            entity
+                .IncludeDescription();
 }

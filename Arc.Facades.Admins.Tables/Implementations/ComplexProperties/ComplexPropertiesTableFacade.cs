@@ -14,15 +14,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
-public sealed class ComplexPropertiesTableFacade :
-    BaseTableFacade
-    <
-        ComplexProperty,
-        ComplexPropertyReadResponse
-    >,
-    IComplexPropertiesTableFacade
-{
-    public ComplexPropertiesTableFacade(
+public sealed class ComplexPropertiesTableFacade(
         IComplexPropertiesReadRepository
             readRepository,
         IPageResponsesDomainFacade
@@ -35,15 +27,22 @@ public sealed class ComplexPropertiesTableFacade :
             filterParameterConverter,
         IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
             filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    ) : base(
-        readRepository,
-        internalResponsesFacade,
-        readResponseConverter,
-        orderingService,
-        filterParameterConverter,
-        filterPropertyRequestRequestToFilterPropertyRequestModelConverter
-    ) { }
-
+    )
+    :
+        BaseTableFacade
+        <
+            ComplexProperty,
+            ComplexPropertyReadResponse
+        >(
+            readRepository,
+            internalResponsesFacade,
+            readResponseConverter,
+            orderingService,
+            filterParameterConverter,
+            filterPropertyRequestRequestToFilterPropertyRequestModelConverter
+        ),
+        IComplexPropertiesTableFacade
+{
     protected override
         Func<IQueryable<ComplexProperty>, IIncludableQueryable<ComplexProperty, object>>
         GetInclude() =>

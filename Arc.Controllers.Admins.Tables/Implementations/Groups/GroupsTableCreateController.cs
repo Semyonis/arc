@@ -8,13 +8,9 @@ namespace Arc.Controllers.Admins.Tables.Implementations.Groups;
 [ControllerGroup(
     "Groups"
 )]
-public sealed class GroupsTableCreateController :
-    BaseTableAuthorizedCreateController<GroupTableCreateRequest>
-{
-    public GroupsTableCreateController(
-        IGroupsTableCreateFacade
-            facade
-    ) : base(
+public sealed class GroupsTableCreateController(
+    IGroupsTableCreateFacade
         facade
-    ) { }
-}
+) :
+    BaseTableAuthorizedCreateController<GroupTableCreateRequest>(facade
+    );

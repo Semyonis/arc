@@ -5,13 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 namespace Arc.Controllers.Anonymous.Implementations.Base;
 
 [AllowAnonymous]
-public abstract class AnonymousArcController :
-    BaseUnauthorizedArcController
-{
-    protected AnonymousArcController(
-        object
-            facade
-    ) : base(
+public abstract class AnonymousArcController(
+    object
         facade
-    ) { }
-}
+) :
+    BaseUnauthorizedArcController(facade
+    );

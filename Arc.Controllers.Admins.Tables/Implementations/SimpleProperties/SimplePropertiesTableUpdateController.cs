@@ -8,16 +8,13 @@ namespace Arc.Controllers.Admins.Tables.Implementations.SimpleProperties;
 [ControllerGroup(
     "SimpleProperties"
 )]
-public sealed class SimplePropertiesTableUpdateController :
-    BaseTableAuthorizedUpdateController
-    <
-        SimplePropertyTableUpdateRequest
-    >
-{
-    public SimplePropertiesTableUpdateController(
+public sealed class SimplePropertiesTableUpdateController(
         ISimplePropertiesTableUpdateFacade
             facade
-    ) : base(
-        facade
-    ) { }
-}
+    )
+    :
+        BaseTableAuthorizedUpdateController
+    <
+        SimplePropertyTableUpdateRequest
+    >(facade
+    );

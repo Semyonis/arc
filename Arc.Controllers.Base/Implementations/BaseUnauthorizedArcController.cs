@@ -3,16 +3,13 @@ using Arc.Facades.Base.Interfaces.Methods;
 
 namespace Arc.Controllers.Base.Implementations;
 
-public abstract class BaseUnauthorizedArcController :
-    BaseArcController
-{
-    protected BaseUnauthorizedArcController(
-        object
-            facade
-    ) : base(
+public abstract class BaseUnauthorizedArcController(
+    object
         facade
-    ) { }
-
+) :
+    BaseArcController(facade
+    )
+{
     protected async Task<IActionResult> Invoke
     <
         TRequestArgs

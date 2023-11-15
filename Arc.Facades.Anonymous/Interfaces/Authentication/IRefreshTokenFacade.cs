@@ -4,4 +4,4 @@ using Arc.Models.Views.Anonymous.Models;
 namespace Arc.Facades.Anonymous.Interfaces.Authentication;
 
 public interface IRefreshTokenFacade :
-    IFunctionFacade<RefreshTokenRequest> { }
+    IFunctionFacade<RefreshTokenRequest>;

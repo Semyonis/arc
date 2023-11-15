@@ -5,8 +5,12 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class ModeControlDomainFacade :
-    IModeControlDomainFacade
+public sealed class ModeControlDomainFacade(
+        ICreateRepository
+            serviceModesRepository
+    )
+    :
+        IModeControlDomainFacade
 {
     public async Task SetMode(
         ModeControlDomainFacadeArgs args
@@ -26,23 +30,9 @@ public sealed class ModeControlDomainFacade :
             };
 
         await
-            _serviceModesRepository
+            serviceModesRepository
                 .CreateAsync(
                     currentMode
                 );
     }
-
-#region Constructor
-
-    private readonly ICreateRepository
-        _serviceModesRepository;
-
-    public ModeControlDomainFacade(
-        ICreateRepository
-            serviceModesRepository
-    ) =>
-        _serviceModesRepository =
-            serviceModesRepository;
-
-#endregion
 }

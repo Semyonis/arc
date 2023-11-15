@@ -8,8 +8,16 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Facades.Admins.Implementations.Users;
 
-public sealed class UsersPasswordUpdateFacade :
-    IUsersPasswordUpdateFacade
+public sealed class UsersPasswordUpdateFacade(
+        IResponsesDomainFacade
+            internalFacade,
+        ITransactionManager
+            transactionManager,
+        IUserPasswordUpdateDomainFacade
+            userPasswordUpdateDomainFacade
+    )
+    :
+        IUsersPasswordUpdateFacade
 {
     public async Task<Response> Execute(
         ChangePasswordAdminRequest request,
@@ -18,7 +26,7 @@ public sealed class UsersPasswordUpdateFacade :
     {
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         var model =
@@ -28,7 +36,7 @@ public sealed class UsersPasswordUpdateFacade :
             );
 
         await
-            _userPasswordUpdateDomainFacade
+            userPasswordUpdateDomainFacade
                 .ChangePassword(
                     model
                 );
@@ -38,39 +46,7 @@ public sealed class UsersPasswordUpdateFacade :
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    private readonly IUserPasswordUpdateDomainFacade
-        _userPasswordUpdateDomainFacade;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    public UsersPasswordUpdateFacade(
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IUserPasswordUpdateDomainFacade
-            userPasswordUpdateDomainFacade
-    )
-    {
-        _internalFacade =
-            internalFacade;
-
-        _transactionManager =
-            transactionManager;
-
-        _userPasswordUpdateDomainFacade =
-            userPasswordUpdateDomainFacade;
-    }
-
-#endregion
 }

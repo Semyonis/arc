@@ -4,4 +4,4 @@ using Arc.Models.BusinessLogic.Models.Identities;
 namespace Arc.Facades.Admins.Interfaces.Admins;
 
 public interface IAdminInfoFacade :
-    IExtendedMethodFacade<AdminIdentity> { }
+    IExtendedMethodFacade<AdminIdentity>;

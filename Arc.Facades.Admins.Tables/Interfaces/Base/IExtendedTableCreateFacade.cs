@@ -11,4 +11,4 @@ public interface IExtendedTableCreateFacade
     <
         TCreateRequest,
         AdminIdentity
-    > { }
+    >;

@@ -7,4 +7,4 @@ namespace Arc.Facades.Admins.Interfaces.Users;
 
 public interface IUsersCreateFacade :
     IValidationFacade<AdminIdentity>,
-    IFunctionFacade<CreateUserAdminRequest> { }
+    IFunctionFacade<CreateUserAdminRequest>;

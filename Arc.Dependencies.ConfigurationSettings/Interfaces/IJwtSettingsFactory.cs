@@ -3,4 +3,4 @@
 namespace Arc.Dependencies.ConfigurationSettings.Interfaces;
 
 public interface IJwtSettingsFactory :
-    ISettingsFactoryBase<JwtSettings> { }
+    ISettingsFactoryBase<JwtSettings>;

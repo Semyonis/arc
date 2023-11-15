@@ -9,4 +9,4 @@ public interface IPasswordUpdateFacade :
     <
         ChangePasswordRequest,
         UserIdentity
-    > { }
+    >;

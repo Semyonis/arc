@@ -11,7 +11,16 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Arc.Facades.Admins.Tables.Implementations.Base;
 
-public abstract class BaseTableDeleteFacade<TEntity>
+public abstract class BaseTableDeleteFacade<TEntity>(
+    IDeleteRepository
+        repository,
+    IResponsesDomainFacade
+        internalFacade,
+    ITransactionManager
+        transactionManager,
+    IReadRepositoryBase<TEntity>
+        readRepository
+)
     where TEntity : class, IWithIdentifier
 {
     public async Task<Response> Execute(
@@ -27,7 +36,7 @@ public abstract class BaseTableDeleteFacade<TEntity>
 
         using var transaction =
             await
-                _transactionManager
+                transactionManager
                     .BeginTransaction();
 
         await
@@ -40,7 +49,7 @@ public abstract class BaseTableDeleteFacade<TEntity>
 
         var entitiesList =
             await
-                _readRepository
+                readRepository
                     .GetByIds(
                         ids,
                         includes
@@ -48,7 +57,7 @@ public abstract class BaseTableDeleteFacade<TEntity>
 
         var deletedCount =
             await
-                _repository
+                repository
                     .DeleteCollectionAsync(
                         entitiesList
                     );
@@ -72,7 +81,7 @@ public abstract class BaseTableDeleteFacade<TEntity>
                 .Commit();
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     result
                 );
@@ -92,44 +101,4 @@ public abstract class BaseTableDeleteFacade<TEntity>
         AdminIdentity identity
     ) =>
         Task.CompletedTask;
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IDeleteRepository
-        _repository;
-
-    private readonly IReadRepositoryBase<TEntity>
-        _readRepository;
-
-    private readonly ITransactionManager
-        _transactionManager;
-
-    protected BaseTableDeleteFacade(
-        IDeleteRepository
-            repository,
-        IResponsesDomainFacade
-            internalFacade,
-        ITransactionManager
-            transactionManager,
-        IReadRepositoryBase<TEntity>
-            readRepository
-    )
-    {
-        _repository =
-            repository;
-
-        _internalFacade =
-            internalFacade;
-
-        _transactionManager =
-            transactionManager;
-
-        _readRepository =
-            readRepository;
-    }
-
-#endregion
 }

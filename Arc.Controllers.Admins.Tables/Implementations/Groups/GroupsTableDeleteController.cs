@@ -7,13 +7,9 @@ namespace Arc.Controllers.Admins.Tables.Implementations.Groups;
 [ControllerGroup(
     "Groups"
 )]
-public sealed class GroupsTableDeleteController :
-    BaseTableAuthorizedDeleteController
-{
-    public GroupsTableDeleteController(
-        IGroupsTableDeleteFacade
-            facade
-    ) : base(
+public sealed class GroupsTableDeleteController(
+    IGroupsTableDeleteFacade
         facade
-    ) { }
-}
+) :
+    BaseTableAuthorizedDeleteController(facade
+    );

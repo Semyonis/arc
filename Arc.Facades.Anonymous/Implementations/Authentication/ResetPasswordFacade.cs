@@ -7,57 +7,7 @@ using Arc.Models.Views.Anonymous.Models;
 
 namespace Arc.Facades.Anonymous.Implementations.Authentication;
 
-public sealed class ResetPasswordFacade :
-    IResetPasswordFacade
-{
-    public async Task<Response> Execute(
-        ResetPasswordRequest model
-    )
-    {
-        var user =
-            await
-                _userManagerService
-                    .FindByEmail(
-                        model.Email
-                    );
-
-        if (user == default)
-        {
-            throw
-                _userNotFoundExceptionDescriptor
-                    .CreateException(
-                        model.Email
-                    );
-        }
-
-        await
-            _userPasswordManagerService
-                .ResetPassword(
-                    user,
-                    model.Code,
-                    model.Password
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse();
-    }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly IUserPasswordManagerService
-        _userPasswordManagerService;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public ResetPasswordFacade(
+public sealed class ResetPasswordFacade(
         IUserManagerService
             userManagerService,
         IResponsesDomainFacade
@@ -67,19 +17,39 @@ public sealed class ResetPasswordFacade :
         IUserNotFoundExceptionDescriptor
             userNotFoundExceptionDescriptor
     )
+    :
+        IResetPasswordFacade
+{
+    public async Task<Response> Execute(
+        ResetPasswordRequest model
+    )
     {
-        _userManagerService =
-            userManagerService;
+        var user =
+            await
+                userManagerService
+                    .FindByEmail(
+                        model.Email
+                    );
 
-        _internalFacade =
-            internalFacade;
+        if (user == default)
+        {
+            throw
+                userNotFoundExceptionDescriptor
+                    .CreateException(
+                        model.Email
+                    );
+        }
 
-        _userPasswordManagerService =
-            userPasswordManagerService;
+        await
+            userPasswordManagerService
+                .ResetPassword(
+                    user,
+                    model.Code,
+                    model.Password
+                );
 
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
+        return
+            internalFacade
+                .CreateOkResponse();
     }
-
-#endregion
 }

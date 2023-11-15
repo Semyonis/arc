@@ -2,31 +2,22 @@
 
 namespace Arc.Criteria.FilterParameters.Implementations.ItemListParameters;
 
-public sealed class ItemListPropertyIsEmptyFilterParameter<TEntity, TProperty> :
-    FilterParameterBase<TEntity>
-{
-    private readonly Expression
-        <
-            Func<TEntity, ICollection<TProperty>>
-        >
-        _collectionPropertyPredicate;
-
-    public ItemListPropertyIsEmptyFilterParameter(
+public sealed class ItemListPropertyIsEmptyFilterParameter<TEntity, TProperty>(
         Expression
             <
                 Func<TEntity, ICollection<TProperty>>
             >
             collectionPropertyPredicate
-    ) =>
-        _collectionPropertyPredicate =
-            collectionPropertyPredicate;
-
+    )
+    :
+        FilterParameterBase<TEntity>
+{
     public override Expression
     <
         Func<TEntity, bool>
     > GetPredicate() =>
         entity =>
-            !_collectionPropertyPredicate
+            !collectionPropertyPredicate
                 .Invoke(
                     entity
                 )

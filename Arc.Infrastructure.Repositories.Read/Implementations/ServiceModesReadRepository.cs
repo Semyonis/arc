@@ -8,19 +8,17 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
-public sealed class ServiceModesReadRepository :
+public sealed class ServiceModesReadRepository(
+    ArcDatabaseContext context
+) :
     IdReadRepositoryBase
     <
         ServiceMode
-    >,
+    >(
+        context
+    ),
     IServiceModesReadRepository
 {
-    public ServiceModesReadRepository(
-        ArcDatabaseContext context
-    ) : base(
-        context
-    ) { }
-
     public async Task<ServiceMode?> GetCurrent()
     {
         var orderingParam =

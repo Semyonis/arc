@@ -5,14 +5,24 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 
 namespace Arc.Dependencies.Identity.Implementations;
 
-public sealed class UserManagerService :
-    IUserManagerService
+public sealed class UserManagerService(
+        IUserManagerDecorator
+            userManagerDecorator,
+        IEmailUsedByUserExceptionDescriptor
+            emailUsedByUserExceptionDescriptor,
+        IIdentityErrorExceptionDescriptor
+            identityErrorExceptionDescriptor,
+        IUserNotFoundExceptionDescriptor
+            userNotFoundExceptionDescriptor
+    )
+    :
+        IUserManagerService
 {
     public async Task<IdentityUser?> FindByEmail(
         string email
     ) =>
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .FindByEmailAsync(
                     email
                 );
@@ -20,7 +30,7 @@ public sealed class UserManagerService :
     public Task<IdentityResult> Delete(
         IdentityUser user
     ) =>
-        _userManagerDecorator
+        userManagerDecorator
             .DeleteAsync(
                 user
             );
@@ -32,7 +42,7 @@ public sealed class UserManagerService :
     {
         var identityResult =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .CreateAsync(
                         user,
                         password
@@ -51,7 +61,7 @@ public sealed class UserManagerService :
                 .Code;
 
         throw
-            _identityErrorExceptionDescriptor
+            identityErrorExceptionDescriptor
                 .CreateException(
                     errorCode
                 );
@@ -70,7 +80,7 @@ public sealed class UserManagerService :
         if (user != default)
         {
             throw
-                _emailUsedByUserExceptionDescriptor
+                emailUsedByUserExceptionDescriptor
                     .CreateException();
         }
 
@@ -94,7 +104,7 @@ public sealed class UserManagerService :
     {
         var user =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .FindByIdAsync(
                         userId
                     );
@@ -102,7 +112,7 @@ public sealed class UserManagerService :
         if (user == default)
         {
             throw
-                _userNotFoundExceptionDescriptor
+                userNotFoundExceptionDescriptor
                     .CreateException(
                         userId
                     );
@@ -124,7 +134,7 @@ public sealed class UserManagerService :
                     .Code;
 
             throw
-                _identityErrorExceptionDescriptor
+                identityErrorExceptionDescriptor
                     .CreateException(
                         errorCode
                     );
@@ -139,7 +149,7 @@ public sealed class UserManagerService :
     {
         var user =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .FindByEmailAsync(
                         oldEmail
                     );
@@ -147,7 +157,7 @@ public sealed class UserManagerService :
         if (user == default)
         {
             throw
-                _userNotFoundExceptionDescriptor
+                userNotFoundExceptionDescriptor
                     .CreateException(
                         oldEmail
                     );
@@ -155,7 +165,7 @@ public sealed class UserManagerService :
 
         var result =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .ChangeEmailAsync(
                         user,
                         newEmail,
@@ -171,7 +181,7 @@ public sealed class UserManagerService :
                     .Code;
 
             throw
-                _identityErrorExceptionDescriptor
+                identityErrorExceptionDescriptor
                     .CreateException(
                         errorCode
                     );
@@ -179,7 +189,7 @@ public sealed class UserManagerService :
 
         user =
             await
-                _userManagerDecorator
+                userManagerDecorator
                     .FindByEmailAsync(
                         newEmail
                     );
@@ -188,7 +198,7 @@ public sealed class UserManagerService :
             newEmail;
 
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .UpdateUserAsync(
                     user
                 );
@@ -199,49 +209,9 @@ public sealed class UserManagerService :
         string confirmationCode
     ) =>
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .ConfirmEmailAsync(
                     user,
                     confirmationCode
                 );
-
-#region Constructor
-
-    private readonly IEmailUsedByUserExceptionDescriptor
-        _emailUsedByUserExceptionDescriptor;
-
-    private readonly IIdentityErrorExceptionDescriptor
-        _identityErrorExceptionDescriptor;
-
-    private readonly IUserManagerDecorator
-        _userManagerDecorator;
-
-    private readonly IUserNotFoundExceptionDescriptor
-        _userNotFoundExceptionDescriptor;
-
-    public UserManagerService(
-        IUserManagerDecorator
-            userManagerDecorator,
-        IEmailUsedByUserExceptionDescriptor
-            emailUsedByUserExceptionDescriptor,
-        IIdentityErrorExceptionDescriptor
-            identityErrorExceptionDescriptor,
-        IUserNotFoundExceptionDescriptor
-            userNotFoundExceptionDescriptor
-    )
-    {
-        _userManagerDecorator =
-            userManagerDecorator;
-
-        _emailUsedByUserExceptionDescriptor =
-            emailUsedByUserExceptionDescriptor;
-
-        _identityErrorExceptionDescriptor =
-            identityErrorExceptionDescriptor;
-
-        _userNotFoundExceptionDescriptor =
-            userNotFoundExceptionDescriptor;
-    }
-
-#endregion
 }

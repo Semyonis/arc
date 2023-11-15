@@ -5,8 +5,14 @@ using Arc.Infrastructure.Repositories.Read.Interfaces;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class AdminUpdateDomainFacade :
-    IAdminUpdateDomainFacade
+public sealed class AdminUpdateDomainFacade(
+        IAdminsReadRepository
+            adminsReadRepository,
+        IUpdateRepository
+            adminsRepository
+    )
+    :
+        IAdminUpdateDomainFacade
 {
     public async Task Update(
         AdminUpdateDomainFacadeArgs args
@@ -14,7 +20,7 @@ public sealed class AdminUpdateDomainFacade :
     {
         var adminDb =
             await
-                _adminsReadRepository
+                adminsReadRepository
                     .GetById(
                         args.Id
                     );
@@ -26,33 +32,9 @@ public sealed class AdminUpdateDomainFacade :
             args.LastName;
 
         await
-            _adminsRepository
+            adminsRepository
                 .UpdateAsync(
                     adminDb
                 );
     }
-
-#region Constructor
-
-    private readonly IAdminsReadRepository
-        _adminsReadRepository;
-
-    private readonly IUpdateRepository
-        _adminsRepository;
-
-    public AdminUpdateDomainFacade(
-        IAdminsReadRepository
-            adminsReadRepository,
-        IUpdateRepository
-            adminsRepository
-    )
-    {
-        _adminsReadRepository =
-            adminsReadRepository;
-
-        _adminsRepository =
-            adminsRepository;
-    }
-
-#endregion
 }

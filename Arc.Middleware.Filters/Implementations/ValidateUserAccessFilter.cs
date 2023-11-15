@@ -7,8 +7,14 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 
 namespace Arc.Middleware.Filters.Implementations;
 
-public sealed class ValidateUserAccessFilter :
-    IAsyncActionFilter
+public sealed class ValidateUserAccessFilter(
+        IOperatingModeFilterFacade
+            operatingModeFilterFacade,
+        IServiceUnavailableExceptionDescriptor
+            serviceUnavailableExceptionDescriptor
+    )
+    :
+        IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(
         ActionExecutingContext context,
@@ -40,7 +46,7 @@ public sealed class ValidateUserAccessFilter :
 
         var currentMode =
             await
-                _operatingModeFilterFacade.GetCurrentMode();
+                operatingModeFilterFacade.GetCurrentMode();
 
         var isOff =
             currentMode
@@ -49,7 +55,7 @@ public sealed class ValidateUserAccessFilter :
         if (isOff)
         {
             throw
-                _serviceUnavailableExceptionDescriptor.CreateException();
+                serviceUnavailableExceptionDescriptor.CreateException();
         }
 
         await
@@ -85,26 +91,6 @@ public sealed class ValidateUserAccessFilter :
             ?? string.Empty;
     }
 #region Constructor
-
-    private readonly IOperatingModeFilterFacade
-        _operatingModeFilterFacade;
-
-    private readonly IServiceUnavailableExceptionDescriptor
-        _serviceUnavailableExceptionDescriptor;
-
-    public ValidateUserAccessFilter(
-        IOperatingModeFilterFacade
-            operatingModeFilterFacade,
-        IServiceUnavailableExceptionDescriptor
-            serviceUnavailableExceptionDescriptor
-    )
-    {
-        _operatingModeFilterFacade =
-            operatingModeFilterFacade;
-
-        _serviceUnavailableExceptionDescriptor =
-            serviceUnavailableExceptionDescriptor;
-    }
 
 #endregion
 }

@@ -5,16 +5,13 @@ using Arc.Models.Views.Common.Models;
 
 namespace Arc.Controllers.Authorized.Implementations.Identity;
 
-public sealed class ActorTypeController :
-    AuthorizedArcController
-{
-    public ActorTypeController(
-        IActorTypeFacade
-            facade
-    ) : base(
+public sealed class ActorTypeController(
+    IActorTypeFacade
         facade
-    ) { }
-
+) :
+    AuthorizedArcController(facade
+    )
+{
     [HttpGet(
         "{email}"
     )]

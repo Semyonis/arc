@@ -7,16 +7,14 @@ using Arc.Models.BusinessLogic.Models.FilterProperties;
 
 namespace Arc.Controllers.Admins.Implementations.Filters;
 
-public sealed class FilterPropertyOperationsController :
-    AdminAuthorizedArcController
-{
-    public FilterPropertyOperationsController(
+public sealed class FilterPropertyOperationsController(
         IFilterPropertyOperationsFacade
             facade
-    ) : base(
-        facade
-    ) { }
-
+    )
+    :
+        AdminAuthorizedArcController(facade
+    )
+{
     [HttpGet]
     [ProducesOkResponseType(
         typeof(IReadOnlyList<FilterPropertyOperatorModel>)

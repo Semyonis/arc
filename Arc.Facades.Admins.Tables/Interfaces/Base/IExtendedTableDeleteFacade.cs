@@ -8,4 +8,4 @@ public interface IExtendedTableDeleteFacade :
     <
         IReadOnlyList<int>,
         AdminIdentity
-    > { }
+    >;

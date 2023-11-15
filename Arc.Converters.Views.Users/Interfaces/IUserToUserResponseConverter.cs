@@ -9,4 +9,4 @@ public interface IUserToUserResponseConverter :
     <
         User,
         UserResponse
-    > { }
+    >;

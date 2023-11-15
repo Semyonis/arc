@@ -1,17 +1,9 @@
 ﻿namespace Arc.Infrastructure.Exceptions.Models;
 
-public sealed class ExceptionInfo
+public sealed class ExceptionInfo(string code,
+    object? details = default)
 {
-    public ExceptionInfo(
-        string code,
-        object? details = default
-    )
-    {
-        Code = code;
-        Details = details;
-    }
+    public string Code { get; } = code;
 
-    public string Code { get; }
-
-    public object? Details { get; }
+    public object? Details { get; } = details;
 }

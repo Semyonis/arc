@@ -6,4 +6,4 @@ namespace Arc.Facades.Admins.Interfaces.Filters;
 
 public interface IFilterPropertyOperationsFacade :
     IValidationFacade<AdminIdentity>,
-    IFunctionFacade<string> { }
+    IFunctionFacade<string>;

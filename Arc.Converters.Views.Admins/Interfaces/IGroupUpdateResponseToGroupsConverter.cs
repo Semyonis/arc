@@ -9,4 +9,4 @@ public interface IGroupUpdateResponseToGroupsConverter :
     <
         GroupUpdateResponse,
         Group
-    > { }
+    >;

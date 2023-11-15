@@ -8,4 +8,4 @@ public interface IConfirmUserEmailFacade :
     <
         int,
         AdminIdentity
-    > { }
+    >;

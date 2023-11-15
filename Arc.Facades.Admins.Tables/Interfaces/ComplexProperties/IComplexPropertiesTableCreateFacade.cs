@@ -4,4 +4,4 @@ using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 namespace Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
 
 public interface IComplexPropertiesTableCreateFacade :
-    IExtendedTableCreateFacade<ComplexPropertyTableCreateRequest> { }
+    IExtendedTableCreateFacade<ComplexPropertyTableCreateRequest>;

@@ -6,17 +6,15 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Arc.Controllers.Admins.Tables.Implementations.Base;
 
-public abstract class BaseTableAuthorizedCreateController<TCreateRequest> :
-    AdminAuthorizedArcController
-
-{
-    protected BaseTableAuthorizedCreateController(
+public abstract class BaseTableAuthorizedCreateController<TCreateRequest>(
         IExtendedTableCreateFacade<TCreateRequest>
             facade
-    ) : base(
-        facade
-    ) { }
+    )
+    :
+        AdminAuthorizedArcController(facade
+    )
 
+{
     [HttpPost]
     [ProducesOkResponseType(
         typeof(TableActionResultResponse)

@@ -5,8 +5,12 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 
 namespace Arc.Criteria.CompareFunctions.Implementations;
 
-public sealed class NullableBoolCompareFunctions :
-    INullableBoolCompareFunctions
+public sealed class NullableBoolCompareFunctions(
+        IUnsupportedOperationExceptionDescriptor
+            unsupportedOperationExceptionDescriptor
+    )
+    :
+        INullableBoolCompareFunctions
 {
     public Expression<Func<bool?, bool?, bool>> GetFunction(
         string operation
@@ -23,7 +27,7 @@ public sealed class NullableBoolCompareFunctions :
                 GetBoolIsNotNull(),
             _ =>
                 throw
-                    _unsupportedOperationExceptionDescriptor.CreateException(),
+                    unsupportedOperationExceptionDescriptor.CreateException(),
         };
 
     private static Expression<Func<bool?, bool?, bool>>
@@ -57,18 +61,4 @@ public sealed class NullableBoolCompareFunctions :
                 _
             ) =>
             value != default;
-
-#region Constructor
-
-    private readonly IUnsupportedOperationExceptionDescriptor
-        _unsupportedOperationExceptionDescriptor;
-
-    public NullableBoolCompareFunctions(
-        IUnsupportedOperationExceptionDescriptor
-            unsupportedOperationExceptionDescriptor
-    ) =>
-        _unsupportedOperationExceptionDescriptor =
-            unsupportedOperationExceptionDescriptor;
-
-#endregion
 }

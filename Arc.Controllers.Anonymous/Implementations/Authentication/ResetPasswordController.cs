@@ -8,16 +8,13 @@ namespace Arc.Controllers.Anonymous.Implementations.Authentication;
 [ControllerGroup(
     "Authentication"
 )]
-public sealed class ResetPasswordController :
-    AnonymousArcController
-{
-    public ResetPasswordController(
-        IResetPasswordFacade
-            facade
-    ) : base(
+public sealed class ResetPasswordController(
+    IResetPasswordFacade
         facade
-    ) { }
-
+) :
+    AnonymousArcController(facade
+    )
+{
     [HttpPost]
     public async Task<IActionResult> Call(
         [FromBody]

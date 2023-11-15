@@ -5,16 +5,13 @@ using Arc.Models.Views.Admins.Models;
 
 namespace Arc.Controllers.Admins.Implementations.Users;
 
-public sealed class UsersCreateController :
-    AdminAuthorizedArcController
-{
-    public UsersCreateController(
-        IUsersCreateFacade
-            facade
-    ) : base(
+public sealed class UsersCreateController(
+    IUsersCreateFacade
         facade
-    ) { }
-
+) :
+    AdminAuthorizedArcController(facade
+    )
+{
     [HttpPost]
     [ProducesOkResponseType]
     public async Task<IActionResult> Call(

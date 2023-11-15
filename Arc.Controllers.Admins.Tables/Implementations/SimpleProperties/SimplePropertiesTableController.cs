@@ -11,16 +11,14 @@ namespace Arc.Controllers.Admins.Tables.Implementations.SimpleProperties;
 [ControllerGroup(
     "SimpleProperties"
 )]
-public sealed class SimplePropertiesTableController :
-    BaseTableAuthorizedController
-{
-    public SimplePropertiesTableController(
+public sealed class SimplePropertiesTableController(
         ISimplePropertiesTableFacade
             facade
-    ) : base(
-        facade
-    ) { }
-
+    )
+    :
+        BaseTableAuthorizedController(facade
+    )
+{
     [HttpGet]
     [ProducesOkResponseType(
         typeof(IReadOnlyList<SimplePropertyReadResponse>)

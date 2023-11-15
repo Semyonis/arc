@@ -6,40 +6,7 @@ using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Authorized.Implementations.Dictionaries;
 
-public sealed class SimplePropertyItemListFacade :
-    ISimplePropertyItemListFacade
-{
-    public async Task<Response> Execute()
-    {
-        var entities =
-            await
-                _breedModelsStorage.Read();
-
-        var results =
-            _simplePropertyModelToListItemResponseConverter
-                .Convert(
-                    entities
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse(
-                    results
-                );
-    }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly ISimplePropertyModelsStorage
-        _breedModelsStorage;
-
-    private readonly ISimplePropertyModelToListItemResponseConverter
-        _simplePropertyModelToListItemResponseConverter;
-
-    public SimplePropertyItemListFacade(
+public sealed class SimplePropertyItemListFacade(
         IResponsesDomainFacade
             internalFacade,
         ISimplePropertyModelsStorage
@@ -47,16 +14,25 @@ public sealed class SimplePropertyItemListFacade :
         ISimplePropertyModelToListItemResponseConverter
             simplePropertyModelToListItemResponseConverter
     )
+    :
+        ISimplePropertyItemListFacade
+{
+    public async Task<Response> Execute()
     {
-        _internalFacade =
-            internalFacade;
+        var entities =
+            await
+                breedModelsStorage.Read();
 
-        _breedModelsStorage =
-            breedModelsStorage;
+        var results =
+            simplePropertyModelToListItemResponseConverter
+                .Convert(
+                    entities
+                );
 
-        _simplePropertyModelToListItemResponseConverter =
-            simplePropertyModelToListItemResponseConverter;
+        return
+            internalFacade
+                .CreateOkResponse(
+                    results
+                );
     }
-
-#endregion
 }

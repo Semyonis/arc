@@ -9,4 +9,4 @@ public interface IComplexPropertyToComplexPropertyModelConverter :
     <
         ComplexProperty,
         ComplexPropertyModel
-    > { }
+    >;

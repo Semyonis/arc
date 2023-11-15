@@ -14,7 +14,16 @@ public abstract class BaseTableDetailsFacade
 <
     TEntity,
     TReadEntityResponse
->
+>(
+    IReadRepositoryBase<TEntity>
+        readRepository,
+    IResponsesDomainFacade
+        internalFacade,
+    IConverterBase<TEntity, TReadEntityResponse>
+        readConverter,
+    IEntityNotFoundExceptionDescriptor
+        entityNotFoundExceptionDescriptor
+)
     where TEntity : class, IWithIdentifier
 {
     public async Task<Response> Execute(
@@ -27,7 +36,7 @@ public abstract class BaseTableDetailsFacade
 
         var entity =
             await
-                _readRepository
+                readRepository
                     .GetById(
                         entityId,
                         includes
@@ -36,20 +45,20 @@ public abstract class BaseTableDetailsFacade
         if (entity == default)
         {
             throw
-                _entityNotFoundExceptionDescriptor
+                entityNotFoundExceptionDescriptor
                     .CreateException(
                         typeof(TEntity).Name
                     );
         }
 
         var response =
-            _readConverter
+            readConverter
                 .Convert(
                     entity
                 );
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse(
                     response
                 );
@@ -60,44 +69,4 @@ public abstract class BaseTableDetailsFacade
         IQueryable<TEntity>,
         IIncludableQueryable<TEntity, object>
     >? GetInclude() => default;
-
-#region Constructor
-
-    private readonly IConverterBase<TEntity, TReadEntityResponse>
-        _readConverter;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IReadRepositoryBase<TEntity>
-        _readRepository;
-
-    private readonly IEntityNotFoundExceptionDescriptor
-        _entityNotFoundExceptionDescriptor;
-
-    protected BaseTableDetailsFacade(
-        IReadRepositoryBase<TEntity>
-            readRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        IConverterBase<TEntity, TReadEntityResponse>
-            readConverter,
-        IEntityNotFoundExceptionDescriptor
-            entityNotFoundExceptionDescriptor
-    )
-    {
-        _readRepository =
-            readRepository;
-
-        _internalFacade =
-            internalFacade;
-
-        _readConverter =
-            readConverter;
-
-        _entityNotFoundExceptionDescriptor =
-            entityNotFoundExceptionDescriptor;
-    }
-
-#endregion
 }

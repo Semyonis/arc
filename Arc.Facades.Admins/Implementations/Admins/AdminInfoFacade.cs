@@ -7,45 +7,7 @@ using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Admins.Implementations.Admins;
 
-public sealed class AdminInfoFacade :
-    IAdminInfoFacade
-{
-    public async Task<Response> Execute(
-        AdminIdentity identity
-    )
-    {
-        var adminInfo =
-            await
-                _adminsReadRepository
-                    .GetById(
-                        identity.Id
-                    );
-
-        var result =
-            _adminToAdminInfoResponseConverter
-                .Convert(
-                    adminInfo!
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse(
-                    result
-                );
-    }
-
-#region Constructor
-
-    private readonly IAdminsReadRepository
-        _adminsReadRepository;
-
-    private readonly IAdminToAdminInfoResponseConverter
-        _adminToAdminInfoResponseConverter;
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    public AdminInfoFacade(
+public sealed class AdminInfoFacade(
         IAdminsReadRepository
             adminsReadRepository,
         IAdminToAdminInfoResponseConverter
@@ -53,16 +15,30 @@ public sealed class AdminInfoFacade :
         IResponsesDomainFacade
             internalFacade
     )
+    :
+        IAdminInfoFacade
+{
+    public async Task<Response> Execute(
+        AdminIdentity identity
+    )
     {
-        _adminsReadRepository =
-            adminsReadRepository;
+        var adminInfo =
+            await
+                adminsReadRepository
+                    .GetById(
+                        identity.Id
+                    );
 
-        _adminToAdminInfoResponseConverter =
-            adminToAdminInfoResponseConverter;
+        var result =
+            adminToAdminInfoResponseConverter
+                .Convert(
+                    adminInfo!
+                );
 
-        _internalFacade =
-            internalFacade;
+        return
+            internalFacade
+                .CreateOkResponse(
+                    result
+                );
     }
-
-#endregion
 }

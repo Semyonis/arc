@@ -1,13 +1,17 @@
 ﻿namespace Arc.Dependencies.Identity.Implementations;
 
-public sealed class UserTokenManagerService :
-    IUserTokenManagerService
+public sealed class UserTokenManagerService(
+        IUserManagerDecorator
+            userManagerDecorator
+    )
+    :
+        IUserTokenManagerService
 {
     public async Task<string> GetConfirmationToken(
         IdentityUser user
     ) =>
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .GenerateEmailConfirmationTokenAsync(
                     user
                 );
@@ -16,7 +20,7 @@ public sealed class UserTokenManagerService :
         IdentityUser user
     ) =>
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .GeneratePasswordResetTokenAsync(
                     user
                 );
@@ -26,7 +30,7 @@ public sealed class UserTokenManagerService :
         string newEmail
     ) =>
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .GenerateChangeEmailTokenAsync(
                     user,
                     newEmail
@@ -38,7 +42,7 @@ public sealed class UserTokenManagerService :
     )
     {
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .RemoveAuthenticationTokenAsync(
                     user,
                     "Auth",
@@ -46,7 +50,7 @@ public sealed class UserTokenManagerService :
                 );
 
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .SetAuthenticationTokenAsync(
                     user,
                     "Auth",
@@ -59,24 +63,10 @@ public sealed class UserTokenManagerService :
         IdentityUser user
     ) =>
         await
-            _userManagerDecorator
+            userManagerDecorator
                 .GetAuthenticationTokenAsync(
                     user,
                     "Auth",
                     "RefreshToken"
                 );
-
-#region Constructor
-
-    private readonly IUserManagerDecorator
-        _userManagerDecorator;
-
-    public UserTokenManagerService(
-        IUserManagerDecorator
-            userManagerDecorator
-    ) =>
-        _userManagerDecorator =
-            userManagerDecorator;
-
-#endregion
 }

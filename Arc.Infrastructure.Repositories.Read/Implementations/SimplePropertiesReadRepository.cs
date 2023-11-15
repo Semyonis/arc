@@ -5,13 +5,10 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
-public sealed class SimplePropertiesReadRepository :
-    IdReadRepositoryBase<SimpleProperty>,
-    ISimplePropertiesReadRepository
-{
-    public SimplePropertiesReadRepository(
-        ArcDatabaseContext context
-    ) : base(
+public sealed class SimplePropertiesReadRepository(
+    ArcDatabaseContext context
+) :
+    IdReadRepositoryBase<SimpleProperty>(
         context
-    ) { }
-}
+    ),
+    ISimplePropertiesReadRepository;

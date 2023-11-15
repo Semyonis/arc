@@ -19,13 +19,37 @@ using static Arc.Infrastructure.Common.Enums.OperationType;
 
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
-public sealed class ComplexPropertiesTableUpdateFacade :
-    BaseTableUpdateFacade
-    <
-        ComplexProperty,
-        ComplexPropertyUpdateRequest
-    >,
-    IComplexPropertiesTableUpdateFacade
+public sealed class ComplexPropertiesTableUpdateFacade(
+        IUpdateRepository
+            repository,
+        IResponsesDomainFacade
+            internalFacade,
+        IComplexPropertyUpdateRequestToComplexPropertiesConverter
+            updateConverter,
+        IDeleteRepository
+            complexPropertyDescriptionRepository,
+        ITransactionManager
+            transactionManager,
+        IComplexPropertyDescriptionsReadRepository
+            complexPropertyDescriptionsReadRepository,
+        IBadDataExceptionDescriptor
+            badDataExceptionDescriptor,
+        IComplexPropertyDescriptionPropertyFilter
+            complexPropertyDescriptionPropertyFilter
+    )
+    :
+        BaseTableUpdateFacade
+        <
+            ComplexProperty,
+            ComplexPropertyUpdateRequest
+        >(
+            repository,
+            internalFacade,
+            updateConverter,
+            transactionManager,
+            badDataExceptionDescriptor
+        ),
+        IComplexPropertiesTableUpdateFacade
 {
     public async Task<Response> Execute(
         ComplexPropertyTableUpdateRequest request,
@@ -59,70 +83,22 @@ public sealed class ComplexPropertiesTableUpdateFacade :
         var filters =
             complexPropertyIds
                 .Select(
-                    _complexPropertyDescriptionPropertyFilter
+                    complexPropertyDescriptionPropertyFilter
                         .GetComplexPropertyIdEqualFilter
                 );
 
         var descriptions =
             await
-                _complexPropertyDescriptionsReadRepository
+                complexPropertyDescriptionsReadRepository
                     .GetListByFiltersAsync(
                         filters.ToList(),
                         operationType: Or
                     );
 
         await
-            _complexPropertyDescriptionRepository
+            complexPropertyDescriptionRepository
                 .DeleteAsync(
                     descriptions
                 );
     }
-
-#region Constructor
-
-    private readonly IDeleteRepository
-        _complexPropertyDescriptionRepository;
-
-    private readonly IComplexPropertyDescriptionsReadRepository
-        _complexPropertyDescriptionsReadRepository;
-
-    private readonly IComplexPropertyDescriptionPropertyFilter
-        _complexPropertyDescriptionPropertyFilter;
-
-    public ComplexPropertiesTableUpdateFacade(
-        IUpdateRepository
-            repository,
-        IResponsesDomainFacade
-            internalFacade,
-        IComplexPropertyUpdateRequestToComplexPropertiesConverter
-            updateConverter,
-        IDeleteRepository
-            complexPropertyDescriptionRepository,
-        ITransactionManager
-            transactionManager,
-        IComplexPropertyDescriptionsReadRepository
-            complexPropertyDescriptionsReadRepository,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor,
-        IComplexPropertyDescriptionPropertyFilter
-            complexPropertyDescriptionPropertyFilter
-    ) : base(
-        repository,
-        internalFacade,
-        updateConverter,
-        transactionManager,
-        badDataExceptionDescriptor
-    )
-    {
-        _complexPropertyDescriptionRepository =
-            complexPropertyDescriptionRepository;
-
-        _complexPropertyDescriptionsReadRepository =
-            complexPropertyDescriptionsReadRepository;
-
-        _complexPropertyDescriptionPropertyFilter =
-            complexPropertyDescriptionPropertyFilter;
-    }
-
-#endregion
 }

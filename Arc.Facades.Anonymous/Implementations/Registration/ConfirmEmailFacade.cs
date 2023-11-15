@@ -8,8 +8,16 @@ using Arc.Models.Views.Anonymous.Models;
 
 namespace Arc.Facades.Anonymous.Implementations.Registration;
 
-public sealed class ConfirmEmailFacade :
-    IConfirmEmailFacade
+public sealed class ConfirmEmailFacade(
+        IUserManagerService
+            userManagerService,
+        IResponsesDomainFacade
+            internalFacade,
+        IBadDataExceptionDescriptor
+            badDataExceptionDescriptor
+    )
+    :
+        IConfirmEmailFacade
 {
     public async Task<Response> Execute(
         ConfirmEmailRequest confirmEmailRequest
@@ -33,50 +41,18 @@ public sealed class ConfirmEmailFacade :
         if (isEmpty)
         {
             throw
-                _badDataExceptionDescriptor.CreateException();
+                badDataExceptionDescriptor.CreateException();
         }
 
         await
-            _userManagerService
+            userManagerService
                 .ConfirmEmail(
                     userId,
                     code
                 );
 
         return
-            _internalFacade
+            internalFacade
                 .CreateOkResponse();
     }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    public ConfirmEmailFacade(
-        IUserManagerService
-            userManagerService,
-        IResponsesDomainFacade
-            internalFacade,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    {
-        _userManagerService =
-            userManagerService;
-
-        _internalFacade =
-            internalFacade;
-
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-    }
-
-#endregion
 }

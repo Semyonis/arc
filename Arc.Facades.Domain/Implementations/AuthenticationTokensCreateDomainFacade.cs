@@ -14,8 +14,18 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class AuthenticationTokensCreateDomainFacade :
-    IAuthenticationTokensCreateDomainFacade
+public sealed class AuthenticationTokensCreateDomainFacade(
+        IUserManagerDecorator
+            userRoleManagerService,
+        IUserTokenManagerService
+            userTokenManagerService,
+        IJwtSettingsFactory
+            jwtSettingsFactory,
+        IBadDataExceptionDescriptor
+            badDataExceptionDescriptor
+    )
+    :
+        IAuthenticationTokensCreateDomainFacade
 {
     public async Task<AuthenticationModel> CreateTokens(
         AuthenticationTokensCreateDomainFacadeArgs args
@@ -27,7 +37,7 @@ public sealed class AuthenticationTokensCreateDomainFacade :
         ) = args;
 
         var jwtSettings =
-            _jwtSettingsFactory
+            jwtSettingsFactory
                 .GetSettings();
 
         var bytes =
@@ -52,7 +62,7 @@ public sealed class AuthenticationTokensCreateDomainFacade :
         if (!isAccessSuccess)
         {
             throw
-                _badDataExceptionDescriptor.CreateException();
+                badDataExceptionDescriptor.CreateException();
         }
 
         var isRefreshSuccess =
@@ -65,12 +75,12 @@ public sealed class AuthenticationTokensCreateDomainFacade :
         if (!isRefreshSuccess)
         {
             throw
-                _badDataExceptionDescriptor.CreateException();
+                badDataExceptionDescriptor.CreateException();
         }
 
         var roles =
             await
-                _userRoleManagerService
+                userRoleManagerService
                     .GetRolesAsync(
                         identity
                     );
@@ -174,7 +184,7 @@ public sealed class AuthenticationTokensCreateDomainFacade :
             );
 
         await
-            _userTokenManagerService
+            userTokenManagerService
                 .RefreshAuthenticationToken(
                     identity,
                     resultAuth.TokenRefresh
@@ -183,44 +193,4 @@ public sealed class AuthenticationTokensCreateDomainFacade :
         return
             resultAuth;
     }
-
-#region Constructor
-
-    private readonly IUserManagerDecorator
-        _userRoleManagerService;
-
-    private readonly IUserTokenManagerService
-        _userTokenManagerService;
-
-    private readonly IJwtSettingsFactory
-        _jwtSettingsFactory;
-
-    private readonly IBadDataExceptionDescriptor
-        _badDataExceptionDescriptor;
-
-    public AuthenticationTokensCreateDomainFacade(
-        IUserManagerDecorator
-            userRoleManagerService,
-        IUserTokenManagerService
-            userTokenManagerService,
-        IJwtSettingsFactory
-            jwtSettingsFactory,
-        IBadDataExceptionDescriptor
-            badDataExceptionDescriptor
-    )
-    {
-        _userRoleManagerService =
-            userRoleManagerService;
-
-        _userTokenManagerService =
-            userTokenManagerService;
-
-        _jwtSettingsFactory =
-            jwtSettingsFactory;
-
-        _badDataExceptionDescriptor =
-            badDataExceptionDescriptor;
-    }
-
-#endregion
 }

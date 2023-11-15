@@ -6,40 +6,7 @@ using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Authorized.Implementations.Dictionaries;
 
-public sealed class ComplexPropertyItemListFacade :
-    IComplexPropertyItemListFacade
-{
-    public async Task<Response> Execute()
-    {
-        var entities =
-            await
-                _complexPropertyModelsStorage.Read();
-
-        var results =
-            _complexPropertyModelToListItemResponseConverter
-                .Convert(
-                    entities
-                );
-
-        return
-            _internalFacade
-                .CreateOkResponse(
-                    results
-                );
-    }
-
-#region Constructor
-
-    private readonly IResponsesDomainFacade
-        _internalFacade;
-
-    private readonly IComplexPropertyModelsStorage
-        _complexPropertyModelsStorage;
-
-    private readonly IComplexPropertyModelToListItemResponseConverter
-        _complexPropertyModelToListItemResponseConverter;
-
-    public ComplexPropertyItemListFacade(
+public sealed class ComplexPropertyItemListFacade(
         IResponsesDomainFacade
             internalFacade,
         IComplexPropertyModelsStorage
@@ -47,16 +14,25 @@ public sealed class ComplexPropertyItemListFacade :
         IComplexPropertyModelToListItemResponseConverter
             complexPropertyModelToListItemResponseConverter
     )
+    :
+        IComplexPropertyItemListFacade
+{
+    public async Task<Response> Execute()
     {
-        _internalFacade =
-            internalFacade;
+        var entities =
+            await
+                complexPropertyModelsStorage.Read();
 
-        _complexPropertyModelsStorage =
-            complexPropertyModelsStorage;
+        var results =
+            complexPropertyModelToListItemResponseConverter
+                .Convert(
+                    entities
+                );
 
-        _complexPropertyModelToListItemResponseConverter =
-            complexPropertyModelToListItemResponseConverter;
+        return
+            internalFacade
+                .CreateOkResponse(
+                    results
+                );
     }
-
-#endregion
 }

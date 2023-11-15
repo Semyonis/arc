@@ -11,8 +11,22 @@ using Arc.Models.DataBase.Models;
 
 namespace Arc.Facades.Domain.Implementations;
 
-public sealed class UserCreateDomainFacade :
-    IUserCreateDomainFacade
+public sealed class UserCreateDomainFacade(
+        ICreateRepository
+            usersRepository,
+        IUserManagerService
+            userManagerService,
+        IUserManagerDecorator
+            userRoleManagerService,
+        IUsersReadRepository
+            usersReadRepository,
+        IEmailUsedByUserExceptionDescriptor
+            usedByUserExceptionDescriptor,
+        IUserPropertyFilters
+            userPropertyFilters
+    )
+    :
+        IUserCreateDomainFacade
 {
     public async Task Create(
         CreateUserDomainFacadeArgs args
@@ -34,14 +48,14 @@ public sealed class UserCreateDomainFacade :
     )
     {
         var propertyFilterParameter =
-            _userPropertyFilters
+            userPropertyFilters
                 .GetEmailEqualFilter(
                     args.Email
                 );
 
         var users =
             await
-                _usersReadRepository
+                usersReadRepository
                     .GetListByFiltersAsync(
                         propertyFilterParameter.WrapByReadOnlyList()
                     );
@@ -49,7 +63,7 @@ public sealed class UserCreateDomainFacade :
         if (users.IsNotEmpty())
         {
             throw
-                _usedByUserExceptionDescriptor
+                usedByUserExceptionDescriptor
                     .CreateException();
         }
 
@@ -62,7 +76,7 @@ public sealed class UserCreateDomainFacade :
             };
 
         await
-            _usersRepository
+            usersRepository
                 .CreateAsync(
                     user
                 );
@@ -74,79 +88,23 @@ public sealed class UserCreateDomainFacade :
     {
         var user =
             await
-                _userManagerService
+                userManagerService
                     .CreateIdentityForEmail(
                         args.Email
                     );
 
         await
-            _userManagerService
+            userManagerService
                 .Create(
                     user,
                     args.Password
                 );
 
         await
-            _userRoleManagerService
+            userRoleManagerService
                 .AddToRoleAsync(
                     user,
                     ActorTypeConstants.User
                 );
     }
-
-#region Constructor
-
-    private readonly IUserManagerService
-        _userManagerService;
-
-    private readonly ICreateRepository
-        _usersRepository;
-
-    private readonly IUsersReadRepository
-        _usersReadRepository;
-
-    private readonly IUserManagerDecorator
-        _userRoleManagerService;
-
-    private readonly IEmailUsedByUserExceptionDescriptor
-        _usedByUserExceptionDescriptor;
-
-    private readonly IUserPropertyFilters
-        _userPropertyFilters;
-
-    public UserCreateDomainFacade(
-        ICreateRepository
-            usersRepository,
-        IUserManagerService
-            userManagerService,
-        IUserManagerDecorator
-            userRoleManagerService,
-        IUsersReadRepository
-            usersReadRepository,
-        IEmailUsedByUserExceptionDescriptor
-            usedByUserExceptionDescriptor,
-        IUserPropertyFilters
-            userPropertyFilters
-    )
-    {
-        _usersRepository =
-            usersRepository;
-
-        _userManagerService =
-            userManagerService;
-
-        _userRoleManagerService =
-            userRoleManagerService;
-
-        _usersReadRepository =
-            usersReadRepository;
-
-        _usedByUserExceptionDescriptor =
-            usedByUserExceptionDescriptor;
-
-        _userPropertyFilters =
-            userPropertyFilters;
-    }
-
-#endregion
 }

@@ -3,4 +3,4 @@
 namespace Arc.Facades.Anonymous.Interfaces.Service;
 
 public interface ICurrentModeServiceFacade :
-    IMethodFacade { }
+    IMethodFacade;

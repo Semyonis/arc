@@ -14,10 +14,31 @@ using static Arc.Infrastructure.Common.Enums.OperationType;
 
 namespace Arc.Facades.Admins.Tables.Implementations.ComplexProperties;
 
-public sealed class ComplexPropertiesTableDeleteFacade :
-    BaseTableDeleteFacade
-    <ComplexProperty>,
-    IComplexPropertiesTableDeleteFacade
+public sealed class ComplexPropertiesTableDeleteFacade(
+        IDeleteRepository
+            repository,
+        IComplexPropertiesReadRepository
+            readRepository,
+        IResponsesDomainFacade
+            internalFacade,
+        IDeleteRepository
+            complexPropertyDescriptionRepository,
+        ITransactionManager
+            transactionManager,
+        IComplexPropertyDescriptionsReadRepository
+            complexPropertyDescriptionReadRepository,
+        IComplexPropertyDescriptionPropertyFilter
+            complexPropertyDescriptionPropertyFilter
+    )
+    :
+        BaseTableDeleteFacade
+        <ComplexProperty>(
+            repository,
+            internalFacade,
+            transactionManager,
+            readRepository
+        ),
+        IComplexPropertiesTableDeleteFacade
 {
     protected override
         Func<IQueryable<ComplexProperty>, IIncludableQueryable<ComplexProperty, object>>
@@ -33,67 +54,22 @@ public sealed class ComplexPropertiesTableDeleteFacade :
         var filters =
             ids
                 .Select(
-                    _complexPropertyDescriptionPropertyFilter
+                    complexPropertyDescriptionPropertyFilter
                         .GetComplexPropertyIdEqualFilter
                 );
 
         var descriptions =
             await
-                _complexPropertyDescriptionReadRepository
+                complexPropertyDescriptionReadRepository
                     .GetListByFiltersAsync(
                         filters.ToList(),
                         operationType: Or
                     );
 
         await
-            _complexPropertyDescriptionRepository
+            complexPropertyDescriptionRepository
                 .DeleteAsync(
                     descriptions
                 );
     }
-
-#region Constructor
-
-    private readonly IComplexPropertyDescriptionsReadRepository
-        _complexPropertyDescriptionReadRepository;
-
-    private readonly IDeleteRepository
-        _complexPropertyDescriptionRepository;
-
-    private readonly IComplexPropertyDescriptionPropertyFilter
-        _complexPropertyDescriptionPropertyFilter;
-
-    public ComplexPropertiesTableDeleteFacade(
-        IDeleteRepository
-            repository,
-        IComplexPropertiesReadRepository
-            readRepository,
-        IResponsesDomainFacade
-            internalFacade,
-        IDeleteRepository
-            complexPropertyDescriptionRepository,
-        ITransactionManager
-            transactionManager,
-        IComplexPropertyDescriptionsReadRepository
-            complexPropertyDescriptionReadRepository,
-        IComplexPropertyDescriptionPropertyFilter
-            complexPropertyDescriptionPropertyFilter
-    ) : base(
-        repository,
-        internalFacade,
-        transactionManager,
-        readRepository
-    )
-    {
-        _complexPropertyDescriptionRepository =
-            complexPropertyDescriptionRepository;
-
-        _complexPropertyDescriptionReadRepository =
-            complexPropertyDescriptionReadRepository;
-
-        _complexPropertyDescriptionPropertyFilter =
-            complexPropertyDescriptionPropertyFilter;
-    }
-
-#endregion
 }
