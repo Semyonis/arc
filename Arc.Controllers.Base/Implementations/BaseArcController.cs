@@ -34,7 +34,7 @@ public abstract class BaseArcController(
         if (!isSuccess)
         {
             return
-                ResultContainer<TItem>.GetFailed();
+                ResultContainer<TItem>.Failed();
         }
 
         var value =
@@ -42,7 +42,7 @@ public abstract class BaseArcController(
 
         return
             ResultContainer<TItem>
-                .GetSuccessful(
+                .Successful(
                     value
                 );
     }

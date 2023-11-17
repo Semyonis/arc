@@ -5,6 +5,7 @@ using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Interfaces;
+using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces.Base;
 using Arc.Infrastructure.Services.Interfaces;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
@@ -35,7 +36,9 @@ public abstract class BaseTableFacade
     IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
         filterPropertyRequestRequestToFilterPropertyRequestModelConverter,
     IGenericFilterPropertyFactory
-        genericFilterPropertyFactory
+        genericFilterPropertyFactory,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
 )
     where TEntity : class, IWithIdentifier
 {
@@ -62,7 +65,7 @@ public abstract class BaseTableFacade
                         filters
                     );
 
-        var orderingParam =
+        var resultContainer =
             orderingService
                 .GetOrderingExpression
                 <
@@ -71,6 +74,15 @@ public abstract class BaseTableFacade
                 >(
                     request
                 );
+
+        if (!resultContainer.IsSuccess)
+        {
+            throw
+                badDataExceptionDescriptor.CreateException();
+        }
+
+        var orderingParam =
+            resultContainer.Value;
 
         var includes =
             GetInclude();
@@ -129,11 +141,18 @@ public abstract class BaseTableFacade
 
         foreach (var filterModel in filterModels)
         {
-            dynamic propertyLambda =
+            var resultContainer =
                 basePropertyRequestRequestToBaseParameterConverter
                     .GetLambda<TEntity>(
                         filterModel.Property
                     );
+
+            if (!resultContainer.IsSuccess)
+            {
+                throw
+                    badDataExceptionDescriptor.CreateException();
+
+            }
 
             var filterPropertyModel =
                 new FilterPropertyModel(
@@ -144,7 +163,7 @@ public abstract class BaseTableFacade
             var filter =
                 genericFilterPropertyFactory
                     .GetProperty(
-                        propertyLambda,
+                        resultContainer.Value,
                         filterPropertyModel
                     );
 

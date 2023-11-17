@@ -1,8 +1,10 @@
-﻿namespace Arc.Infrastructure.Services.Interfaces;
+﻿using Arc.Infrastructure.Common.Models;
+
+namespace Arc.Infrastructure.Services.Interfaces;
 
 public interface IGenericPropertyLambdaSelector
 {
-    dynamic GetLambda<TEntity>(
+    ResultContainer<dynamic> GetLambda<TEntity>(
         string propertyName
     );
 }

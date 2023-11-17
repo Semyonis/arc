@@ -35,7 +35,7 @@ public sealed class SortingService :
         if (isNotEquivalent)
         {
             return
-                ResultContainer<IReadOnlyList<T>>.GetFailed();
+                ResultContainer<IReadOnlyList<T>>.Failed();
         }
 
         var result =
@@ -53,7 +53,7 @@ public sealed class SortingService :
 
         return
             ResultContainer<IReadOnlyList<T>>
-                .GetSuccessful(
+                .Successful(
                     result
                 );
     }

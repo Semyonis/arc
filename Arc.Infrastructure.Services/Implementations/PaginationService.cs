@@ -3,6 +3,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 using Arc.Infrastructure.Common.Extensions;
+using Arc.Infrastructure.Common.Models;
 using Arc.Infrastructure.Services.Interfaces;
 
 namespace Arc.Infrastructure.Services.Implementations;
@@ -14,7 +15,7 @@ namespace Arc.Infrastructure.Services.Implementations;
 public sealed class PaginationService :
     IPaginationService
 {
-    public IEnumerable<TEntity> PaginateEnumerable<TEntity>(
+    public ResultContainer<IEnumerable<TEntity>> Paginate<TEntity>(
         IEnumerable<TEntity> results,
         int currentPage,
         int countPerPage
@@ -23,26 +24,36 @@ public sealed class PaginationService :
         if (results.IsEmpty())
         {
             return
-                new List<TEntity>();
+                ResultContainer<IEnumerable<TEntity>>
+                    .Successful(
+                        new List<TEntity>()
+                    );
         }
 
         if (currentPage < 1
             && countPerPage < 1)
         {
-            return results;
+            return
+                ResultContainer<IEnumerable<TEntity>>.Failed();
         }
 
         var skipCount =
             (currentPage - 1)
             * countPerPage;
 
-        return
+        var paginatedResults =
             results
                 .Skip(
                     skipCount
                 )
                 .Take(
                     countPerPage
+                );
+
+        return
+            ResultContainer<IEnumerable<TEntity>>
+                .Successful(
+                    paginatedResults
                 );
     }
 }

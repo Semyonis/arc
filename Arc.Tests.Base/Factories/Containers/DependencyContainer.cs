@@ -55,14 +55,14 @@ public sealed class DependencyContainer :
 
             return
                 ResultContainer<object>
-                    .GetSuccessful(
+                    .Successful(
                         scopeInstance
                     );
         }
 
         return
             ResultContainer<object>
-                .GetFailed();
+                .Failed();
     }
 
     public Type GetImplementationType(

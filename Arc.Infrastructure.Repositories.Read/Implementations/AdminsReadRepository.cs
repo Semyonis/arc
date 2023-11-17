@@ -11,7 +11,8 @@ using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.Ad
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
 public sealed class AdminsReadRepository(
-    ArcDatabaseContext context,
+    ArcDatabaseContext
+        context,
     IAdminPropertyFilters
         adminPropertyFilters
 ) : IdReadRepositoryBase<Admin>(

@@ -11,7 +11,7 @@ namespace Arc.Infrastructure.Services.Implementations;
 public sealed class OrderingService :
     IOrderingService
 {
-    public OrderingParam<TEntity>? GetOrderingExpression<TEntity, TValue>(
+    public ResultContainer<OrderingParam<TEntity>?> GetOrderingExpression<TEntity, TValue>(
         TValue value
     )
         where TValue : IWithOrderBy, IWithOrderingType
@@ -23,7 +23,11 @@ public sealed class OrderingService :
 
         if (isEmpty)
         {
-            return default;
+            return
+                ResultContainer<OrderingParam<TEntity>?>
+                    .Successful(
+                        default
+                    );
         }
 
         var type =
@@ -49,7 +53,8 @@ public sealed class OrderingService :
 
         if (prop == default)
         {
-            return default;
+            return
+                ResultContainer<OrderingParam<TEntity>?>.Failed();
         }
 
         var param =
@@ -82,9 +87,16 @@ public sealed class OrderingService :
                     param
                 );
 
-        return new(
-            value.OrderingType,
-            getterExpression
-        );
+        var orderingExpression =
+            new OrderingParam<TEntity>(
+                value.OrderingType,
+                getterExpression
+            );
+
+        return
+            ResultContainer<OrderingParam<TEntity>?>
+                .Successful(
+                    orderingExpression
+                );
     }
 }

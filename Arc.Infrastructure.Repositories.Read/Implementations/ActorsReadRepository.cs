@@ -9,7 +9,8 @@ using Arc.Models.DataBase.Models;
 namespace Arc.Infrastructure.Repositories.Read.Implementations;
 
 public sealed class ActorsReadRepository(
-    ArcDatabaseContext context,
+    ArcDatabaseContext
+        context,
     IActorPropertyFilters
         actorPropertyFilters
 ) : IdReadRepositoryBase

@@ -33,14 +33,14 @@ public sealed record ResultContainer<T>
 
     public string ErrorDetails { get; }
 
-    public static ResultContainer<T> GetFailed(
+    public static ResultContainer<T> Failed(
         string errorDetails = ""
     ) =>
         new(
             errorDetails
         );
 
-    public static ResultContainer<T> GetSuccessful(
+    public static ResultContainer<T> Successful(
         T value
     ) =>
         new(

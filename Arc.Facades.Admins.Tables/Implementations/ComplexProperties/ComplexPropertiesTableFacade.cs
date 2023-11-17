@@ -5,6 +5,7 @@ using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Entity.Includes.Extensions.Implementations;
+using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Infrastructure.Services.Interfaces;
 using Arc.Models.DataBase.Models;
@@ -28,7 +29,9 @@ public sealed class ComplexPropertiesTableFacade(
     IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
         filterPropertyRequestRequestToFilterPropertyRequestModelConverter,
     IGenericFilterPropertyFactory
-        genericFilterPropertyFactory
+        genericFilterPropertyFactory,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
 ) : BaseTableFacade
     <
         ComplexProperty,
@@ -40,7 +43,8 @@ public sealed class ComplexPropertiesTableFacade(
         orderingService,
         parameterConverter,
         filterPropertyRequestRequestToFilterPropertyRequestModelConverter,
-        genericFilterPropertyFactory
+        genericFilterPropertyFactory,
+        badDataExceptionDescriptor
     ),
     IComplexPropertiesTableFacade
 {

@@ -4,6 +4,7 @@ using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
 using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.SimpleProperties;
 using Arc.Facades.Domain.Interface;
+using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Infrastructure.Services.Interfaces;
 using Arc.Models.DataBase.Models;
@@ -25,7 +26,9 @@ public sealed class SimplePropertiesTableFacade(
     IFilterPropertyRequestRequestToFilterPropertyRequestModelConverter
         filterPropertyRequestRequestToFilterPropertyRequestModelConverter,
     IGenericFilterPropertyFactory
-        genericFilterPropertyFactory
+        genericFilterPropertyFactory,
+    IBadDataExceptionDescriptor
+        badDataExceptionDescriptor
 ) : BaseTableFacade
     <
         SimpleProperty,
@@ -37,6 +40,7 @@ public sealed class SimplePropertiesTableFacade(
         orderingService,
         parameterConverter,
         filterPropertyRequestRequestToFilterPropertyRequestModelConverter,
-        genericFilterPropertyFactory
+        genericFilterPropertyFactory,
+        badDataExceptionDescriptor
     ),
     ISimplePropertiesTableFacade;
