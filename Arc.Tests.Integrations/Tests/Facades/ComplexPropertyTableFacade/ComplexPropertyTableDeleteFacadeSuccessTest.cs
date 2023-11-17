@@ -1,21 +1,16 @@
-﻿using System.Collections.Generic;
-
-using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
-using Arc.Infrastructure.Common.Enums;
-using Arc.Infrastructure.Common.Extensions;
+﻿using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
 using Arc.Models.BusinessLogic.Models.Identities;
 using Arc.Models.DataBase.Models;
-using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
-using Arc.Models.Views.Common.Models;
+using Arc.Models.Views.Admins.Models;
 using Arc.Tests.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Integrations.Factories;
 
 using Xunit;
 
-namespace Arc.Tests.Integrations.Tests.Facades.ComplexPropertyTableFacades;
+namespace Arc.Tests.Integrations.Tests.Facades.ComplexPropertyTableFacade;
 
-public class ComplexPropertyTableFacadeContainsSuccessTest
+public class ComplexPropertyTableDeleteFacadeSuccessTest
 {
     [Fact]
     public async Task SuccessTest()
@@ -117,49 +112,36 @@ public class ComplexPropertyTableFacadeContainsSuccessTest
         var facade =
             factory
                 .DependencyFactory
-                .GetImplementation<IComplexPropertiesTableFacade>();
-
-        var filterPropertyRequestRequest =
-            new FilterPropertyRequestRequest(
-                "Value",
-                "Contains",
-                "i"
-            );
-
-        var tableReadRequest =
-            new TableReadRequest(
-                filterPropertyRequestRequest.WrapByReadOnlyList(),
-                10,
-                1,
-                "id",
-                OrderingType.Ascending
-            );
+                .GetImplementation<IComplexPropertiesTableDeleteFacade>();
 
         var adminIdentity =
             new AdminIdentity(
                 1
             );
 
+        var ids =
+            new[]
+            {
+                1,
+                2,
+                3,
+            };
+
         var result =
             await
                 facade
                     .Execute(
-                        tableReadRequest,
+                        ids,
                         adminIdentity
                     );
 
-        var responseList =
-            result.ValidateSuccess<IReadOnlyList<ComplexPropertyReadResponse>>();
-
-        Assert
-            .NotEmpty(
-                responseList
-            );
+        var response =
+            result.ValidateSuccess<TableActionResultResponse>();
 
         Assert
             .Equal(
-                2,
-                responseList.Count
+                3,
+                response.ChangedEntitiesCount
             );
     }
 }

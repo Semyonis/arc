@@ -2,5 +2,5 @@
 
 public record FilterPropertyModel(
     string Operation,
-    dynamic Value
+    string Value
 );

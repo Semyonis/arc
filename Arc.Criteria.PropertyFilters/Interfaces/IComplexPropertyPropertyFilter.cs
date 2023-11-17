@@ -1,11 +1,11 @@
-﻿using Arc.Criteria.FilterParameters.Implementations;
+﻿using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Models.DataBase.Models;
 
 namespace Arc.Criteria.PropertyFilters.Interfaces;
 
 public interface IComplexPropertyPropertyFilter
 {
-    PropertyFilterParameter<ComplexProperty, int> GetGroupIdEqualFilter(
+    FilterParameterBase<ComplexProperty> GetGroupIdEqualFilter(
         int pattern
     );
 }

@@ -1,7 +1,8 @@
-﻿using Arc.Criteria.CompareFunctions.Interfaces;
-using Arc.Criteria.FilterParameters.Implementations;
+﻿using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.PropertyFilters.Interfaces;
 using Arc.Infrastructure.Entity.Expressions.Extensions.Implementations;
+using Arc.Models.BusinessLogic.Models.FilterProperties;
 using Arc.Models.DataBase.Models;
 
 using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstants;
@@ -9,27 +10,25 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
 public sealed class ComplexPropertyDescriptionPropertyFilter(
-    IItemCompareFunctions
-        itemCompareFunctions
+    IGenericFilterPropertyFactory
+        genericFilterPropertyFactory
 ) : IComplexPropertyDescriptionPropertyFilter
 {
-    public PropertyFilterParameter<ComplexPropertyDescription, int> GetComplexPropertyIdEqualFilter(
+    public FilterParameterBase<ComplexPropertyDescription> GetComplexPropertyIdEqualFilter(
         int pattern
     )
     {
-        var propertyPredicate =
-            ComplexPropertyDescriptionExpressions.GetComplexPropertyId();
+        var filterPropertyRequestModel =
+            new FilterPropertyModel(
+                Equal,
+                pattern.ToString()
+            );
 
-        var compareFunction =
-            itemCompareFunctions
-                .GetFunction(
-                    Equal
+        return
+            genericFilterPropertyFactory
+                .GetProperty(
+                    ComplexPropertyDescriptionExpressions.GetComplexPropertyId(),
+                    filterPropertyRequestModel
                 );
-
-        return new(
-            propertyPredicate,
-            compareFunction,
-            pattern
-        );
     }
 }

@@ -1,7 +1,8 @@
-﻿using Arc.Criteria.CompareFunctions.Interfaces;
-using Arc.Criteria.FilterParameters.Implementations;
+﻿using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
+using Arc.Criteria.FilterParameters.Implementations.Base;
 using Arc.Criteria.PropertyFilters.Interfaces;
 using Arc.Infrastructure.Entity.Expressions.Extensions.Implementations;
+using Arc.Models.BusinessLogic.Models.FilterProperties;
 using Arc.Models.DataBase.Models;
 
 using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstants;
@@ -9,27 +10,25 @@ using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstant
 namespace Arc.Criteria.PropertyFilters.Implementations;
 
 public sealed class ComplexPropertyPropertyFilter(
-    IItemCompareFunctions
-        itemCompareFunctions
+    IGenericFilterPropertyFactory
+        genericFilterPropertyFactory
 ) : IComplexPropertyPropertyFilter
 {
-    public PropertyFilterParameter<ComplexProperty, int> GetGroupIdEqualFilter(
+    public FilterParameterBase<ComplexProperty> GetGroupIdEqualFilter(
         int pattern
     )
     {
-        var propertyPredicate =
-            ComplexPropertyExpressions.GetGroupId();
+        var filterPropertyRequestModel =
+            new FilterPropertyModel(
+                Equal,
+                pattern.ToString()
+            );
 
-        var compareFunction =
-            itemCompareFunctions
-                .GetFunction(
-                    Equal
+        return
+            genericFilterPropertyFactory
+                .GetProperty(
+                    ComplexPropertyExpressions.GetGroupId(),
+                    filterPropertyRequestModel
                 );
-
-        return new(
-            propertyPredicate,
-            compareFunction,
-            pattern
-        );
     }
 }
