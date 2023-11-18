@@ -1,4 +1,4 @@
-﻿using Arc.Infrastructure.Common.Models.Settings;
+﻿using Arc.Dependencies.ConfigurationSettings.Models;
 
 using Microsoft.Extensions.Configuration;
 

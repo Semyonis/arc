@@ -1,5 +1,5 @@
 ﻿#pragma warning disable CS8618
-namespace Arc.Infrastructure.Common.Models.Settings;
+namespace Arc.Dependencies.ConfigurationSettings.Models;
 
 public sealed record JwtSettings
 {
