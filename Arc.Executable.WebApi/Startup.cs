@@ -1,8 +1,10 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.Net;
+using System.Text.Json.Serialization;
 
 using Arc.Executable.WebApi.Configuration.ApplicationBuilderExtensions;
 using Arc.Executable.WebApi.Configuration.ServiceCollectionExtensions;
 using Arc.Infrastructure.Common.Constants;
+using Arc.Infrastructure.Common.Extensions;
 
 using FluentValidation.AspNetCore;
 
@@ -13,6 +15,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+
+using StackExchange.Redis;
 
 namespace Arc.Executable.WebApi;
 
@@ -27,14 +31,6 @@ public sealed class Startup(
         IServiceCollection services
     )
     {
-        //duplicated
-        //depends on redis section structure in appconfig
-        /*var redisConfiguration =
-            _configuration
-                .GetSection(
-                    "Redis"
-                )["ConnectionString"];*/
-
         services
             .SetupIdentity()
             .SetupAuthentication(
@@ -58,14 +54,6 @@ public sealed class Startup(
                 loggerFactory,
                 configuration
             )
-            .AddDistributedMemoryCache()
-            /*.AddStackExchangeRedisCache(
-                options =>
-                {
-                    options.Configuration =
-                        redisConfiguration;
-                }
-            )*/
             .SetupSettings(
                 configuration
             )
@@ -92,8 +80,63 @@ public sealed class Startup(
         services.AddFluentValidationClientsideAdapters();
 
         services
-            .SetupDependencies()
+            .SetupDependencies();
+
+        var redisStackConfigurationOptions =
+                GetRedisStackConfigurationOptions(
+                    configuration
+                );
+
+        services
+            .AddStackExchangeRedisCache(
+                options =>
+                    options.ConfigurationOptions =
+                        redisStackConfigurationOptions
+            )
             .AddControllers();
+    }
+
+    private static ConfigurationOptions GetRedisStackConfigurationOptions(
+        IConfiguration configuration
+    )
+    {
+        var redisHost =
+            configuration
+                .GetSection(
+                    "RedisStack"
+                )["Host"]!;
+
+        var redisPort =
+            configuration
+                .GetSection(
+                    "RedisStack"
+                )["Port"]!;
+
+        var port =
+            redisPort
+                .ParseToNullableInteger()!
+                .Value;
+
+        var dnsEndPoint =
+            new DnsEndPoint(
+                redisHost,
+                port
+            );
+
+        var endpoints =
+            (dnsEndPoint as EndPoint).WrapByList();
+
+        var endPointCollection =
+            new EndPointCollection(
+                endpoints
+            );
+
+        return 
+            new()
+            {
+                EndPoints =
+                    endPointCollection,
+            };
     }
 
     public void Configure(

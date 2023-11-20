@@ -7,6 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <ProjectReference Include="..\Arc.Dependencies.RedisStack\Arc.Dependencies.RedisStack.csproj" />
         <ProjectReference Include="..\Arc.Facades.Base\Arc.Facades.Base.csproj"/>
         <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
         <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>

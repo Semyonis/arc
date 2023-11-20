@@ -15,7 +15,13 @@ public static class SettingsConfiguration
             .Configure<JwtSettings>(
                 configuration
                     .GetSection(
-                        "JWT"
+                        "Jwt"
+                    )
+            )
+            .Configure<RedisStackSettings>(
+                configuration
+                    .GetSection(
+                        "RedisStack"
                     )
             );
 

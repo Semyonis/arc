@@ -21,10 +21,4 @@
         <ProjectReference Include="..\Arc.Infrastructure.Transactions\Arc.Infrastructure.Transactions.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Reference Include="Arc.Repositories">
-            <HintPath>..\Arc.Tests.Integrations\bin\Debug\net7.0\Arc.Repositories.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
 </Project>

@@ -146,7 +146,7 @@ public static class Swagger
                                         {
                                             new()
                                             {
-                                                Url = $"https://{httpReq.Host}",
+                                                Url = $"http://{httpReq.Host}",
                                             },
                                         };
                                 }

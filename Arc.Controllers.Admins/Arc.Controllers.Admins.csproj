@@ -11,10 +11,4 @@
         <ProjectReference Include="..\Arc.Controllers.Base\Arc.Controllers.Base.csproj"/>
     </ItemGroup>
 
-    <ItemGroup>
-        <Reference Include="Arc.Models.Views.Common">
-            <HintPath>..\Arc.Tests.Integrations\bin\Debug\net7.0\Arc.Models.Views.Common.dll</HintPath>
-        </Reference>
-    </ItemGroup>
-
 </Project>

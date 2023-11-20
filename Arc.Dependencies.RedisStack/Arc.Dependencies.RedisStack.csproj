@@ -1,0 +1,22 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>preview</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Arc.Dependencies.ConfigurationSettings\Arc.Dependencies.ConfigurationSettings.csproj" />
+      <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="NRedisStack" Version="0.10.1" />
+    </ItemGroup>
+
+</Project>
