@@ -1,7 +1,7 @@
-﻿using Arc.Dependencies.Cache.Interfaces.Base;
+﻿using Arc.Infrastructure.Cache.Interfaces.Base;
 using Arc.Models.BusinessLogic.Models.Identities;
 
-namespace Arc.Dependencies.Cache.Interfaces;
+namespace Arc.Infrastructure.Cache.Interfaces;
 
 public interface IAdminIdentityCache :
     IIntegerCacheBase<AdminIdentity>;

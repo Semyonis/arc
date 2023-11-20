@@ -1,9 +1,9 @@
 using System;
 
-using Arc.Dependencies.Cache.Interfaces.Base;
+using Arc.Infrastructure.Cache.Interfaces.Base;
 using Arc.Infrastructure.Common.Extensions;
 
-namespace Arc.Dependencies.Cache.Implementations.Base;
+namespace Arc.Infrastructure.Cache.Implementations.Base;
 
 public abstract class CacheBase<TKey, TEntity>(
     IDistributedCache

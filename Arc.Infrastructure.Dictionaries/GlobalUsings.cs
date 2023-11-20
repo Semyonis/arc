@@ -4,4 +4,4 @@ global using System;
 global using System.Collections.Generic;
 global using System.Linq;
 
-global using Arc.Dependencies.Cache.Interfaces;
+global using Arc.Infrastructure.Cache.Interfaces;

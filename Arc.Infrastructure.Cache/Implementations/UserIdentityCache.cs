@@ -1,22 +1,22 @@
-﻿using Arc.Dependencies.Cache.Interfaces;
+﻿using Arc.Infrastructure.Cache.Interfaces;
 using Arc.Infrastructure.Common.Constants;
 using Arc.Models.BusinessLogic.Models.Identities;
 
-namespace Arc.Dependencies.Cache.Implementations;
+namespace Arc.Infrastructure.Cache.Implementations;
 
-public sealed class AdminIdentityCache(
+public sealed class UserIdentityCache(
     IDistributedCache
         distributedCache,
     ISerializationDecorator
         serializationDecorator
-) : IntegerCacheBase<AdminIdentity>(
+) : IntegerCacheBase<UserIdentity>(
         distributedCache,
         serializationDecorator
     ),
-    IAdminIdentityCache
+    IUserIdentityCache
 {
     protected override string GetKey(
-        int adminId
+        int userId
     ) =>
-        $"{ActorTypeConstants.Admin}{adminId}";
+        $"{ActorTypeConstants.User}{userId}";
 }

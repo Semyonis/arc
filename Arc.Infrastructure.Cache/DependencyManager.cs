@@ -5,7 +5,7 @@ using Arc.Infrastructure.Common.Extensions;
 using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Common.Models.Dependencies;
 
-namespace Arc.Dependencies.Cache;
+namespace Arc.Infrastructure.Cache;
 
 public sealed class DependencyManager :
     IDependencyManager

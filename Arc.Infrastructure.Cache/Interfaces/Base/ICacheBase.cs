@@ -1,4 +1,4 @@
-﻿namespace Arc.Dependencies.Cache.Interfaces.Base;
+﻿namespace Arc.Infrastructure.Cache.Interfaces.Base;
 
 public interface ICacheBase<in TKey, TEntity>
     where TEntity : class

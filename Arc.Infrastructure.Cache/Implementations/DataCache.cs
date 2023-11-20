@@ -1,9 +1,9 @@
 using System;
 
-using Arc.Dependencies.Cache.Interfaces.Base;
+using Arc.Infrastructure.Cache.Interfaces.Base;
 using Arc.Infrastructure.Common.Extensions;
 
-namespace Arc.Dependencies.Cache.Implementations;
+namespace Arc.Infrastructure.Cache.Implementations;
 
 public sealed class DataCache(
     IDistributedCache

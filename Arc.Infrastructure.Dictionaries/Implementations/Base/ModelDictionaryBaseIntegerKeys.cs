@@ -1,4 +1,4 @@
-﻿using Arc.Dependencies.Cache.Interfaces.Base;
+﻿using Arc.Infrastructure.Cache.Interfaces.Base;
 using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 

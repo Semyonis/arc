@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Arc.Dependencies.Cache\Arc.Dependencies.Cache.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.Cache\Arc.Infrastructure.Cache.csproj" />
         <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
     </ItemGroup>
 

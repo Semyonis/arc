@@ -1,4 +1,4 @@
-﻿namespace Arc.Dependencies.Cache.Implementations.Base;
+﻿namespace Arc.Infrastructure.Cache.Implementations.Base;
 
 public abstract class IntegerCacheBase<TEntity>(
     IDistributedCache
