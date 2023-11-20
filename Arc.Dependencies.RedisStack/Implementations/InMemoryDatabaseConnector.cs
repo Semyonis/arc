@@ -1,6 +1,6 @@
 ﻿using System.Net;
 
-using Arc.Dependencies.ConfigurationSettings.Models;
+using Arc.Infrastructure.ConfigurationSettings.Models;
 using Arc.Dependencies.RedisStack.Interfaces;
 using Arc.Infrastructure.Common.Extensions;
 

@@ -13,7 +13,7 @@
         <ProjectReference Include="..\Arc.Dependencies.Identity\Arc.Dependencies.Identity.csproj"/>
         <ProjectReference Include="..\Arc.Dependencies.Logger\Arc.Dependencies.Logger.csproj"/>
         <ProjectReference Include="..\Arc.Dependencies.Json\Arc.Dependencies.Json.csproj"/>
-        <ProjectReference Include="..\Arc.Dependencies.ConfigurationSettings\Arc.Dependencies.ConfigurationSettings.csproj"/>
+        <ProjectReference Include="..\Arc.Infrastructure.ConfigurationSettings\Arc.Infrastructure.ConfigurationSettings.csproj" />
         <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>
         <ProjectReference Include="..\Arc.Converters.Views.Common\Arc.Converters.Views.Common.csproj"/>
     </ItemGroup>

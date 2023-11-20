@@ -2,9 +2,9 @@ using System;
 using System.Collections.Generic;
 
 using Arc.Database.Context;
-using Arc.Dependencies.ConfigurationSettings.Models;
 using Arc.Dependencies.Identity.Interfaces;
 using Arc.Dependencies.Logger.Interfaces;
+using Arc.Infrastructure.ConfigurationSettings.Models;
 using Arc.Infrastructure.Dictionaries.Implementations.Managers;
 using Arc.Infrastructure.Dictionaries.Interfaces;
 using Arc.Infrastructure.Dictionaries.Interfaces.Managers;

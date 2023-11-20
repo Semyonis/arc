@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using System.Text;
 
-using Arc.Dependencies.ConfigurationSettings.Interfaces;
+using Arc.Infrastructure.ConfigurationSettings.Interfaces;
 using Arc.Dependencies.Identity.Interfaces;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;

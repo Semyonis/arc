@@ -1,8 +1,8 @@
 ﻿using Arc.Converters.Views.Common.Interfaces;
-using Arc.Dependencies.ConfigurationSettings.Interfaces;
 using Arc.Dependencies.RedisStack.Interfaces;
 using Arc.Facades.Admins.Interfaces.Admins;
 using Arc.Facades.Domain.Interface;
+using Arc.Infrastructure.ConfigurationSettings.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Models.BusinessLogic.Models.Identities;
 using Arc.Models.BusinessLogic.Response;

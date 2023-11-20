@@ -1,5 +1,5 @@
 ﻿#pragma warning disable CS8618
-namespace Arc.Dependencies.ConfigurationSettings.Models;
+namespace Arc.Infrastructure.ConfigurationSettings.Models;
 
 public sealed record RedisStackSettings
 {

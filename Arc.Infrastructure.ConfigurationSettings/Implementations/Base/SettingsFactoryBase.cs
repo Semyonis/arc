@@ -1,6 +1,6 @@
-﻿using Arc.Dependencies.ConfigurationSettings.Interfaces.Base;
+﻿using Arc.Infrastructure.ConfigurationSettings.Interfaces.Base;
 
-namespace Arc.Dependencies.ConfigurationSettings.Implementations.Base;
+namespace Arc.Infrastructure.ConfigurationSettings.Implementations.Base;
 
 public abstract class SettingsFactoryBase<TResult>(
     IOptions<TResult> option

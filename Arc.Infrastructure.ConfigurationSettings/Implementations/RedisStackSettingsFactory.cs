@@ -1,6 +1,6 @@
-﻿using Arc.Dependencies.ConfigurationSettings.Models;
+﻿using Arc.Infrastructure.ConfigurationSettings.Models;
 
-namespace Arc.Dependencies.ConfigurationSettings.Implementations;
+namespace Arc.Infrastructure.ConfigurationSettings.Implementations;
 
 public sealed class RedisStackSettingsFactory(
     IOptions<RedisStackSettings> option

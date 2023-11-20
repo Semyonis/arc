@@ -34,7 +34,7 @@ public static class SolutionDependencyFactory
                 new Facades.Domain.Filters.DependencyManager(),
                 new Facades.Users.DependencyManager(),
                 new Arc.Dependencies.Json.DependencyManager(),
-                new Arc.Dependencies.ConfigurationSettings.DependencyManager(),
+                new Arc.Infrastructure.ConfigurationSettings.DependencyManager(),
             }
             .SelectMany(
                 dependencyList =>

@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\Arc.Dependencies.ConfigurationSettings\Arc.Dependencies.ConfigurationSettings.csproj" />
+      <ProjectReference Include="..\Arc.Infrastructure.ConfigurationSettings\Arc.Infrastructure.ConfigurationSettings.csproj" />
       <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj" />
     </ItemGroup>
 
