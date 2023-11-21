@@ -1,4 +1,6 @@
-﻿using Arc.Infrastructure.Common.Models;
+﻿using System.Threading.Tasks;
+
+using Arc.Infrastructure.Common.Models;
 
 using StackExchange.Redis;
 
@@ -13,6 +15,11 @@ public interface IJsonCommandsService
     );
 
     ResultContainer<TEntity> Get<TEntity>(
+        IDatabase inMemoryDatabase,
+        string key
+    );
+
+    Task Delete(
         IDatabase inMemoryDatabase,
         string key
     );

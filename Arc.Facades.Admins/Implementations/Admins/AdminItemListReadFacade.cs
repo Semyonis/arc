@@ -2,6 +2,7 @@
 using Arc.Dependencies.RedisStack.Interfaces;
 using Arc.Facades.Admins.Interfaces.Admins;
 using Arc.Facades.Domain.Interface;
+using Arc.Infrastructure.Common.Constants;
 using Arc.Infrastructure.ConfigurationSettings.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Models.BusinessLogic.Models.Identities;
@@ -39,14 +40,11 @@ public sealed class AdminItemListReadFacade(
                     redisStackSettings
                 );
 
-        const string AdminListIndex =
-            "idx:adminList";
-
         var resultContainer =
             jsonCommandsService
                 .Get<IReadOnlyList<ListItemResponse>>(
                     inMemoryDatabase,
-                    AdminListIndex
+                    RedisKeyConstants.AdminListKey
                 );
 
         IReadOnlyList<ListItemResponse>? responses;
@@ -72,7 +70,7 @@ public sealed class AdminItemListReadFacade(
             jsonCommandsService
                 .Set(
                     inMemoryDatabase,
-                    AdminListIndex,
+                    RedisKeyConstants.AdminListKey,
                     listItemResponses
                 );
 

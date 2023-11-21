@@ -1,4 +1,6 @@
-﻿using Arc.Dependencies.RedisStack.Interfaces;
+﻿using System.Threading.Tasks;
+
+using Arc.Dependencies.RedisStack.Interfaces;
 using Arc.Infrastructure.Common.Models;
 
 using NRedisStack.RedisStackCommands;
@@ -69,6 +71,32 @@ public sealed class JsonCommandsService :
                 .Successful(
                     result!
                 );
+    }
+
+    public async Task Delete(
+        IDatabase inMemoryDatabase,
+        string key
+    )
+    {
+        var isCached =
+            inMemoryDatabase
+                .KeyExists(
+                    key
+                );
+
+        if (!isCached)
+        {
+            return;
+        }
+
+        var jsonCommands =
+            inMemoryDatabase.JSON();
+
+        await 
+            jsonCommands
+            .ClearAsync(
+                key
+            );
     }
     
 }

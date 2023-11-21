@@ -1,6 +1,9 @@
-﻿using Arc.Facades.Admins.Interfaces.Admins;
+﻿using Arc.Dependencies.RedisStack.Interfaces;
+using Arc.Facades.Admins.Interfaces.Admins;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;
+using Arc.Infrastructure.Common.Constants;
+using Arc.Infrastructure.ConfigurationSettings.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Models;
@@ -13,7 +16,13 @@ public sealed class AdminsUpdateFacade(
     ITransactionManager
         transactionManager,
     IAdminUpdateDomainFacade
-        adminUpdateDomainFacade
+        adminUpdateDomainFacade,
+    IInMemoryDatabaseConnector
+        inMemoryDatabaseConnector,
+    IRedisStackSettingsFactory
+        redisStackSettingsFactory,
+    IJsonCommandsService
+        jsonCommandsService
 ) : IAdminsUpdateFacade
 {
     public async Task<Response> Execute(
@@ -41,6 +50,23 @@ public sealed class AdminsUpdateFacade(
         await
             transaction
                 .Commit();
+
+        var redisStackSettings =
+            redisStackSettingsFactory
+                .GetSettings();
+
+        var inMemoryDatabase =
+            inMemoryDatabaseConnector
+                .GetDatabase(
+                    redisStackSettings
+                );
+
+        await
+            jsonCommandsService
+                .Delete(
+                    inMemoryDatabase,
+                    RedisKeyConstants.AdminListKey
+                );
 
         return
             internalFacade
