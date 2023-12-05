@@ -1,4 +1,4 @@
-﻿using Arc.Models.DataBase.Models;
+﻿using Arc.Database.Entities.Models;
 using Arc.Models.Views.Common.Models;
 
 namespace Arc.Converters.Views.Common.Implementations;

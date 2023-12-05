@@ -12,7 +12,7 @@
         <ProjectReference Include="..\Arc.Converters.Base\Arc.Converters.Base.csproj"/>
         <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
         <ProjectReference Include="..\Arc.Converters\Arc.Converters.csproj"/>
-        <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
+        <ProjectReference Include="..\Arc.Database.Entities\Arc.Database.Entities.csproj" />
         <ProjectReference Include="..\Arc.Converters.Views.Common\Arc.Converters.Views.Common.csproj"/>
     </ItemGroup>
 

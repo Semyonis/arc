@@ -12,7 +12,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Arc.Infrastructure.Entity.Expressions.Extensions\Arc.Infrastructure.Entity.Expressions.Extensions.csproj"/>
-        <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
+        <ProjectReference Include="..\Arc.Database.Entities\Arc.Database.Entities.csproj" />
         <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="7.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.1"/>
         <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="7.0.1"/>

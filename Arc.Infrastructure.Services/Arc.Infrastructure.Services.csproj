@@ -9,7 +9,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Arc.Infrastructure.Exceptions\Arc.Infrastructure.Exceptions.csproj"/>
         <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
-        <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
+        <ProjectReference Include="..\Arc.Database.Entities\Arc.Database.Entities.csproj" />
         <ProjectReference Include="..\Arc.Infrastructure.Entity.Expressions.Extensions\Arc.Infrastructure.Entity.Expressions.Extensions.csproj"/>
     </ItemGroup>
 

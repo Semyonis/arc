@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Arc.Database.Entities.Models;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
-using Arc.Models.DataBase.Models;
 using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Integrations.Factories;
 

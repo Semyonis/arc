@@ -1,5 +1,5 @@
 ﻿using Arc.Converters.Views.Admins.Interfaces;
-using Arc.Models.DataBase.Models;
+using Arc.Database.Entities.Models;
 using Arc.Models.Views.Admins.Tables.Models.Groups;
 
 namespace Arc.Converters.Views.Admins.Implementations;

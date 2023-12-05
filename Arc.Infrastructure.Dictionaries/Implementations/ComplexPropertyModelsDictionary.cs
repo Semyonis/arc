@@ -3,7 +3,7 @@ using Arc.Infrastructure.Dictionaries.Implementations.Base;
 using Arc.Infrastructure.Dictionaries.Interfaces;
 using Arc.Infrastructure.Dictionaries.Interfaces.Managers;
 using Arc.Models.BusinessLogic.Models;
-using Arc.Models.DataBase.Models;
+using Arc.Database.Entities.Models;
 
 namespace Arc.Infrastructure.Dictionaries.Implementations;
 

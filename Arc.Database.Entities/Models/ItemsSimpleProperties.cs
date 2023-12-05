@@ -1,4 +1,4 @@
-﻿namespace Arc.Models.DataBase.Models;
+﻿namespace Arc.Database.Entities.Models;
 
 public sealed class ItemsSimpleProperties :
     IWithIdentifier

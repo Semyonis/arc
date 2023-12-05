@@ -1,5 +1,5 @@
 ﻿using Arc.Criteria.FilterParameters.Implementations.Base;
-using Arc.Models.DataBase.Models;
+using Arc.Database.Entities.Models;
 
 namespace Arc.Criteria.PropertyFilters.Interfaces;
 

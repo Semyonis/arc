@@ -7,7 +7,7 @@ global using System.Linq.Expressions;
 
 global using Arc.Database.Definitions.Extensions;
 global using Arc.Infrastructure.Entity.Expressions.Extensions.Implementations;
-global using Arc.Models.DataBase.Models;
+global using Arc.Database.Entities.Models;
 
 global using Microsoft.EntityFrameworkCore;
 global using Microsoft.EntityFrameworkCore.Infrastructure;

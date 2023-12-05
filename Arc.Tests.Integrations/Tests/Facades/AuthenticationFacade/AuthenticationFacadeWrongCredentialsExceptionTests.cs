@@ -1,6 +1,6 @@
-﻿using Arc.Dependencies.Identity.Interfaces;
+﻿using Arc.Database.Entities.Models;
+using Arc.Dependencies.Identity.Interfaces;
 using Arc.Facades.Anonymous.Interfaces.Authentication;
-using Arc.Models.DataBase.Models;
 using Arc.Models.Views.Anonymous.Models;
 using Arc.Tests.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;

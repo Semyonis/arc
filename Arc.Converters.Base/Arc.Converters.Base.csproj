@@ -9,7 +9,7 @@
     <ItemGroup>
         <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
         <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
-        <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
+        <ProjectReference Include="..\Arc.Database.Entities\Arc.Database.Entities.csproj" />
     </ItemGroup>
 
     <ItemGroup>

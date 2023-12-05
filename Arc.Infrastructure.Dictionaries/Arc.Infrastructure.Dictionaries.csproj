@@ -8,7 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Arc.Infrastructure.Cache\Arc.Infrastructure.Cache.csproj" />
-        <ProjectReference Include="..\Arc.Models.DataBase\Arc.Models.DataBase.csproj"/>
+        <ProjectReference Include="..\Arc.Database.Entities\Arc.Database.Entities.csproj" />
     </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@ using Arc.Converters.Base.Interfaces;
 using Arc.Converters.Views.Common.Interfaces;
 using Arc.Criteria.FilterParameters.Factories.Generic.Interfaces;
 using Arc.Criteria.FilterParameters.Implementations.Base;
+using Arc.Database.Entities;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Interfaces;
@@ -11,7 +12,6 @@ using Arc.Infrastructure.Services.Interfaces;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
 using Arc.Models.BusinessLogic.Models.Identities;
 using Arc.Models.BusinessLogic.Response;
-using Arc.Models.DataBase;
 using Arc.Models.Views.Common.Models;
 
 using Microsoft.EntityFrameworkCore.Query;

@@ -4,7 +4,7 @@ using Arc.Database.Context;
 using Arc.Infrastructure.Common.Extensions;
 using Arc.Infrastructure.Repositories.Read.Implementations.Base;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
-using Arc.Models.DataBase.Models;
+using Arc.Database.Entities.Models;
 
 using static Arc.Infrastructure.Entity.Expressions.Extensions.Implementations.AdminExpressions;
 

@@ -1,4 +1,4 @@
-namespace Arc.Models.DataBase;
+namespace Arc.Database.Entities;
 
 public sealed record PaginationIn(
     int CurrentPage,

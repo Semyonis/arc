@@ -19,7 +19,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                 .HasAnnotation("ProductVersion", "7.0.1")
                 .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.Actor", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.Actor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -60,7 +60,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.BaseDescription", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.BaseDescription", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -87,7 +87,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.UseTphMappingStrategy();
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ComplexProperty", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ComplexProperty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -125,7 +125,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.ToTable("complex_property", (string)null);
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.Group", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.Group", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -151,7 +151,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.ToTable("group", (string)null);
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.Item", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.Item", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -185,7 +185,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.ToTable("item", (string)null);
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ItemsComplexProperties", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ItemsComplexProperties", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -212,7 +212,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.ToTable("items_complex_properties", (string)null);
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ItemsSimpleProperties", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ItemsSimpleProperties", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -243,7 +243,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.ToTable("items_simple_properties", (string)null);
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ServiceMode", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ServiceMode", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -274,7 +274,7 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.ToTable("service_mode", (string)null);
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.SimpleProperty", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.SimpleProperty", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -557,23 +557,23 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.ToTable("asp_net_user_token", (string)null);
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.Admin", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.Admin", b =>
                 {
-                    b.HasBaseType("Arc.Models.DataBase.Models.Actor");
+                    b.HasBaseType("Arc.Database.Entities.Models.Actor");
 
                     b.HasDiscriminator().HasValue("Admin");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.User", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.User", b =>
                 {
-                    b.HasBaseType("Arc.Models.DataBase.Models.Actor");
+                    b.HasBaseType("Arc.Database.Entities.Models.Actor");
 
                     b.HasDiscriminator().HasValue("User");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ComplexPropertyDescription", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ComplexPropertyDescription", b =>
                 {
-                    b.HasBaseType("Arc.Models.DataBase.Models.BaseDescription");
+                    b.HasBaseType("Arc.Database.Entities.Models.BaseDescription");
 
                     b.Property<int>("ComplexPropertyId")
                         .HasColumnType("int")
@@ -582,9 +582,9 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.HasDiscriminator().HasValue("ComplexPropertyDescription");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.GroupDescription", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.GroupDescription", b =>
                 {
-                    b.HasBaseType("Arc.Models.DataBase.Models.BaseDescription");
+                    b.HasBaseType("Arc.Database.Entities.Models.BaseDescription");
 
                     b.Property<int>("GroupId")
                         .HasColumnType("int")
@@ -593,16 +593,16 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.HasDiscriminator().HasValue("GroupDescription");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ComplexProperty", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ComplexProperty", b =>
                 {
-                    b.HasOne("Arc.Models.DataBase.Models.ComplexPropertyDescription", "Description")
+                    b.HasOne("Arc.Database.Entities.Models.ComplexPropertyDescription", "Description")
                         .WithOne("ComplexProperty")
-                        .HasForeignKey("Arc.Models.DataBase.Models.ComplexProperty", "DescriptionId")
+                        .HasForeignKey("Arc.Database.Entities.Models.ComplexProperty", "DescriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_complex_property_base_description_description_id1");
 
-                    b.HasOne("Arc.Models.DataBase.Models.Group", "Group")
+                    b.HasOne("Arc.Database.Entities.Models.Group", "Group")
                         .WithMany("ComplexProperties")
                         .HasForeignKey("GroupId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -614,11 +614,11 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.Navigation("Group");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.Group", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.Group", b =>
                 {
-                    b.HasOne("Arc.Models.DataBase.Models.GroupDescription", "Description")
+                    b.HasOne("Arc.Database.Entities.Models.GroupDescription", "Description")
                         .WithOne("Group")
-                        .HasForeignKey("Arc.Models.DataBase.Models.Group", "DescriptionId")
+                        .HasForeignKey("Arc.Database.Entities.Models.Group", "DescriptionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_group_base_description_description_id1");
@@ -626,24 +626,24 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.Navigation("Description");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.Item", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.Item", b =>
                 {
-                    b.HasOne("Arc.Models.DataBase.Models.User", null)
+                    b.HasOne("Arc.Database.Entities.Models.User", null)
                         .WithMany("Items")
                         .HasForeignKey("UserId")
                         .HasConstraintName("fk_item_actor_user_id");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ItemsComplexProperties", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ItemsComplexProperties", b =>
                 {
-                    b.HasOne("Arc.Models.DataBase.Models.ComplexProperty", "ComplexProperty")
+                    b.HasOne("Arc.Database.Entities.Models.ComplexProperty", "ComplexProperty")
                         .WithMany()
                         .HasForeignKey("ComplexPropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_items_complex_properties_complex_property_complex_property_id");
 
-                    b.HasOne("Arc.Models.DataBase.Models.Item", "Item")
+                    b.HasOne("Arc.Database.Entities.Models.Item", "Item")
                         .WithMany("ComplexPropertyLinks")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -655,16 +655,16 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.Navigation("Item");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ItemsSimpleProperties", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ItemsSimpleProperties", b =>
                 {
-                    b.HasOne("Arc.Models.DataBase.Models.Item", "Item")
+                    b.HasOne("Arc.Database.Entities.Models.Item", "Item")
                         .WithMany("SimplePropertyLinks")
                         .HasForeignKey("ItemId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired()
                         .HasConstraintName("fk_items_simple_properties_item_item_id");
 
-                    b.HasOne("Arc.Models.DataBase.Models.SimpleProperty", "SimpleProperty")
+                    b.HasOne("Arc.Database.Entities.Models.SimpleProperty", "SimpleProperty")
                         .WithMany("ItemLinks")
                         .HasForeignKey("SimplePropertyId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -676,9 +676,9 @@ namespace Arc.Database.Migrations.Migrations._2023
                     b.Navigation("SimpleProperty");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ServiceMode", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ServiceMode", b =>
                 {
-                    b.HasOne("Arc.Models.DataBase.Models.Admin", "UpdatedBy")
+                    b.HasOne("Arc.Database.Entities.Models.Admin", "UpdatedBy")
                         .WithMany()
                         .HasForeignKey("UpdatedById")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -745,35 +745,35 @@ namespace Arc.Database.Migrations.Migrations._2023
                         .HasConstraintName("fk_asp_net_user_token_asp_net_user_user_id");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.Group", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.Group", b =>
                 {
                     b.Navigation("ComplexProperties");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.Item", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.Item", b =>
                 {
                     b.Navigation("ComplexPropertyLinks");
 
                     b.Navigation("SimplePropertyLinks");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.SimpleProperty", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.SimpleProperty", b =>
                 {
                     b.Navigation("ItemLinks");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.User", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.User", b =>
                 {
                     b.Navigation("Items");
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.ComplexPropertyDescription", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.ComplexPropertyDescription", b =>
                 {
                     b.Navigation("ComplexProperty")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Arc.Models.DataBase.Models.GroupDescription", b =>
+            modelBuilder.Entity("Arc.Database.Entities.Models.GroupDescription", b =>
                 {
                     b.Navigation("Group")
                         .IsRequired();

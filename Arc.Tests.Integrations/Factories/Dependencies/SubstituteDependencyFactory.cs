@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Arc.Database.Context;
 using Arc.Dependencies.Identity.Interfaces;
 using Arc.Dependencies.Logger.Interfaces;
-using Arc.Dependencies.RedisStack.Implementations;
 using Arc.Dependencies.RedisStack.Interfaces;
 using Arc.Infrastructure.ConfigurationSettings.Models;
 using Arc.Infrastructure.Dictionaries.Implementations.Managers;

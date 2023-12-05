@@ -1,4 +1,4 @@
-﻿using Arc.Models.DataBase.Models;
+﻿using Arc.Database.Entities.Models;
 
 namespace Arc.Infrastructure.Entity.Expressions.Extensions.Implementations;
 

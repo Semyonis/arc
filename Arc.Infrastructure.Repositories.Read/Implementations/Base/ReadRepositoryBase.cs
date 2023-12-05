@@ -6,7 +6,7 @@ using Arc.Criteria.Implementations;
 using Arc.Criteria.Interfaces;
 using Arc.Infrastructure.Common.Enums;
 using Arc.Infrastructure.Common.Models;
-using Arc.Models.DataBase;
+using Arc.Database.Entities;
 
 using Microsoft.EntityFrameworkCore;
 

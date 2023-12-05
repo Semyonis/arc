@@ -1,11 +1,11 @@
 ﻿using Arc.Converters.Views.Admins.Interfaces;
+using Arc.Database.Entities.Models;
 using Arc.Facades.Admins.Tables.Implementations.Base;
 using Arc.Facades.Admins.Tables.Interfaces.Groups;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Entity.Includes.Extensions.Implementations;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
-using Arc.Models.DataBase.Models;
 using Arc.Models.Views.Admins.Tables.Models.Groups;
 
 using Microsoft.EntityFrameworkCore.Query;

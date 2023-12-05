@@ -1,10 +1,10 @@
 ﻿using System.Collections.Generic;
 
+using Arc.Database.Entities.Models;
 using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
 using Arc.Infrastructure.Common.Enums;
 using Arc.Infrastructure.Common.Extensions;
 using Arc.Models.BusinessLogic.Models.Identities;
-using Arc.Models.DataBase.Models;
 using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 using Arc.Models.Views.Common.Models;
 using Arc.Tests.Base.Extensions;

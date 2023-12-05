@@ -1,6 +1,6 @@
-﻿using Arc.Facades.Users.Interfaces;
+﻿using Arc.Database.Entities.Models;
+using Arc.Facades.Users.Interfaces;
 using Arc.Models.BusinessLogic.Models.Identities;
-using Arc.Models.DataBase.Models;
 using Arc.Models.Views.Users.Models;
 using Arc.Tests.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;

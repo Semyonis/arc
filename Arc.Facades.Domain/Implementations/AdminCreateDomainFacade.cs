@@ -1,11 +1,11 @@
-﻿using Arc.Dependencies.Identity.Interfaces;
+﻿using Arc.Database.Entities.Models;
+using Arc.Dependencies.Identity.Interfaces;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Constants;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
-using Arc.Models.DataBase.Models;
 
 namespace Arc.Facades.Domain.Implementations;
 

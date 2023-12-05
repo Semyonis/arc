@@ -1,5 +1,5 @@
 ﻿using Arc.Converters.Views.Users.Interfaces;
-using Arc.Models.DataBase.Models;
+using Arc.Database.Entities.Models;
 using Arc.Models.Views.Users.Models;
 
 namespace Arc.Converters.Views.Users.Implementations;
