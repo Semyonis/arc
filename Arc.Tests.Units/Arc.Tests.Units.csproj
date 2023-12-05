@@ -10,6 +10,7 @@
         <ProjectReference Include="..\Arc.Tests.Base\Arc.Tests.Base.csproj"/>
         <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
         <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>
+        <ProjectReference Include="..\Arc.Tests.Integrations\Arc.Tests.Integrations.csproj" />
     </ItemGroup>
 
     <ItemGroup>

@@ -1,8 +1,6 @@
 ﻿using Arc.Infrastructure.Services.Interfaces;
 using Arc.Tests.Units.Factories;
 
-using Xunit;
-
 namespace Arc.Tests.Units.Tests;
 
 public sealed class StringNormalizationServiceObjectWithObjectAndStringArrayAndObjectListSuccessTests
@@ -51,41 +49,38 @@ public sealed class StringNormalizationServiceObjectWithObjectAndStringArrayAndO
             };
 
         var result =
-            (IReadOnlyList<ObjectWithObjectAndStringArrayAndObjectList>)factory
+            factory
                 .DependencyFactory
                 .GetImplementation<IStringNormalizationService>()
                 .Normalize(
                     value
                 );
 
-        var firstCondition =
-            result[0]
+        var resultContainer =
+            result
+                .Should()
+                .BeOfType<List<ObjectWithObjectAndStringArrayAndObjectList>>();
+
+            resultContainer
+                .Subject[0]
                 .SecondStringArray
-                .All(
-                    item =>
-                        item == NormalizedString
+                .Should()
+                .AllBe(
+                    NormalizedString
                 );
 
-        Assert
-            .True(
-                firstCondition
-            );
-
-        var secondCondition =
-            result[0]
-                .FirstObject.FirstStringList
-                .All(
-                    item =>
-                        item == NormalizedString
+            resultContainer
+                .Subject[0]
+                .FirstObject
+                .FirstStringList
+                .Should()
+                .AllBe(
+                    NormalizedString
                 );
-
-        Assert
-            .True(
-                secondCondition
-            );
 
         var thirdCondition =
-            result[0]
+            resultContainer
+                .Subject[0]
                 .ThirdObjectList
                 .All(
                     objectWithStringListsAndObject =>
@@ -101,10 +96,9 @@ public sealed class StringNormalizationServiceObjectWithObjectAndStringArrayAndO
                         == NormalizedString
                 );
 
-        Assert
-            .True(
-                thirdCondition
-            );
+        thirdCondition
+            .Should()
+            .BeTrue();
     }
 
     private sealed record ObjectWithStrings(

@@ -1,7 +1,6 @@
 ﻿using Arc.Infrastructure.Services.Interfaces;
+using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Units.Factories;
-
-using Xunit;
 
 namespace Arc.Tests.Units.Tests;
 
@@ -21,23 +20,22 @@ public sealed class StringNormalizationServiceIntegerListSuccessTests
             };
 
         var result =
-            (IReadOnlyList<int>)factory
+            factory
                 .DependencyFactory
                 .GetImplementation<IStringNormalizationService>()
                 .Normalize(
                     value
                 );
 
-        var condition =
+        var integerListContainer =
             result
-                .All(
-                    item =>
-                        item == 1
-                );
+                .Should()
+                .BeOfType<List<int>>();
 
-        Assert
-            .True(
-                condition
+        integerListContainer
+            .Subject
+            .ShouldBeAll(
+                1
             );
     }
 }

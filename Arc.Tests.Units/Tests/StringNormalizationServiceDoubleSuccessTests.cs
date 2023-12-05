@@ -1,8 +1,6 @@
 ﻿using Arc.Infrastructure.Services.Interfaces;
 using Arc.Tests.Units.Factories;
 
-using Xunit;
-
 namespace Arc.Tests.Units.Tests;
 
 public sealed class StringNormalizationServiceDoubleSuccessTests
@@ -22,17 +20,21 @@ public sealed class StringNormalizationServiceDoubleSuccessTests
                 .GetImplementation<IStringNormalizationService>();
 
         var result =
-            (double)service
+            service
                 .Normalize(
                     Value
                 );
 
-        var condition =
-            result - 0.1d < 0.001;
+        var doubleContainer =
+            result
+                .Should()
+                .BeOfType<double>();
 
-        Assert
-            .True(
-                condition
-            );
+        var condition =
+            doubleContainer.Subject - 0.1d < 0.001;
+
+        condition
+            .Should()
+            .BeTrue();
     }
 }

@@ -149,17 +149,16 @@ public class ComplexPropertyTableFacadeContainsSuccessTest
                     );
 
         var responseList =
-            result.ValidateSuccess<IReadOnlyList<ComplexPropertyReadResponse>>();
+            result.ValidateSuccess<List<ComplexPropertyReadResponse>>();
 
-        Assert
-            .NotEmpty(
-                responseList
-            );
+        responseList
+            .Should()
+            .NotBeEmpty();
 
-        Assert
-            .Equal(
-                2,
-                responseList.Count
+        responseList
+            .Should()
+            .HaveCount(
+                2
             );
     }
 }

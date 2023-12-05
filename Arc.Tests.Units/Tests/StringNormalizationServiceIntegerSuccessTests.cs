@@ -1,8 +1,6 @@
 ﻿using Arc.Infrastructure.Services.Interfaces;
 using Arc.Tests.Units.Factories;
 
-using Xunit;
-
 namespace Arc.Tests.Units.Tests;
 
 public sealed class StringNormalizationServiceIntegerSuccessTests
@@ -22,15 +20,21 @@ public sealed class StringNormalizationServiceIntegerSuccessTests
                 .GetImplementation<IStringNormalizationService>();
 
         var result =
-            (int)service
+            service
                 .Normalize(
                     Integer
                 );
 
-        Assert
-            .Equal(
-                1,
-                result
+        var integerResult =
+            result
+                .Should()
+                .BeOfType<int>();
+
+        integerResult
+            .Subject
+            .Should()
+            .Be(
+                1
             );
     }
 }

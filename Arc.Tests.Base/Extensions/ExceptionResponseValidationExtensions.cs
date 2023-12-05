@@ -17,41 +17,32 @@ public static class ExceptionResponseValidationExtensions
         {
             await
                 task;
-
+            
             Assert.Fail();
         }
         catch (Exception exception)
         {
-            Assert
-                .NotNull(
-                    exception
-                );
+            exception
+                .Should()
+                .NotBeNull();
 
-            if (exception is not ServerException serverException)
-            {
-                Assert
-                    .Fail(
-                        "Wrong exception type"
-                    );
+            var container =
+                exception
+                    .Should()
+                    .BeOfType<ServerException>();
 
-                return;
-            }
-
+            var serverException =
+                container.Subject;
+                
             var errorCode =
-                serverException
-                    .ExceptionInfo;
+                serverException.ExceptionInfo.Code;
 
-            {
-                var isContains =
-                    errorCode.Code
-                    == expectedErrorCode;
-
-                Assert
-                    .True(
-                        isContains,
-                        $"Error codes must contain '{expectedErrorCode}'"
-                    );
-            }
+            errorCode
+                .Should()
+                .Be(
+                    expectedErrorCode,
+                    $"Error codes must contain '{expectedErrorCode}'"
+                );
         }
     }
 }

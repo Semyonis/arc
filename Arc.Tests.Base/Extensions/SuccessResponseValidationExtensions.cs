@@ -2,8 +2,6 @@
 
 using Arc.Models.BusinessLogic.Response;
 
-using Xunit;
-
 namespace Arc.Tests.Base.Extensions;
 
 public static class SuccessResponseValidationExtensions
@@ -36,21 +34,30 @@ public static class SuccessResponseValidationExtensions
         this Response result
     )
     {
-        Assert
-            .NotNull(
-                result
-            );
+        result
+            .Should()
+            .NotBeNull();
 
-        var okResponse =
-            result as OkResponse;
+        var exceptionMessage =
+            GetResponseMustBeOfTypeExceptionMessage<OkResponse>();
 
-        Assert
-            .NotNull(
-                okResponse
-            );
+        var resultContainer =
+            result
+                .Should()
+                .BeOfType<OkResponse>(
+                    exceptionMessage
+                );
+
+        var containerSubject =
+            resultContainer
+            .Subject;
+
+        containerSubject
+            .Should()
+            .NotBeNull();
 
         return
-            okResponse;
+            containerSubject;
     }
 
     public static T ValidateSuccess<T>(
@@ -60,21 +67,26 @@ public static class SuccessResponseValidationExtensions
         var response =
             result.ValidateSuccess();
 
-        Assert
-            .NotNull(
-                response.Data
-            );
+        response
+            .Data
+            .Should()
+            .NotBeNull();
 
-        var isCorrectType =
-            response.Data is T;
+        var exceptionMessage =
+            GetResponseMustBeOfTypeExceptionMessage<T>();
 
-        Assert
-            .True(
-                isCorrectType,
-                "Response must be " + nameof(T)
-            );
+        var resultContainer =
+            response
+                .Data
+                .Should()
+                .BeOfType<T>(
+                    exceptionMessage
+                );
 
         return
-            (T)response.Data;
+            resultContainer.Subject;
     }
+
+    private static string GetResponseMustBeOfTypeExceptionMessage<T>() =>
+        $"Response must be of type {nameof(T)}";
 }

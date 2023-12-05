@@ -1,11 +1,21 @@
-﻿using Arc.Facades.Admins.Interfaces.Admins;
+﻿using System;
+
+using Arc.Dependencies.RedisStack.Interfaces;
+using Arc.Facades.Admins.Interfaces.Admins;
+using Arc.Infrastructure.ConfigurationSettings.Models;
 using Arc.Models.DataBase.Models;
 using Arc.Models.Views.Admins.Models;
 using Arc.Tests.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Integrations.Factories;
 
+using Microsoft.EntityFrameworkCore.Storage;
+
+using NSubstitute.Core;
+
 using Xunit;
+
+using IDatabase = StackExchange.Redis.IDatabase;
 
 namespace Arc.Tests.Integrations.Tests.Facades.AdminsUpdateAdminFacade;
 
@@ -41,6 +51,20 @@ public sealed class AdminsUpdateFacadeSuccessTests
                 "New Last Name"
             );
 
+        var inMemoryDatabaseConnector =
+            factory
+                .DependencyFactory
+                .GetImplementation<IInMemoryDatabaseConnector>();
+
+        inMemoryDatabaseConnector
+            .GetDatabase(
+                Arg.Any<RedisStackSettings>()
+            )
+            .Returns(
+                Substitute.For<Func<CallInfo, IDatabase>>()
+            );
+            
+        
         var facade =
             factory
                 .DependencyFactory

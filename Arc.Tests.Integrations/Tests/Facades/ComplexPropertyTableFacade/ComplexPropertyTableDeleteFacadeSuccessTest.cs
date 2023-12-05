@@ -138,10 +138,11 @@ public class ComplexPropertyTableDeleteFacadeSuccessTest
         var response =
             result.ValidateSuccess<TableActionResultResponse>();
 
-        Assert
-            .Equal(
-                3,
-                response.ChangedEntitiesCount
+        response
+            .ChangedEntitiesCount
+            .Should()
+            .Be(
+                3
             );
     }
 }

@@ -1,7 +1,6 @@
 ﻿using Arc.Infrastructure.Services.Interfaces;
+using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Units.Factories;
-
-using Xunit;
 
 namespace Arc.Tests.Units.Tests;
 
@@ -27,23 +26,22 @@ public sealed class StringNormalizationServiceStringArraySuccessTests
             };
 
         var result =
-            (string[])factory
+           factory
                 .DependencyFactory
                 .GetImplementation<IStringNormalizationService>()
                 .Normalize(
                     array
                 );
 
-        var condition =
+        var stringArrayResult =
             result
-                .All(
-                    item =>
-                        item == NormalizedString
-                );
+                .Should()
+                .BeOfType<string[]>();
 
-        Assert
-            .True(
-                condition
+        stringArrayResult
+            .Subject
+            .ShouldBeAll(
+                NormalizedString
             );
     }
 }

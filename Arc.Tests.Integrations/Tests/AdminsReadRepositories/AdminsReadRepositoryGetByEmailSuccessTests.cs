@@ -66,15 +66,15 @@ public class AdminsReadRepositoryGetByEmailSuccessTests
                         HarrisonGmailCom
                     );
 
-        Assert
-            .NotNull(
-                adminByEmail
-            );
+        adminByEmail
+            .Should()
+            .NotBeNull();
 
-        Assert
-            .Equal(
-                HarrisonGmailCom,
-                adminByEmail.Email
+        adminByEmail!
+            .Email
+            .Should()
+            .Be(
+                HarrisonGmailCom
             );
     }
 }

@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Arc.Database.Context;
 using Arc.Dependencies.Identity.Interfaces;
 using Arc.Dependencies.Logger.Interfaces;
+using Arc.Dependencies.RedisStack.Implementations;
+using Arc.Dependencies.RedisStack.Interfaces;
 using Arc.Infrastructure.ConfigurationSettings.Models;
 using Arc.Infrastructure.Dictionaries.Implementations.Managers;
 using Arc.Infrastructure.Dictionaries.Interfaces;
@@ -57,6 +59,16 @@ public static class SubstituteDependencyFactory
                 }
             );
 
+    private static IOptions<RedisStackSettings> GetRedisStackSettings() =>
+        Options
+            .Create(
+                new RedisStackSettings
+                {
+                   Host = "127.0.0.1",
+                   Port = "6379",
+                }
+            );
+
     public static IDictionary<Type, object> GetInstancesDictionary()
     {
         var dictionaryManager =
@@ -93,6 +105,9 @@ public static class SubstituteDependencyFactory
                 typeof(IOptions<JwtSettings>), GetJwtSettings()
             },
             {
+                typeof(IOptions<RedisStackSettings>), GetRedisStackSettings()
+            },
+            {
                 typeof(IUserManagerService), Substitute.For<IUserManagerService>()
             },
             {
@@ -112,6 +127,12 @@ public static class SubstituteDependencyFactory
             },
             {
                 typeof(IDictionariesManager), new DictionariesManager()
+            },
+            {
+                typeof(IInMemoryDatabaseConnector), Substitute.For<IInMemoryDatabaseConnector>()
+            },
+            {
+                typeof(IJsonCommandsService), Substitute.For<IJsonCommandsService>()
             },
         };
     }

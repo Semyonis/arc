@@ -2,8 +2,6 @@
 using Arc.Infrastructure.Services.Interfaces;
 using Arc.Tests.Units.Factories;
 
-using Xunit;
-
 namespace Arc.Tests.Units.Tests;
 
 public sealed class StringNormalizationServiceObjectWithStringsAndAttributeSuccessTests
@@ -27,23 +25,32 @@ public sealed class StringNormalizationServiceObjectWithStringsAndAttributeSucce
             );
 
         var result =
-            (ObjectWithStringsAndAttribute)factory
+            factory
                 .DependencyFactory
                 .GetImplementation<IStringNormalizationService>()
                 .Normalize(
                     value
                 );
 
-        Assert
-            .Equal(
-                BadString,
-                result.DontNormalize
+        var objectWithStringsAndAttributeResult =
+            result
+                .Should()
+                .BeOfType<ObjectWithStringsAndAttribute>();
+
+        objectWithStringsAndAttributeResult
+            .Subject
+            .DontNormalize
+            .Should()
+            .Be(
+                BadString
             );
 
-        Assert
-            .Equal(
-                NormalizedString,
-                result.Normalize
+        objectWithStringsAndAttributeResult
+            .Subject
+            .Normalize
+            .Should()
+            .Be(
+                NormalizedString
             );
     }
 

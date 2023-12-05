@@ -1,8 +1,6 @@
 ﻿using Arc.Infrastructure.Services.Interfaces;
 using Arc.Tests.Units.Factories;
 
-using Xunit;
-
 namespace Arc.Tests.Units.Tests;
 
 public sealed class StringNormalizationServiceBoolSuccessTests
@@ -22,13 +20,19 @@ public sealed class StringNormalizationServiceBoolSuccessTests
                 .GetImplementation<IStringNormalizationService>();
 
         var result =
-            (bool)service.Normalize(
+            service
+                .Normalize(
                 Value
             );
 
-        Assert
-            .True(
-                result
-            );
+        var booleanContainer =
+            result
+                .Should()
+                .BeOfType<bool>();
+
+        booleanContainer
+            .Subject
+            .Should()
+            .BeTrue();
     }
 }
