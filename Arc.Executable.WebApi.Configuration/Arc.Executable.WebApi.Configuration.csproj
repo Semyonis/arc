@@ -15,8 +15,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Arc.Database.Context\Arc.Database.Context.csproj"/>
+        <ProjectReference Include="..\Arc.Validators.Admins.Tables\Arc.Validators.Admins.Tables.csproj" />
+        <ProjectReference Include="..\Arc.Validators.Admins\Arc.Validators.Admins.csproj" />
         <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj"/>
         <ProjectReference Include="..\Arc.Middleware.Filters\Arc.Middleware.Filters.csproj"/>
+        <ProjectReference Include="..\Arc.Validators.Anonymous\Arc.Validators.Anonymous.csproj" />
+        <ProjectReference Include="..\Arc.Validators.Users\Arc.Validators.Users.csproj" />
     </ItemGroup>
 
     <ItemGroup>

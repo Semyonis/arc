@@ -36,7 +36,7 @@ public sealed class JsonCommandsService :
                 .Set(
                     redisKey,
                     redisValue,
-                    value
+                    value!
                 );
     }
 

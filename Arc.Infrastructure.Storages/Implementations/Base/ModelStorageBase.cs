@@ -35,12 +35,6 @@ public abstract class ModelStorageBase
     where TDictionary : IModelDictionaryBase<TKey, TModel>
     where TConverter : IConverterBase<TEntity, TModel>
 {
-    private readonly TConverter
-        _converter = converter;
-
-    private readonly TDictionary
-        _dictionary = dictionary;
-
     private readonly object _mutex =
         new();
 
@@ -52,7 +46,7 @@ public abstract class ModelStorageBase
             Load();
 
         return
-            _dictionary
+            dictionary
                 .Read(
                     key
                 );
@@ -64,15 +58,13 @@ public abstract class ModelStorageBase
             Load();
 
         return
-            _dictionary
-                .Read();
+            dictionary.Read();
     }
 
     private async Task Load()
     {
         var isLoaded =
-            _dictionary
-                .IsLoaded();
+            dictionary.IsLoaded();
 
         if (isLoaded)
         {
@@ -90,7 +82,7 @@ public abstract class ModelStorageBase
                         include
                     );
 
-        var dictionary =
+        var dictionaryItems =
             GetDictionary(
                 entities
             );
@@ -98,17 +90,16 @@ public abstract class ModelStorageBase
         lock (_mutex)
         {
             var isLoadedInOtherThread =
-                _dictionary
-                    .IsLoaded();
+                dictionary.IsLoaded();
 
             if (isLoadedInOtherThread)
             {
                 return;
             }
 
-            _dictionary
+            dictionary
                 .Set(
-                    dictionary
+                    dictionaryItems
                 );
         }
     }
@@ -121,7 +112,7 @@ public abstract class ModelStorageBase
             new Dictionary<TKey, TModel>();
 
         var models =
-            _converter
+            converter
                 .Convert(
                     entities
                 );

@@ -23,10 +23,12 @@ public sealed record PaginationOut
             || countPerPage < 1)
         {
             return
-                GetFirstPage(
-                    defaultPageSize,
-                    totalItemCount
-                );
+                new()
+                {
+                    CurrentPage = 1,
+                    CountPerPage = defaultPageSize,
+                    TotalItemsCount = totalItemCount,
+                };
         }
 
         var fullPageCount =
@@ -51,15 +53,4 @@ public sealed record PaginationOut
             TotalItemsCount = totalItemCount,
         };
     }
-
-    private static PaginationOut GetFirstPage(
-        int countPerPage,
-        int totalItemCount
-    ) =>
-        new()
-        {
-            CurrentPage = 1,
-            CountPerPage = countPerPage,
-            TotalItemsCount = totalItemCount,
-        };
 }

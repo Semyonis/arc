@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net8.0</TargetFramework>
+        <LangVersion>preview</LangVersion>
+        <Nullable>enable</Nullable>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\Arc.Dependencies.FluentValidation\Arc.Dependencies.FluentValidation.csproj" />
+      <ProjectReference Include="..\Arc.Infrastructure.Common\Arc.Infrastructure.Common.csproj" />
+      <ProjectReference Include="..\Arc.Models.Views.Admins.Tables\Arc.Models.Views.Admins.Tables.csproj" />
+      <ProjectReference Include="..\Arc.Models.Views.Admins\Arc.Models.Views.Admins.csproj" />
+      <ProjectReference Include="..\Arc.Models.Views.Anonymous\Arc.Models.Views.Anonymous.csproj" />
+      <ProjectReference Include="..\Arc.Models.Views.Users\Arc.Models.Views.Users.csproj" />
+      <ProjectReference Include="..\Arc.Validators.Common\Arc.Validators.Common.csproj" />
+    </ItemGroup>
+
+</Project>
