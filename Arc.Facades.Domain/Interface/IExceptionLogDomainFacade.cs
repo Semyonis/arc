@@ -4,7 +4,7 @@ namespace Arc.Facades.Domain.Interface;
 
 public interface IExceptionLogDomainFacade
 {
-    void Log(
+    Task Log(
         ExceptionLogDomainFacadeArgs args
     );
 }

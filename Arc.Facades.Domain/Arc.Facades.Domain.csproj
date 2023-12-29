@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Arc.Converters\Arc.Converters.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.RabbitMq\Arc.Dependencies.RabbitMq.csproj" />
         <ProjectReference Include="..\Arc.Models.BusinessLogic\Arc.Models.BusinessLogic.csproj"/>
         <ProjectReference Include="..\Arc.Infrastructure.Repositories.Read\Arc.Infrastructure.Repositories.Read.csproj"/>
         <ProjectReference Include="..\Arc.Dependencies.Identity\Arc.Dependencies.Identity.csproj"/>

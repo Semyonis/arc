@@ -11,10 +11,13 @@ public sealed class ExceptionFilter(
     IErrorResponseFacade
         errorResponseFacade,
     IExceptionLogDomainFacade
-        internalFacade
-) : IExceptionFilter
+        exceptionLogDomainFacade
+) : IAsyncExceptionFilter
 {
-    public void OnException(
+    private const string Anonymous =
+        "anonymous";
+
+    public async Task OnExceptionAsync(
         ExceptionContext context
     )
     {
@@ -29,11 +32,18 @@ public sealed class ExceptionFilter(
         var exception =
             context.Exception;
 
-        LogException(
-            httpContext,
-            exception,
-            traceId
-        );
+        var args =
+            GetExceptionLogArgs(
+                httpContext,
+                exception,
+                traceId
+            );
+
+        await
+            exceptionLogDomainFacade
+                .Log(
+                    args
+                );
 
         var result =
             errorResponseFacade
@@ -46,7 +56,7 @@ public sealed class ExceptionFilter(
             result;
     }
 
-    private void LogException(
+    private static ExceptionLogDomainFacadeArgs GetExceptionLogArgs(
         HttpContext httpContext,
         Exception exception,
         string traceId
@@ -58,7 +68,7 @@ public sealed class ExceptionFilter(
             );
 
         var methodName =
-            GetMethodName(
+            GetMethodInfo(
                 httpContext
             );
 
@@ -69,22 +79,17 @@ public sealed class ExceptionFilter(
                 methodName
             );
 
-        var args =
-            new ExceptionLogDomainFacadeArgs(
+        return
+            new(
                 exception,
                 errorData
-            );
-
-        internalFacade
-            .Log(
-                args
             );
     }
 
     private static Dictionary<string, object> GetErrorData(
         string traceId,
-        string? actorId,
-        string methodName
+        string actorId,
+        string methodInfo
     ) =>
         new()
         {
@@ -92,14 +97,14 @@ public sealed class ExceptionFilter(
                 "TraceId", traceId
             },
             {
-                "ActorId", actorId!
+                "ActorId", actorId
             },
             {
-                "MethodName", methodName
+                "MethodInfo", methodInfo
             },
         };
 
-    private static string? GetActorId(
+    private static string GetActorId(
         HttpContext httpContext
     )
     {
@@ -112,11 +117,16 @@ public sealed class ExceptionFilter(
                     ClaimTypeConstants.ActorId
                 );
 
+        var actorIdValue =
+            actorId?
+                .Value
+            ?? Anonymous;
+
         return
-            actorId?.Value;
+            actorIdValue;
     }
 
-    private static string GetMethodName(
+    private static string GetMethodInfo(
         HttpContext httpContext
     )
     {
@@ -132,7 +142,10 @@ public sealed class ExceptionFilter(
         var queryString =
             httpRequest.QueryString;
 
-        return
+        var methodInfo =
             $"{method} {path} {queryString}";
+
+        return
+            methodInfo;
     }
 }

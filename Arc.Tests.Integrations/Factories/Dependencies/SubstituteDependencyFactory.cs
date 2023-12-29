@@ -68,6 +68,16 @@ public static class SubstituteDependencyFactory
                 }
             );
 
+    private static IOptions<RabbitMqSettings> GetRabbitSettings() =>
+        Options
+            .Create(
+                new RabbitMqSettings
+                {
+                   Host = "127.0.0.1",
+                   Port = "5672",
+                }
+            );
+
     public static IDictionary<Type, object> GetInstancesDictionary()
     {
         var dictionaryManager =
@@ -105,6 +115,9 @@ public static class SubstituteDependencyFactory
             },
             {
                 typeof(IOptions<RedisStackSettings>), GetRedisStackSettings()
+            },
+            {
+                typeof(IOptions<RabbitMqSettings>), GetRabbitSettings()
             },
             {
                 typeof(IUserManagerService), Substitute.For<IUserManagerService>()

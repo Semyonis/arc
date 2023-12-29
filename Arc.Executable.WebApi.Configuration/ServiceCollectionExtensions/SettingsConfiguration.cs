@@ -23,6 +23,12 @@ public static class SettingsConfiguration
                     .GetSection(
                         "RedisStack"
                     )
+            )
+            .Configure<RabbitMqSettings>(
+                configuration
+                    .GetSection(
+                        "RabbitMq"
+                    )
             );
 
         return

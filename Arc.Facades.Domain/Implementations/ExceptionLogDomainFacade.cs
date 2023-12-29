@@ -1,9 +1,10 @@
-﻿using System.Text.Json;
-using System.Text.Json.Serialization;
-
+﻿using Arc.Dependencies.Json.Interfaces;
 using Arc.Dependencies.Logger.Interfaces;
+using Arc.Dependencies.RabbitMq.Interfaces;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;
+using Arc.Infrastructure.Common.Extensions;
+using Arc.Infrastructure.ConfigurationSettings.Interfaces;
 using Arc.Infrastructure.Exceptions.Models;
 
 using Microsoft.Extensions.Logging;
@@ -12,24 +13,27 @@ namespace Arc.Facades.Domain.Implementations;
 
 public sealed class ExceptionLogDomainFacade(
     ILoggerDecorator
-        logger
+        logger,
+    IPublishSubscribeChannelService
+        publishSubscribeChannelService,
+    IRabbitMqSettingsFactory
+        rabbitMqSettingsFactory,
+    IQueueConnectionService
+        queueConnectionService,
+    IChannelPublishService
+        channelPublishService,
+    ISerializationDecorator
+        serializationDecorator
 ) :
     IExceptionLogDomainFacade
 {
-    private static readonly JsonSerializerOptions
-        JsonSerializerOptions =
-            new()
-            {
-                Converters =
-                {
-                    new JsonStringEnumConverter(
-                        default,
-                        false
-                    ),
-                },
-            };
+    private const int DefaultRabbitMqPort =
+        5672;
 
-    public void Log(
+    private const string ErrorLog =
+        "ErrorLog";
+
+    public async Task Log(
         ExceptionLogDomainFacadeArgs args
     )
     {
@@ -41,7 +45,6 @@ public sealed class ExceptionLogDomainFacade(
         if (exception is ServerException serverException)
         {
             HandleServerException(
-                logger,
                 errorData,
                 serverException
             );
@@ -49,10 +52,9 @@ public sealed class ExceptionLogDomainFacade(
         else
         {
             var message =
-                JsonSerializer
+                serializationDecorator
                     .Serialize(
-                        errorData,
-                        JsonSerializerOptions
+                        errorData
                     );
 
             logger
@@ -60,11 +62,61 @@ public sealed class ExceptionLogDomainFacade(
                     exception,
                     message
                 );
+
+            await
+                PublishExceptionIntoLogQueue(
+                    args.ErrorData
+                );
         }
     }
 
-    private static void HandleServerException(
-        ILoggerDecorator logger,
+    private async Task PublishExceptionIntoLogQueue(
+        IDictionary<string, object> errorData
+    )
+    {
+        var settings =
+            rabbitMqSettingsFactory
+                .GetSettings();
+
+        var toNullableInteger =
+            settings
+                .Port
+                .ParseToNullableInteger();
+
+        var integerPort =
+            toNullableInteger
+            ?? DefaultRabbitMqPort;
+
+        var connection =
+            queueConnectionService
+                .CreateInstance(
+                    settings.Host,
+                    integerPort
+                );
+
+        var chanel =
+            await
+                publishSubscribeChannelService
+                    .Create(
+                        connection,
+                        ErrorLog
+                    );
+
+        var queueMessage =
+            serializationDecorator
+                .Serialize(
+                    errorData
+                );
+
+        await
+            channelPublishService
+                .Publish(
+                    chanel,
+                    queueMessage
+                );
+    }
+
+    private void HandleServerException(
         IDictionary<string, object> errorData,
         ServerException serverException
     )
@@ -82,10 +134,9 @@ public sealed class ExceptionLogDomainFacade(
             );
 
         var message =
-            JsonSerializer
+            serializationDecorator
                 .Serialize(
-                    errorData,
-                    JsonSerializerOptions
+                    errorData
                 );
 
         logger

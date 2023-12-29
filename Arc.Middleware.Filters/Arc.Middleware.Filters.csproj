@@ -12,6 +12,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Arc.Controllers.Base\Arc.Controllers.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.RabbitMq\Arc.Dependencies.RabbitMq.csproj" />
         <ProjectReference Include="..\Arc.Facades.Domain\Arc.Facades.Domain.csproj"/>
         <ProjectReference Include="..\Arc.Facades.Domain.Filters\Arc.Facades.Domain.Filters.csproj"/>
         <ProjectReference Include="..\Arc.Dependencies.Logger\Arc.Dependencies.Logger.csproj"/>
