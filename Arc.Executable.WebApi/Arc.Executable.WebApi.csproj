@@ -23,7 +23,6 @@
         <ProjectReference Include="..\Arc.Controllers.Anonymous\Arc.Controllers.Anonymous.csproj"/>
         <ProjectReference Include="..\Arc.Controllers.Authorized\Arc.Controllers.Authorized.csproj"/>
         <ProjectReference Include="..\Arc.Controllers.Users\Arc.Controllers.Users.csproj"/>
-        <ProjectReference Include="..\Arc.Database.Migrations\Arc.Database.Migrations.csproj"/>
         <ProjectReference Include="..\Arc.Executable.WebApi.Configuration\Arc.Executable.WebApi.Configuration.csproj"/>
     </ItemGroup>
     <ItemGroup>

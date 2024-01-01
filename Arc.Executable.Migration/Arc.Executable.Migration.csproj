@@ -6,7 +6,7 @@
         <LangVersion>preview</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-
+    
     <ItemGroup>
         <ProjectReference Include="..\Arc.Database.Context\Arc.Database.Context.csproj"/>
         <ProjectReference Include="..\Arc.Database.Migrations\Arc.Database.Migrations.csproj"/>
@@ -18,11 +18,15 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Content Include="bin\Debug\net8.0\appsettings.Development.json">
-        <ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-      </Content>
+        <None Update="appsettings.json">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="appsettings.Development.json" Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
     </ItemGroup>
 
 </Project>
