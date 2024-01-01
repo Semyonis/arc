@@ -13,8 +13,8 @@
 
     <ItemGroup>
         <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0"/>
-        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="7.0.1"/>
-        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="7.0.1"/>
+        <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="8.0.0" />
+        <PackageReference Include="Microsoft.Extensions.Identity.Stores" Version="8.0.0" />
     </ItemGroup>
 
 </Project>
