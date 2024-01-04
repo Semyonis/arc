@@ -2,8 +2,6 @@
 
 using Arc.Infrastructure.Exceptions.Models;
 
-using Xunit;
-
 namespace Arc.Tests.Base.Extensions;
 
 public static class ExceptionResponseValidationExtensions
@@ -17,8 +15,8 @@ public static class ExceptionResponseValidationExtensions
         {
             await
                 task;
-            
-            Assert.Fail();
+
+            throw new();
         }
         catch (Exception exception)
         {
