@@ -5,7 +5,7 @@ using Arc.Dependencies.RedisStack.Interfaces;
 using Arc.Facades.Admins.Interfaces.Admins;
 using Arc.Infrastructure.ConfigurationSettings.Models;
 using Arc.Models.Views.Admins.Models;
-using Arc.Tests.Base.Extensions;
+using Arc.Platform.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Integrations.Factories;
 

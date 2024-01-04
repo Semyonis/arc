@@ -7,7 +7,7 @@ using Arc.Infrastructure.Common.Extensions;
 using Arc.Models.BusinessLogic.Models.Identities;
 using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 using Arc.Models.Views.Common.Models;
-using Arc.Tests.Base.Extensions;
+using Arc.Platform.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Integrations.Factories;
 

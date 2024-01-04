@@ -1,7 +1,7 @@
 ﻿using Arc.Infrastructure.Common.Models;
 using Arc.Infrastructure.Common.Models.Dependencies;
 
-namespace Arc.Tests.Base.Factories.Containers;
+namespace Arc.Platform.Base.Factories.Containers;
 
 public sealed class DependencyContainer :
     IDependencyContainer

@@ -2,7 +2,7 @@
 using Arc.Facades.Anonymous.Interfaces.Registration;
 using Arc.Infrastructure.Exceptions.Models;
 using Arc.Models.Views.Anonymous.Models;
-using Arc.Tests.Base.Extensions;
+using Arc.Platform.Base.Extensions;
 using Arc.Tests.Integrations.Factories;
 
 using Microsoft.AspNetCore.Identity;

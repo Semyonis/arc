@@ -2,7 +2,7 @@
 
 using Arc.Models.BusinessLogic.Response;
 
-namespace Arc.Tests.Base.Extensions;
+namespace Arc.Platform.Base.Extensions;
 
 public static class SuccessResponseValidationExtensions
 {

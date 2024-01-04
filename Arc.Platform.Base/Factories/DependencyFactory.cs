@@ -2,9 +2,9 @@
 
 using Arc.Infrastructure.Common.Extensions;
 using Arc.Infrastructure.Exceptions.Interfaces;
-using Arc.Tests.Base.Factories.Containers;
+using Arc.Platform.Base.Factories.Containers;
 
-namespace Arc.Tests.Base.Factories;
+namespace Arc.Platform.Base.Factories;
 
 public sealed class DependencyFactory(
     IDependencyContainer

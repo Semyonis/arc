@@ -2,7 +2,7 @@
 using Arc.Facades.Users.Interfaces;
 using Arc.Models.BusinessLogic.Models.Identities;
 using Arc.Models.Views.Users.Models;
-using Arc.Tests.Base.Extensions;
+using Arc.Platform.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Integrations.Factories;
 

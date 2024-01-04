@@ -105,7 +105,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arc.Infrastructure.Entity.E
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arc.Models.Views.Users", "Arc.Models.Views.Users\Arc.Models.Views.Users.csproj", "{4FCC8036-8329-42BE-92DD-3930D457C3CA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arc.Tests.Base", "Arc.Tests.Base\Arc.Tests.Base.csproj", "{AA860267-6770-41BF-9A32-BF3972128531}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arc.Platform.Base", "Arc.Platform.Base\Arc.Platform.Base.csproj", "{AA860267-6770-41BF-9A32-BF3972128531}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Arc.Tests.Integrations", "Arc.Tests.Integrations\Arc.Tests.Integrations.csproj", "{102C0107-B6F1-4CFE-8AC3-F120C656621E}"
 EndProject

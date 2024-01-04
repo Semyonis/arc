@@ -1,7 +1,7 @@
 ﻿using Arc.Database.Entities.Models;
 using Arc.Facades.Anonymous.Interfaces.Registration;
 using Arc.Models.Views.Anonymous.Models;
-using Arc.Tests.Base.Extensions;
+using Arc.Platform.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;
 using Arc.Tests.Integrations.Factories;
 

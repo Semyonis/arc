@@ -4,7 +4,7 @@ using Arc.Infrastructure.Exceptions.Models;
 
 using Xunit;
 
-namespace Arc.Tests.Base.Extensions;
+namespace Arc.Platform.Base.Extensions;
 
 public static class ExceptionResponseValidationExtensions
 {

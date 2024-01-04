@@ -1,8 +1,8 @@
 ﻿using System;
 
 using Arc.Infrastructure.Exceptions.Implementations;
-using Arc.Tests.Base.Factories;
-using Arc.Tests.Base.Factories.Containers;
+using Arc.Platform.Base.Factories;
+using Arc.Platform.Base.Factories.Containers;
 using Arc.Tests.Units.Factories.Dependencies;
 
 namespace Arc.Tests.Units.Factories;

@@ -7,7 +7,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\Arc.Tests.Base\Arc.Tests.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Platform.Base\Arc.Platform.Base.csproj" />
         <ProjectReference Include="..\Arc.Database.Context\Arc.Database.Context.csproj"/>
         <ProjectReference Include="..\Arc.Infrastructure.Dictionaries\Arc.Infrastructure.Dictionaries.csproj"/>
         <ProjectReference Include="..\Arc.Infrastructure.Services\Arc.Infrastructure.Services.csproj"/>

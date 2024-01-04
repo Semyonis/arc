@@ -1,6 +1,6 @@
 ﻿using Arc.Infrastructure.Common.Models;
 
-namespace Arc.Tests.Base.Factories.Containers;
+namespace Arc.Platform.Base.Factories.Containers;
 
 public interface IDependencyContainer
 {
