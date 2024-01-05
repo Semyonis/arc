@@ -6,6 +6,6 @@ public interface IChannelPublishService
 {
     Task Publish(
         PublishSubscribeChannel channel,
-        string message
+        ReadOnlyMemory<byte> body
     );
 }

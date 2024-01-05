@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-using Arc.Dependencies.RabbitMq.Interfaces;
+﻿using Arc.Dependencies.RabbitMq.Interfaces;
 using Arc.Dependencies.RabbitMq.Model;
 
 using RabbitMQ.Client;
@@ -15,7 +13,7 @@ public sealed class ChannelPublishService(
 {
     public async Task Publish(
         PublishSubscribeChannel channel,
-        string message
+        ReadOnlyMemory<byte> body
     )
     {
         var queueName =
@@ -24,11 +22,6 @@ public sealed class ChannelPublishService(
                     .GetQueueName(
                         channel
                     );
-
-        var body =
-            GetUtf8Bytes(
-                message
-            );
 
         await
             channel
@@ -39,13 +32,4 @@ public sealed class ChannelPublishService(
                     body: body
                 );
     }
-
-    private static byte[] GetUtf8Bytes(
-        string message
-    ) =>
-        Encoding
-            .UTF8
-            .GetBytes(
-                message
-            );
 }

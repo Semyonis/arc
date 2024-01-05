@@ -1,10 +1,10 @@
-﻿using Arc.Dependencies.Json.Interfaces;
+﻿using System.Text;
+
+using Arc.Dependencies.Json.Interfaces;
 using Arc.Dependencies.Logger.Interfaces;
 using Arc.Dependencies.RabbitMq.Interfaces;
 using Arc.Facades.Domain.Args;
 using Arc.Facades.Domain.Interface;
-using Arc.Infrastructure.Common.Extensions;
-using Arc.Infrastructure.ConfigurationSettings.Interfaces;
 using Arc.Infrastructure.Exceptions.Models;
 
 using Microsoft.Extensions.Logging;
@@ -16,22 +16,23 @@ public sealed class ExceptionLogDomainFacade(
         logger,
     IPublishSubscribeChannelService
         publishSubscribeChannelService,
-    IRabbitMqSettingsFactory
-        rabbitMqSettingsFactory,
-    IQueueConnectionService
-        queueConnectionService,
     IChannelPublishService
         channelPublishService,
     ISerializationDecorator
-        serializationDecorator
+        serializationDecorator,
+    IQueueConnectionCreateDomainFacade
+        queueConnectionCreateDomainFacade
 ) :
     IExceptionLogDomainFacade
 {
-    private const int DefaultRabbitMqPort =
-        5672;
-
     private const string ErrorLog =
         "ErrorLog";
+
+    private const string Errors =
+        "Errors";
+
+    private const string Stacktrace =
+        "StackTrace";
 
     public async Task Log(
         ExceptionLogDomainFacadeArgs args
@@ -65,7 +66,7 @@ public sealed class ExceptionLogDomainFacade(
 
             await
                 PublishExceptionIntoLogQueue(
-                    args.ErrorData
+                    errorData
                 );
         }
     }
@@ -74,25 +75,9 @@ public sealed class ExceptionLogDomainFacade(
         IDictionary<string, object> errorData
     )
     {
-        var settings =
-            rabbitMqSettingsFactory
-                .GetSettings();
-
-        var toNullableInteger =
-            settings
-                .Port
-                .ParseToNullableInteger();
-
-        var integerPort =
-            toNullableInteger
-            ?? DefaultRabbitMqPort;
-
         var connection =
-            queueConnectionService
-                .CreateInstance(
-                    settings.Host,
-                    integerPort
-                );
+            queueConnectionCreateDomainFacade
+                .Create();
 
         var chanel =
             await
@@ -108,13 +93,27 @@ public sealed class ExceptionLogDomainFacade(
                     errorData
                 );
 
+        var bytes =
+            GetUtf8Bytes(
+                queueMessage
+            );
+
         await
             channelPublishService
                 .Publish(
                     chanel,
-                    queueMessage
+                    bytes
                 );
     }
+
+    private static byte[] GetUtf8Bytes(
+        string message
+    ) =>
+        Encoding
+            .UTF8
+            .GetBytes(
+                message
+            );
 
     private void HandleServerException(
         IDictionary<string, object> errorData,
@@ -123,13 +122,13 @@ public sealed class ExceptionLogDomainFacade(
     {
         errorData
             .Add(
-                "Errors",
+                Errors,
                 serverException.ExceptionInfo
             );
 
         errorData
             .Add(
-                "StackTrace",
+                Stacktrace,
                 serverException.StackTrace!
             );
 

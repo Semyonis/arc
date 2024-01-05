@@ -1,6 +1,4 @@
-﻿using System.Text;
-
-using Arc.Dependencies.RabbitMq.Interfaces;
+﻿using Arc.Dependencies.RabbitMq.Interfaces;
 using Arc.Dependencies.RabbitMq.Model;
 
 using RabbitMQ.Client.Events;
@@ -14,7 +12,8 @@ public sealed  class ChannelSubscribeService(
     IChannelSubscribeService
 {
     public async Task Subscribe(
-        PublishSubscribeChannel channel
+        PublishSubscribeChannel channel,
+        EventHandler<BasicDeliverEventArgs> handler
     )
     {
         var queueName =
@@ -39,18 +38,8 @@ public sealed  class ChannelSubscribeService(
                 channel.channel
             );
 
-        consumer.Received += (
-            model,
-            ea
-        ) =>
-        {
-            byte[] body = ea.Body.ToArray();
-
-            var message = Encoding.UTF8.GetString(
-                body
-            );
-
-        };
+        consumer.Received +=
+            handler;
 
         await
             channel
