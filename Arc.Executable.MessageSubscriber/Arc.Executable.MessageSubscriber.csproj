@@ -6,11 +6,11 @@
         <LangVersion>preview</LangVersion>
         <Nullable>enable</Nullable>
     </PropertyGroup>
-    
+
     <ItemGroup>
-        <ProjectReference Include="..\Arc.Database.Context\Arc.Database.Context.csproj"/>
-        <ProjectReference Include="..\Arc.Database.Migrations\Arc.Database.Migrations.csproj"/>
-        <ProjectReference Include="..\Arc.Executable.Base\Arc.Executable.Base.csproj" />
+        <ProjectReference Include="..\Arc.Dependencies.RabbitMq\Arc.Dependencies.RabbitMq.csproj"/>
+        <ProjectReference Include="..\Arc.Executable.Base\Arc.Executable.Base.csproj"/>
+        <ProjectReference Include="..\Arc.Facades.Domain\Arc.Facades.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>

@@ -1,9 +1,11 @@
 ﻿using System;
 
+using Arc.Executable.Base;
 using Arc.Executable.Migration;
 
 var config =
-    Configuration.SetUp();
+    new ConfigurationBuilder()
+        .Build();
 
 var connection =
     new Connection(

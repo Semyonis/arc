@@ -2,17 +2,17 @@
 
 using Microsoft.Extensions.Configuration;
 
-namespace Arc.Executable.Migration;
+namespace Arc.Executable.Base;
 
-internal static class Configuration
+public sealed class ConfigurationBuilder
 {
-    public static IConfigurationRoot SetUp()
+    public IConfigurationRoot Build()
     {
         var currentDirectory =
             Directory.GetCurrentDirectory();
 
         return
-            new ConfigurationBuilder()
+            new Microsoft.Extensions.Configuration.ConfigurationBuilder()
                 .SetBasePath(
                     currentDirectory
                 )

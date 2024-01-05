@@ -9,6 +9,8 @@ using Arc.Infrastructure.Exceptions.Models;
 
 using Microsoft.Extensions.Logging;
 
+using static Arc.Dependencies.RabbitMq.Constants.ExchangeNameConstants;
+
 namespace Arc.Facades.Domain.Implementations;
 
 public sealed class ExceptionLogDomainFacade(
@@ -25,9 +27,6 @@ public sealed class ExceptionLogDomainFacade(
 ) :
     IExceptionLogDomainFacade
 {
-    private const string ErrorLog =
-        "ErrorLog";
-
     private const string Errors =
         "Errors";
 
@@ -84,7 +83,7 @@ public sealed class ExceptionLogDomainFacade(
                 publishSubscribeChannelService
                     .Create(
                         connection,
-                        ErrorLog
+                        PushSubErrorLog
                     );
 
         var queueMessage =

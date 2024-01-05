@@ -5,10 +5,7 @@ using RabbitMQ.Client;
 
 namespace Arc.Dependencies.RabbitMq.Implementations;
 
-public sealed class ChannelPublishService(
-    IChannelQueueNameService
-        channelQueueNameService
-) :
+public sealed class ChannelPublishService :
     IChannelPublishService
 {
     public async Task Publish(
@@ -16,18 +13,11 @@ public sealed class ChannelPublishService(
         ReadOnlyMemory<byte> body
     )
     {
-        var queueName =
-            await
-                channelQueueNameService
-                    .GetQueueName(
-                        channel
-                    );
-
         await
             channel
                 .channel
                 .BasicPublishAsync(
-                    exchange: queueName,
+                    exchange: channel.exchange,
                     routingKey: string.Empty,
                     body: body
                 );
