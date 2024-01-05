@@ -1,67 +1,32 @@
 ﻿using System;
-using System.IO;
 
-using Arc.Infrastructure.Common.Constants.Database;
+using Arc.Executable.Migration;
 
-using Microsoft.Extensions.Configuration;
+var config =
+    Configuration.SetUp();
 
-namespace Arc.Executable.Migration;
+var connection =
+    new Connection(
+        config
+    );
 
-internal static class Program
-{
-    private static void Main()
-    {
-        var config =
-            SetUpConfigurationRoot();
+var connectionDescription =
+    connection.GetDescription();
 
-        var connection =
-            new Connection(
-                config[DatabaseSettingsConstants.DatabaseHost]!,
-                config[DatabaseSettingsConstants.DatabasePort]!,
-                config[DatabaseSettingsConstants.DatabaseName]!,
-                config[DatabaseSettingsConstants.DatabaseUser]!,
-                config[DatabaseSettingsConstants.DatabasePassword]!
-            );
+Console
+    .WriteLine(
+        connectionDescription
+    );
 
-        var connectionDescription =
-            connection.GetDescription();
+Console
+    .WriteLine(
+        "Migration started"
+    );
 
-        Console
-            .WriteLine(
-                connectionDescription
-            );
+connection
+    .Migrate();
 
-        Console
-            .WriteLine(
-                "Migration started"
-            );
-
-        connection
-            .Migrate();
-
-        Console
-            .WriteLine(
-                "Migration done"
-            );
-    }
-
-    private static IConfigurationRoot SetUpConfigurationRoot()
-    {
-        var currentDirectory =
-            Directory.GetCurrentDirectory();
-
-        return
-            new ConfigurationBuilder()
-                .SetBasePath(
-                    currentDirectory
-                )
-#if DEBUG
-                .AddJsonFile(
-                    "appsettings.Development.json",
-                    true
-                )
-#endif
-                .AddEnvironmentVariables()
-                .Build();
-    }
-}
+Console
+    .WriteLine(
+        "Migration done"
+    );

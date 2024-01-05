@@ -2,18 +2,30 @@
 using Arc.Infrastructure.Common.Constants;
 
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+
+using static Arc.Infrastructure.Common.Constants.Database.DatabaseSettingsConstants;
 
 namespace Arc.Executable.Migration;
 
-internal sealed record Connection(
-    string Host,
-    string Port,
-    string Name,
-    string User,
-    string Password
-)
+internal sealed class Connection(IConfiguration configurationRoot)
 {
-    public void Migrate()
+    private readonly string _host =
+        configurationRoot[DatabaseHost]!;
+
+    private readonly string _name =
+        configurationRoot[DatabaseName]!;
+
+    private readonly string _password =
+        configurationRoot[DatabasePassword]!;
+
+    private readonly string _port =
+        configurationRoot[DatabasePort]!;
+
+    private readonly string _user =
+        configurationRoot[DatabaseUser]!;
+
+    internal void Migrate()
     {
         var builder =
             new DbContextOptionsBuilder<ArcDatabaseContext>();
@@ -47,15 +59,15 @@ internal sealed record Connection(
             .Migrate();
     }
 
-    public string GetDescription() =>
-        $"Host:{Host}, Port:{Port}, Name:{Name}, User:{User}";
+    internal string GetDescription() =>
+        $"Host:{_host}, Port:{_port}, Name:{_name}, User:{_user}";
 
     private string GetConnectionString() =>
-        $"server={Host};"
-        + $"port={Port};"
-        + $"database={Name};"
+        $"server={_host};"
+        + $"port={_port};"
+        + $"database={_name};"
         + "SslMode=Preferred;"
-        + $"uid={User};"
-        + $"password={Password};"
+        + $"uid={_user};"
+        + $"password={_password};"
         + "Treat Tiny As Boolean=false;Convert Zero Datetime = true";
 }
