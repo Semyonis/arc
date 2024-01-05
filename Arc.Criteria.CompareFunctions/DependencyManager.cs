@@ -1,5 +1,4 @@
-﻿using Arc.Infrastructure.Common.Enums;
-using Arc.Infrastructure.Common.Interfaces;
+﻿using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Common.Models.Dependencies;
 
 namespace Arc.Criteria.CompareFunctions;
