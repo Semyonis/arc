@@ -3,10 +3,30 @@
 using Arc.Infrastructure.Common.Enums;
 using Arc.Infrastructure.Common.Models.Dependencies;
 
+using static Arc.Infrastructure.Common.Enums.LifeTimeType;
+
 namespace Arc.Infrastructure.Common.Extensions;
 
 public static class AssemblyDependenciesExtensions
 {
+    public static IReadOnlyList<DependencyBase> GetSingletonDependencies(
+        this Type type
+    ) =>
+        type
+            .Assembly
+            .GetDependencies(
+                Singleton
+            );
+
+    public static IReadOnlyList<DependencyBase> GetScopedDependencies(
+        this Type type
+    ) =>
+        type
+            .Assembly
+            .GetDependencies(
+                Scoped
+            );
+    
     public static IReadOnlyList<DependencyBase> GetDependencies(
         this Assembly assembly,
         LifeTimeType lifeTime
@@ -68,7 +88,7 @@ public static class AssemblyDependenciesExtensions
                 implementations.First();
 
             var isScoped =
-                lifeTime == LifeTimeType.Scoped;
+                lifeTime == Scoped;
 
             DependencyBase dependencyItem =
                 isScoped

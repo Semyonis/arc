@@ -8,9 +8,5 @@ public sealed class DependencyManager :
     IDependencyManager
 {
     public IReadOnlyList<DependencyBase> GetDependencies() =>
-        typeof(DependencyManager)
-            .Assembly
-            .GetDependencies(
-                LifeTimeType.Singleton
-            );
+        typeof(DependencyManager).GetSingletonDependencies();
 }

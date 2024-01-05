@@ -9,9 +9,5 @@ public sealed class DependencyManager :
     IDependencyManager
 {
     public IReadOnlyList<DependencyBase> GetDependencies() =>
-        typeof(DependencyManager)
-            .Assembly
-            .GetDependencies(
-                LifeTimeType.Scoped
-            );
+        typeof(DependencyManager).GetScopedDependencies();
 }
