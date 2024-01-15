@@ -1,0 +1,15 @@
+.git
+.github
+.idea
+.vs
+.vscode
+
+.gitattributes
+.gitignore
+
+.dockerignore
+
+*/bin
+*/obj
+
+**/*.md
