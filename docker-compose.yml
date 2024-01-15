@@ -6,9 +6,12 @@ services:
         ports:
             - "5001:5001"
         depends_on:
-            - arc_mysql_db
-            - arc_rabbit_mq
-            - arc_redis_stack
+            arc_mysql_db:
+                condition: service_healthy
+            arc_rabbit_mq:
+                condition: service_started
+            arc_redis_stack:
+                condition: service_started
         environment:
             DATABASE__HOST: "arc_mysql_db"
             DATABASE__PORT: "3307"
@@ -16,7 +19,6 @@ services:
             DATABASE__USER: "root"
             DATABASE__PASSWORD: "qwerty"
         container_name: arc_web_api_img
-        command: sh -c "pwd && ls "
     arc_mysql_db:
         image: mysql:8.0
         ports:
@@ -25,6 +27,12 @@ services:
             MYSQL_ALLOW_EMPTY_PASSWORD: "TRUE"
             MYSQL_DATABASE: "arc_db"
         container_name: arc_mysql_db_img
+        healthcheck:
+            test: mysqladmin ping
+            start_period: 2s
+            interval: 5s
+            timeout: 15s
+            retries: 5
     arc_rabbit_mq:
         image: rabbitmq:3-management
         ports:
