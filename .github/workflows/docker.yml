@@ -35,4 +35,4 @@ jobs:
           context: .
           push: true
           target: development
-          tags: ${{ github.event.repository.name }}:latest
+          tags: semyoniys/${{ github.event.repository.name }}:latest
