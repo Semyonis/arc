@@ -4,7 +4,10 @@ services:
             context: .
             target: development
         ports:
-            - "5001:5001"
+            - 8080:80
+            - 5001:5001
+        expose:
+            - 5001
         depends_on:
             arc_mysql_db:
                 condition: service_healthy
@@ -22,10 +25,12 @@ services:
     arc_mysql_db:
         image: mysql:8.0
         ports:
-            - "3307:3306"
+            - 3307:3306
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: "TRUE"
             MYSQL_DATABASE: "arc_db"
+        volumes:
+            - arc_mysql_db_data:/var/lib/mysql
         container_name: arc_mysql_db_img
         healthcheck:
             test: mysqladmin ping
@@ -36,11 +41,13 @@ services:
     arc_rabbit_mq:
         image: rabbitmq:3-management
         ports:
-            - "5672:5672"
-            - "15672:15672"
+            - 5672:5672
+            - 15672:15672
         container_name: arc_rabbit_mq_img
     arc_redis_stack:
         image: redis/redis-stack
         ports:
-            - "6379:6379"
+            - 6379:6379
         container_name: arc_redis_stack_img
+volumes:
+    arc_mysql_db_data:
