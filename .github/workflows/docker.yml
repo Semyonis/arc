@@ -35,4 +35,4 @@ jobs:
           context: .
           push: true
           target: development
-          tags: ${{ secrets.DOCKER_USERNAME }}/${{ github.event.repository.name }}:latest
+          tags: ${{ github.event.repository.name }}:latest
