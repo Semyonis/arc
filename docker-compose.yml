@@ -1,14 +1,14 @@
 services:
+    
     arc_web_api:
         build:
             context: .
             target: development
         ports:
-            - 8080:80
-            - 5001:5001
-        expose:
-            - 5001
+            - 5002:5001
         depends_on:
+            arc_mysql_db_migration:
+                condition: service_completed_successfully
             arc_mysql_db:
                 condition: service_healthy
             arc_rabbit_mq:
@@ -17,18 +17,37 @@ services:
                 condition: service_started
         environment:
             DATABASE__HOST: "arc_mysql_db"
-            DATABASE__PORT: "3307"
+            DATABASE__PORT: "3306"
             DATABASE__NAME: "arc_db"
             DATABASE__USER: "root"
-            DATABASE__PASSWORD: "qwerty"
+            DATABASE__PASSWORD: ""
+            DisableSwagger: "false"
         container_name: arc_web_api_img
+    arc_mysql_db_migration:
+        build:
+            context: .
+            target: migration
+        depends_on:
+            arc_mysql_db:
+                condition:
+                    service_healthy
+        environment:
+            DATABASE__HOST: "arc_mysql_db"
+            DATABASE__PORT: "3306"
+            DATABASE__NAME: "arc_db"
+            DATABASE__USER: "root"
+            DATABASE__PASSWORD: ""
+        container_name: arc_mysql_db_migration_img
     arc_mysql_db:
         image: mysql:8.0
         ports:
             - 3307:3306
+        expose:
+            - 3306
         environment:
             MYSQL_ALLOW_EMPTY_PASSWORD: "TRUE"
             MYSQL_DATABASE: "arc_db"
+            MYSQL_USER: "root"
         volumes:
             - arc_mysql_db_data:/var/lib/mysql
         container_name: arc_mysql_db_img
@@ -41,13 +60,18 @@ services:
     arc_rabbit_mq:
         image: rabbitmq:3-management
         ports:
-            - 5672:5672
-            - 15672:15672
+            - 5673:5672
+            - 15673:15672
+        expose:
+            - 5672
+            - 15672
         container_name: arc_rabbit_mq_img
     arc_redis_stack:
         image: redis/redis-stack
         ports:
-            - 6379:6379
+            - 6380:6379
+        expose:
+            - 6379
         container_name: arc_redis_stack_img
 volumes:
     arc_mysql_db_data:
