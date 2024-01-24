@@ -3,9 +3,9 @@ services:
     arc_web_api:
         build:
             context: .
-            target: development
+            target: webapi
         ports:
-            - 5002:5001
+            - 8081:8080 
         depends_on:
             arc_mysql_db_migration:
                 condition: service_completed_successfully
