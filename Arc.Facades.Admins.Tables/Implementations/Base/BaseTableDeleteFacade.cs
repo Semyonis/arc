@@ -3,7 +3,7 @@ using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces.Base;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Models;
 
@@ -25,7 +25,7 @@ public abstract class BaseTableDeleteFacade<TEntity>(
 {
     public async Task<Response> Execute(
         IReadOnlyList<int> ids,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         await
@@ -98,7 +98,7 @@ public abstract class BaseTableDeleteFacade<TEntity>(
 
     protected virtual Task ValidateOnDelete(
         IReadOnlyList<int> ids,
-        AdminIdentity identity
+        ArcIdentity identity
     ) =>
         Task.CompletedTask;
 }

@@ -6,7 +6,7 @@ using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Models;
 
@@ -35,7 +35,7 @@ public abstract class BaseTableUpdateFacade
 {
     protected async Task<Response> Execute(
         IReadOnlyList<TUpdateEntityRequest> updateEntities,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         await
@@ -127,7 +127,7 @@ public abstract class BaseTableUpdateFacade
 
     protected virtual Task ValidateOnUpdate(
         IReadOnlyList<TUpdateEntityRequest> updateEntities,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         if (updateEntities.IsEmpty())

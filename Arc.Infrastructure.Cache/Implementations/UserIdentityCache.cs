@@ -1,6 +1,6 @@
 ﻿using Arc.Infrastructure.Cache.Interfaces;
 using Arc.Infrastructure.Common.Constants;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 
 namespace Arc.Infrastructure.Cache.Implementations;
 
@@ -9,7 +9,7 @@ public sealed class UserIdentityCache(
         distributedCache,
     ISerializationDecorator
         serializationDecorator
-) : IntegerCacheBase<UserIdentity>(
+) : IntegerCacheBase<ArcIdentity>(
         distributedCache,
         serializationDecorator
     ),

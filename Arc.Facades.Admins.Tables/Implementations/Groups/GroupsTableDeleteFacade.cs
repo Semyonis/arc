@@ -9,7 +9,7 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -49,7 +49,7 @@ public sealed class GroupsTableDeleteFacade(
 {
     protected override async Task ValidateOnDelete(
         IReadOnlyList<int> ids,
-        AdminIdentity adminIdentity
+        ArcIdentity adminIdentity
     )
     {
         var filters =

@@ -3,7 +3,7 @@ using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Models;
 
@@ -27,7 +27,7 @@ public abstract class BaseTableCreateFacade
 {
     protected async Task<Response> Execute(
         IReadOnlyList<TCreateEntityRequest> newEntities,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         await
@@ -81,7 +81,7 @@ public abstract class BaseTableCreateFacade
 
     protected virtual Task ValidateOnCreate(
         IReadOnlyList<TCreateEntityRequest> createEntities,
-        AdminIdentity identity
+        ArcIdentity identity
     ) =>
         Task.CompletedTask;
 }

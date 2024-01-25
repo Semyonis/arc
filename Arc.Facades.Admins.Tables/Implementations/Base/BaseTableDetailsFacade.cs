@@ -3,7 +3,7 @@ using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces.Base;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 
 using Microsoft.EntityFrameworkCore.Query;
@@ -28,7 +28,7 @@ public abstract class BaseTableDetailsFacade
 {
     public async Task<Response> Execute(
         int entityId,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         var includes =

@@ -1,14 +1,14 @@
-﻿namespace Arc.Facades.Base.Interfaces.Executors;
+﻿using Arc.Models.BusinessLogic.Models;
+
+namespace Arc.Facades.Base.Interfaces.Executors;
 
 public interface IExtendedFunctionFacade
 <
-    in TRequest,
-    in TIdentity
+    in TRequest
 >
-    where TIdentity : BaseIdentity
 {
     Task<Response> Execute(
         TRequest request,
-        TIdentity identity
+        ArcIdentity identity
     );
 }

@@ -5,7 +5,7 @@ using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Constants;
 using Arc.Infrastructure.ConfigurationSettings.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Common.Models;
 
@@ -27,7 +27,7 @@ public sealed class AdminItemListReadFacade(
 ) : IAdminItemListReadFacade
 {
     public async Task<Response> Execute(
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         var redisStackSettings =

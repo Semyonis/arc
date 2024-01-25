@@ -3,20 +3,20 @@
 using Arc.Facades.Base.Interfaces.Executors;
 using Arc.Facades.Base.Interfaces.Methods;
 using Arc.Facades.Base.Interfaces.Validators;
-using Arc.Infrastructure.Common.Models;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Infrastructure.Common;
+using Arc.Models.BusinessLogic.Models;
 
 namespace Arc.Controllers.Base.Implementations;
 
-public abstract class BaseAuthorizedArcController<TIdentity>(
+public abstract class BaseAuthorizedArcController(
     object
         facade
 ) :
     BaseArcController(
         facade
     )
-    where TIdentity : BaseIdentity
 {
+
     protected async Task<IActionResult> Invoke
     <
         TRequestArgs
@@ -25,7 +25,7 @@ public abstract class BaseAuthorizedArcController<TIdentity>(
     )
     {
         var identity =
-            GetActorIdentity();
+            GetIdentity();
 
         await
             ValidateFacadeExecution(
@@ -52,8 +52,7 @@ public abstract class BaseAuthorizedArcController<TIdentity>(
                             ),
                 IExtendedFunctionFacade
                     <
-                        TRequestArgs,
-                        TIdentity
+                        TRequestArgs
                     >
                     extendedExecutionFacade =>
                     await
@@ -75,7 +74,7 @@ public abstract class BaseAuthorizedArcController<TIdentity>(
     protected async Task<IActionResult> Invoke()
     {
         var identity =
-            GetActorIdentity();
+            GetIdentity();
 
         await
             ValidateFacadeExecution(
@@ -89,10 +88,7 @@ public abstract class BaseAuthorizedArcController<TIdentity>(
                     await
                         executionFacade
                             .Execute(),
-                IExtendedMethodFacade
-                    <
-                        TIdentity
-                    > extendedExecutionFacade =>
+                IExtendedMethodFacade extendedExecutionFacade =>
                     await
                         extendedExecutionFacade
                             .Execute(
@@ -109,10 +105,10 @@ public abstract class BaseAuthorizedArcController<TIdentity>(
     }
 
     private async Task ValidateFacadeExecution(
-        TIdentity identity
+        ArcIdentity identity
     )
     {
-        if (facade is IValidationFacade<TIdentity> validationFacade)
+        if (facade is IValidationFacade validationFacade)
         {
             await
                 validationFacade
@@ -124,13 +120,12 @@ public abstract class BaseAuthorizedArcController<TIdentity>(
 
     private async Task ValidateExtendedFacadeExecution<TRequestArgs>(
         TRequestArgs args,
-        TIdentity identity
+        ArcIdentity identity
     )
     {
         if (facade is IExtendedValidationFacade
             <
-                TRequestArgs,
-                TIdentity
+                TRequestArgs
             >
             extendedValidationFacade)
         {
@@ -143,14 +138,24 @@ public abstract class BaseAuthorizedArcController<TIdentity>(
         }
     }
 
-    private TIdentity GetActorIdentity()
+    private ArcIdentity GetIdentity()
     {
-        var identity =
-            ReadActorIdentity();
+        var httpContextItems =
+            HttpContext.Items;
 
-        return
-            identity.Value!;
+        var isSuccess =
+            httpContextItems
+                .TryGetValue(
+                    ArcIdentityConstants.ArcIdentity,
+                    out var identity
+                );
+
+        if (isSuccess
+            && identity is ArcIdentity arcIdentity)
+        {
+            return arcIdentity;
+        }
+
+        throw new();
     }
-
-    protected abstract ResultContainer<TIdentity> ReadActorIdentity();
 }

@@ -1,9 +1,10 @@
-﻿namespace Arc.Facades.Base.Interfaces.Methods;
+﻿using Arc.Models.BusinessLogic.Models;
 
-public interface IExtendedMethodFacade<in TIdentity>
-    where TIdentity : BaseIdentity
+namespace Arc.Facades.Base.Interfaces.Methods;
+
+public interface IExtendedMethodFacade
 {
     Task<Response> Execute(
-        TIdentity identity
+        ArcIdentity identity
     );
 }

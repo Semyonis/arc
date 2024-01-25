@@ -4,7 +4,7 @@ using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Extensions;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 
 namespace Arc.Facades.Admins.Implementations.Users;
@@ -24,7 +24,7 @@ public sealed class ConfirmUserEmailFacade(
 {
     public async Task<Response> Execute(
         int userId,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         var userEmail =

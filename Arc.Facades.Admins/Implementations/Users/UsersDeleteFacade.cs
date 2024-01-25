@@ -1,7 +1,7 @@
 using Arc.Facades.Admins.Interfaces.Users;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Models;
 
@@ -18,7 +18,7 @@ public sealed class UsersDeleteFacade(
 {
     public async Task<Response> Execute(
         DeleteEntityAdminRequest request,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         using var transaction =

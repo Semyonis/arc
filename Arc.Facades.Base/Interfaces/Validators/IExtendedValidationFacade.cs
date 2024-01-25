@@ -1,14 +1,14 @@
-﻿namespace Arc.Facades.Base.Interfaces.Validators;
+﻿using Arc.Models.BusinessLogic.Models;
+
+namespace Arc.Facades.Base.Interfaces.Validators;
 
 public interface IExtendedValidationFacade
 <
-    in TRequest,
-    in TIdentity
+    in TRequest
 >
-    where TIdentity : BaseIdentity
 {
     Task Validate(
         TRequest request,
-        TIdentity identity
+        ArcIdentity identity
     );
 }

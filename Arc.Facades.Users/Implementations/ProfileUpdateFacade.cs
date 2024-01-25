@@ -3,7 +3,7 @@ using Arc.Facades.Users.Interfaces;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Users.Models;
 
@@ -24,7 +24,7 @@ public sealed class ProfileUpdateFacade(
 {
     public async Task<Response> Execute(
         UserRequest userProfile,
-        UserIdentity identity
+        ArcIdentity identity
     )
     {
         if (userProfile.Id != identity.Id)

@@ -1,29 +1,173 @@
-﻿using Arc.Executable.WebApi.Configuration.WebHostBuilderExtensions;
+﻿using System.Net;
+using System.Text.Json.Serialization;
 
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
+using Arc.Executable.WebApi.Configuration.ApplicationBuilderExtensions;
+using Arc.Executable.WebApi.Configuration.ServiceCollectionExtensions;
+using Arc.Infrastructure.Common.Constants;
+using Arc.Infrastructure.Common.Extensions;
 
-namespace Arc.Executable.WebApi;
+using FluentValidation.AspNetCore;
 
-public static class Program
+using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
+using StackExchange.Redis;
+
+var builder =
+    WebApplication
+        .CreateBuilder(
+            args
+        );
+
+ConfigureBuilder(
+    builder
+);
+
+var webApplication =
+    builder.Build();
+
+ConfigureWebApplication(
+    webApplication
+);
+
+webApplication.Run();
+
+return;
+
+void ConfigureBuilder(
+    WebApplicationBuilder webApplicationBuilder
+)
 {
-    public static void Main(
-        string[] args
-    ) =>
-        CreateWebHostBuilder(
-                args
-            )
-            .Build()
-            .Run();
+    var configuration =
+        webApplicationBuilder.Configuration;
 
-    // important to keep this function because without it visual studio rejects to create ef migrations by 'add-migration' command 
-    private static IWebHostBuilder CreateWebHostBuilder(
-        string[] args
-    ) =>
-        WebHost
-            .CreateDefaultBuilder(
-                args
-            )
-            .UseStartup<Startup>()
-            .SetupLogs();
+    var redisStackConfigurationOptions =
+        GetRedisStackConfigurationOptions(
+            configuration
+        );
+
+    webApplicationBuilder
+        .Services
+        .SetupIdentity()
+        .SetupAuthentication(
+            configuration
+        )
+        .SetupCors(
+            configuration
+        )
+        .SetupSwagger()
+        .SetupContext(
+            configuration
+        )
+        .SetupSettings(
+            configuration
+        )
+        .AddFluentValidationAutoValidation()
+        .AddFluentValidationClientsideAdapters()
+        .SetupDependencies()
+        .AddStackExchangeRedisCache(
+            options =>
+                options.ConfigurationOptions =
+                    redisStackConfigurationOptions
+        )
+        .SetupFilters()
+        .AddControllers()
+        .AddJsonOptions(
+            options =>
+            {
+                var jsonStringEnumConverter =
+                    new JsonStringEnumConverter(
+                        default,
+                        false
+                    );
+
+                options
+                    .JsonSerializerOptions
+                    .Converters
+                    .Add(
+                        jsonStringEnumConverter
+                    );
+            }
+        );
+
+    webApplicationBuilder
+        .Host
+        .UseDefaultServiceProvider(
+            serviceProviderOptions =>
+            {
+                serviceProviderOptions.ValidateOnBuild = false;
+                serviceProviderOptions.ValidateScopes = true;
+            }
+        );
+}
+
+void ConfigureWebApplication(
+    WebApplication webApplication1
+)
+{
+    if (webApplication1.Environment.IsDevelopment())
+    {
+        webApplication1.UseDeveloperExceptionPage();
+    }
+
+    webApplication1
+        .UseCors(
+            CorsPolicyConstants.DefaultCorsPolicy
+        );
+
+    webApplication1
+        .RegisterSwagger(
+            webApplication1.Configuration
+        );
+
+    webApplication1.UseWebSockets();
+    webApplication1.UseRouting();
+    webApplication1.UseAuthentication();
+    webApplication1.UseAuthorization();
+    webApplication1.SetupControllers();
+}
+
+ConfigurationOptions GetRedisStackConfigurationOptions(
+    IConfiguration configurationManager
+)
+{
+    var redisHost =
+        configurationManager
+            .GetSection(
+                "RedisStack"
+            )["Host"]!;
+
+    var redisPort =
+        configurationManager
+            .GetSection(
+                "RedisStack"
+            )["Port"]!;
+
+    var port =
+        redisPort
+            .ParseToNullableInteger()!
+            .Value;
+
+    var dnsEndPoint =
+        new DnsEndPoint(
+            redisHost,
+            port
+        );
+
+    var endpoints =
+        (dnsEndPoint as EndPoint).WrapByList();
+
+    var endPointCollection =
+        new EndPointCollection(
+            endpoints
+        );
+
+    return
+        new()
+        {
+            EndPoints =
+                endPointCollection,
+        };
 }

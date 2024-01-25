@@ -1,6 +1,7 @@
 ﻿using Arc.Database.Entities.Models;
 using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Infrastructure.Common.Enums;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.Views.Admins.Models;
 using Arc.Tests.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;
@@ -115,8 +116,9 @@ public class ComplexPropertyTableDeleteFacadeSuccessTest
                 .GetImplementation<IComplexPropertiesTableDeleteFacade>();
 
         var adminIdentity =
-            new AdminIdentity(
-                1
+            new ArcIdentity(
+                1,
+                ActorTypes.Admin
             );
 
         var ids =

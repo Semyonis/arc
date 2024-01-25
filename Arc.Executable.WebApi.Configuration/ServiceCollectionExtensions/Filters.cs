@@ -4,24 +4,35 @@ namespace Arc.Executable.WebApi.Configuration.ServiceCollectionExtensions;
 
 public static class Filters
 {
-    public static IMvcBuilder SetupFilters(
+    public static IServiceCollection SetupFilters(
         this IServiceCollection services
-    ) =>
+    )
+    {
+        var filters =
+            new[]
+            {
+                typeof(InitiateArcIdentityFilter),
+                typeof(ValidateUserAccessFilter),
+                typeof(StringNormalizationFilter),
+                typeof(ExceptionFilter),
+            };
+
         services
             .AddControllersWithViews(
                 options =>
                 {
-                    options.Filters.Add(
-                        typeof(ValidateUserAccessFilter)
-                    );
-
-                    options.Filters.Add(
-                        typeof(StringNormalizationFilter)
-                    );
-
-                    options.Filters.Add(
-                        typeof(ExceptionFilter)
-                    );
+                    foreach (var filter in filters)
+                    {
+                        options
+                            .Filters
+                            .Add(
+                                filter
+                            );
+                    }
                 }
             );
+
+        return
+            services;
+    }
 }

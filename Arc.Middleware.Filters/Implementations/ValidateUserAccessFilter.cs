@@ -1,9 +1,8 @@
-﻿using System.Security.Claims;
-
-using Arc.Facades.Domain.Filters.Interfaces;
-using Arc.Infrastructure.Common.Constants;
+﻿using Arc.Facades.Domain.Filters.Interfaces;
+using Arc.Infrastructure.Common;
 using Arc.Infrastructure.Common.Enums;
 using Arc.Infrastructure.Exceptions.Interfaces;
+using Arc.Models.BusinessLogic.Models;
 
 namespace Arc.Middleware.Filters.Implementations;
 
@@ -22,17 +21,19 @@ public sealed class ValidateUserAccessFilter(
         var httpContext =
             context.HttpContext;
 
-        var user =
-            httpContext.User;
+        var httpContextItems =
+            httpContext.Items;
 
-        var actorType =
-            GetActorType(
-                user
-            );
+        var isSuccess =
+            httpContextItems
+                .TryGetValue(
+                    ArcIdentityConstants.ArcIdentity,
+                    out var identity
+                );
 
         var isAdmin =
-            actorType
-            == ActorTypeConstants.Admin;
+            !isSuccess
+            && identity is ArcIdentity { Type: ActorTypes.Admin, }; 
 
         if (isAdmin)
         {
@@ -58,34 +59,5 @@ public sealed class ValidateUserAccessFilter(
 
         await
             next();
-    }
-
-    private static string GetActorType(
-        ClaimsPrincipal? principal
-    ) =>
-        GetValue(
-            principal,
-            ClaimTypeConstants.ActorType
-        );
-
-    private static string GetValue(
-        ClaimsPrincipal? user,
-        string claimName
-    )
-    {
-        if (user == default)
-        {
-            return string.Empty;
-        }
-
-        var value =
-            user
-                .FindFirst(
-                    claimName
-                );
-
-        return
-            value?.Value
-            ?? string.Empty;
     }
 }

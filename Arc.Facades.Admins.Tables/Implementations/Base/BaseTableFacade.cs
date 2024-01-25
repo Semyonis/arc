@@ -9,8 +9,8 @@ using Arc.Infrastructure.Common.Interfaces;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces.Base;
 using Arc.Infrastructure.Services.Interfaces;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
-using Arc.Models.BusinessLogic.Models.Identities;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Common.Models;
 
@@ -44,7 +44,7 @@ public abstract class BaseTableFacade
 {
     public async Task<Response> Execute(
         TableReadRequest request,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         var filterModels =

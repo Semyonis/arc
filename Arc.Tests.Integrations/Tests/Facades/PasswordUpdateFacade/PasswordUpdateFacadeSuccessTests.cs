@@ -1,6 +1,7 @@
 ﻿using Arc.Database.Entities.Models;
 using Arc.Facades.Users.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Infrastructure.Common.Enums;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.Views.Users.Models;
 using Arc.Tests.Base.Extensions;
 using Arc.Tests.Integrations.Extensions;
@@ -84,8 +85,9 @@ public sealed class PasswordUpdateFacadeSuccessTests
             );
 
         var userIdentity =
-            new UserIdentity(
-                user.Id
+            new ArcIdentity(
+                user.Id,
+                ActorTypes.User
             );
 
         var request =

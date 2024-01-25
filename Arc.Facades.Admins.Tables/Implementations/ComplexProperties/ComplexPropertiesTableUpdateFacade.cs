@@ -9,7 +9,7 @@ using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 
@@ -51,7 +51,7 @@ public sealed class ComplexPropertiesTableUpdateFacade(
 {
     public async Task<Response> Execute(
         ComplexPropertyTableUpdateRequest request,
-        AdminIdentity identity
+        ArcIdentity identity
     ) =>
         await
             Execute(

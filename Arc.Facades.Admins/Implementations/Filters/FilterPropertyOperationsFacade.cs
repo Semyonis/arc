@@ -2,8 +2,8 @@
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Common.Constants.Filters;
 using Arc.Infrastructure.Exceptions.Interfaces;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Models.FilterProperties;
-using Arc.Models.BusinessLogic.Models.Identities;
 using Arc.Models.BusinessLogic.Response;
 
 using static Arc.Infrastructure.Common.Constants.Filters.FilterOperationConstants;
@@ -19,7 +19,7 @@ public sealed class FilterPropertyOperationsFacade(
 ) : IFilterPropertyOperationsFacade
 {
     public Task Validate(
-        AdminIdentity identity
+        ArcIdentity identity
     ) =>
         Task.CompletedTask;
 

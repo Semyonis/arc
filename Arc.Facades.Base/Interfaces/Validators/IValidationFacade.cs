@@ -1,9 +1,10 @@
-﻿namespace Arc.Facades.Base.Interfaces.Validators;
+﻿using Arc.Models.BusinessLogic.Models;
 
-public interface IValidationFacade<in TIdentity>
-    where TIdentity : BaseIdentity
+namespace Arc.Facades.Base.Interfaces.Validators;
+
+public interface IValidationFacade
 {
     Task Validate(
-        TIdentity identity
+        ArcIdentity identity
     );
 }

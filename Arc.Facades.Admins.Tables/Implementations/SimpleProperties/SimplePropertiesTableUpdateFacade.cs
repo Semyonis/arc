@@ -6,7 +6,7 @@ using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Exceptions.Interfaces;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Tables.Models.SimpleProperties;
 
@@ -38,7 +38,7 @@ public sealed class SimplePropertiesTableUpdateFacade(
 {
     public async Task<Response> Execute(
         SimplePropertyTableUpdateRequest tableRequest,
-        AdminIdentity identity
+        ArcIdentity identity
     ) =>
         await
             Execute(

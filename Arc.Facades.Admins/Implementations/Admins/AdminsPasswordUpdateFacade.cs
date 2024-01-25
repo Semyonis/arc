@@ -3,7 +3,7 @@ using Arc.Facades.Admins.Interfaces.Admins;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Repositories.Read.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Models;
 
@@ -22,7 +22,7 @@ public sealed class AdminsPasswordUpdateFacade(
 {
     public async Task<Response> Execute(
         AdminPasswordRequest request,
-        AdminIdentity identity
+        ArcIdentity identity
     )
     {
         var email =

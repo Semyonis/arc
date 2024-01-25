@@ -5,7 +5,7 @@ using Arc.Facades.Admins.Tables.Interfaces.ComplexProperties;
 using Arc.Facades.Domain.Interface;
 using Arc.Infrastructure.Repositories.Interfaces;
 using Arc.Infrastructure.Transactions.Interfaces;
-using Arc.Models.BusinessLogic.Models.Identities;
+using Arc.Models.BusinessLogic.Models;
 using Arc.Models.BusinessLogic.Response;
 using Arc.Models.Views.Admins.Tables.Models.ComplexProperties;
 
@@ -34,7 +34,7 @@ public sealed class ComplexPropertiesTableCreateFacade(
 {
     public async Task<Response> Execute(
         ComplexPropertyTableCreateRequest request,
-        AdminIdentity identity
+        ArcIdentity identity
     ) =>
         await
             Execute(

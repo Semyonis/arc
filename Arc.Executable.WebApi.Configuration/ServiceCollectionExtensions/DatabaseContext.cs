@@ -12,7 +12,6 @@ public static class DatabaseContext
 {
     public static IServiceCollection SetupContext(
         this IServiceCollection services,
-        ILoggerFactory loggerFactory,
         IConfiguration configuration
     ) =>
         services
@@ -20,11 +19,6 @@ public static class DatabaseContext
                 options =>
                 {
                     options
-#if DEBUG
-                        .UseLoggerFactory(
-                            loggerFactory
-                        )
-#endif
                         .UseMySql(
                             configuration.GetConnectionStr(),
                             new MySqlServerVersion(
