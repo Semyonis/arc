@@ -8,6 +8,7 @@
 
     <ItemGroup>
         <ProjectReference Include="..\Arc.Database.Context\Arc.Database.Context.csproj"/>
+        <ProjectReference Include="..\Arc.Dependencies.YeSql\Arc.Dependencies.YeSql.csproj" />
     </ItemGroup>
 
 </Project>
