@@ -16,4 +16,11 @@
       <ProjectReference Include="..\Arc.Validators.Common\Arc.Validators.Common.csproj" />
     </ItemGroup>
 
+    <ItemGroup>
+        <ProjectReference
+                Include="..\Arc.Validators.SourceGenerators\Arc.Validators.SourceGenerators\Arc.Validators.SourceGenerators.csproj"
+                OutputItemType="Analyzer"
+                ReferenceOutputAssembly="false"/>
+    </ItemGroup>
+
 </Project>
