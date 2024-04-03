@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -25,12 +24,12 @@ public class DependencyManagerIncrementalSourceGenerator :
         IncrementalGeneratorInitializationContext context
     )
     {
-/*#if DEBUG
-        if (!Debugger.IsAttached)
-        {
-            Debugger.Launch();
-        }
-#endif*/
+        /*#if DEBUG
+                if (!Debugger.IsAttached)
+                {
+                    Debugger.Launch();
+                }
+        #endif*/
         var incrementalSyntaxProviders =
             context
                 .SyntaxProvider
@@ -68,23 +67,23 @@ public class DependencyManagerIncrementalSourceGenerator :
 
     private static Action<SourceProductionContext, (Compilation Left, ImmutableArray<ClassDeclarationSyntax> Right)> Action() =>
         (
-            context,
-            valueTuple
-        ) =>
-        GenerateCode(
-            context,
-            valueTuple.Left,
-            valueTuple.Right
-        );
+                context,
+                valueTuple
+            ) =>
+            GenerateCode(
+                context,
+                valueTuple.Left,
+                valueTuple.Right
+            );
 
     private static Func<GeneratorSyntaxContext, CancellationToken, (ClassDeclarationSyntax syntax, bool isValidator)> Transform() =>
         (
-            syntaxContext,
-            _
-        ) =>
-        GetClassDeclaration(
-            syntaxContext
-        );
+                syntaxContext,
+                _
+            ) =>
+            GetClassDeclaration(
+                syntaxContext
+            );
 
     private static (ClassDeclarationSyntax, bool isValidator) GetClassDeclaration(
         GeneratorSyntaxContext context
@@ -173,10 +172,10 @@ public class DependencyManagerIncrementalSourceGenerator :
 
         var typeName =
             identifierNameSyntax!
-            .Identifier
-            .Text;
+                .Identifier
+                .Text;
 
-        var namespaceName = 
+        var namespaceName =
             GetTypeNamespaceByShortName(
                 compilation,
                 typeName
@@ -191,83 +190,97 @@ public class DependencyManagerIncrementalSourceGenerator :
         string shortTypeName
     )
     {
-        var modules =
-            compilation
-                .Assembly
-                .Modules
-                .SelectMany(
-                    symbol =>
-                        symbol.ReferencedAssemblySymbols
-                );
-#if DEBUG
+/*#if DEBUG
         if (!Debugger.IsAttached)
         {
             Debugger.Launch();
         }
-#endif
-        
-        foreach (var module in modules)
+#endif*/
+
+        var compilationReferences =
+            compilation.References;
+
+        var assemblyOrModuleSymbol =
+            compilation.GetAssemblyOrModuleSymbol;
+
+        var referencedAssemblies =
+            compilationReferences
+                .Select(
+                    assemblyOrModuleSymbol
+                )
+                .OfType<IAssemblySymbol>();
+
+        foreach (var assemblySymbol in referencedAssemblies)
         {
-            var hasNotType =
-                !module
-                    .TypeNames
-                    .Contains(
-                        shortTypeName
+            var assemblySymbolGlobalNamespace =
+                assemblySymbol.GlobalNamespace;
+
+            var namespaceName =
+                SearchNamespaceForType(
+                    assemblySymbolGlobalNamespace,
+                    shortTypeName
+                );
+
+            var isNotEmpty =
+                !string
+                    .IsNullOrEmpty(
+                        namespaceName
                     );
 
-            if (hasNotType)
+            if (isNotEmpty)
             {
-                continue;
-            }
-
-            foreach (var location in module.Locations)
-            {
-                var locationSourceTree =
-                    location.SourceTree;
-
-                if (locationSourceTree == default)
-                {
-                    continue;
-                }
-
-                var descendantNodes =
-                    locationSourceTree
-                        .GetRoot()
-                        .DescendantNodes();
-
-                var recordDeclarationSyntax =
-                    descendantNodes.OfType<RecordDeclarationSyntax>();
-
-                var recordName =
-                    recordDeclarationSyntax
-                        .First()
-                        .Identifier
-                        .Text;
-
-                var isNotEqual =
-                    recordName != shortTypeName;
-
-                if (isNotEqual)
-                {
-                    continue;
-                }
-
-                var fileScopedNamespaceDeclarationSyntax =
-                    descendantNodes.OfType<FileScopedNamespaceDeclarationSyntax>();
-                        
-                var namespaceName =
-                    fileScopedNamespaceDeclarationSyntax
-                        .First()
-                        .Name
-                        .ToString();
-
-                return
-                    namespaceName;
+                return namespaceName;
             }
         }
-        
-        return
-            string.Empty;
+
+        return string.Empty;
+    }
+
+    private static string SearchNamespaceForType(
+        INamespaceSymbol namespaceSymbol,
+        string shortTypeName
+    )
+    {
+        var typeSymbol =
+            namespaceSymbol
+                .GetTypeMembers(
+                    shortTypeName
+                )
+                .FirstOrDefault();
+
+        if (typeSymbol != null)
+        {
+            var searchNamespaceForType =
+                namespaceSymbol.ToDisplayString();
+
+            return
+                searchNamespaceForType;
+        }
+
+        var namespaceMembers =
+            namespaceSymbol.GetNamespaceMembers();
+
+        foreach (var childNamespace in namespaceMembers)
+        {
+            var result =
+                SearchNamespaceForType(
+                    childNamespace,
+                    shortTypeName
+                );
+
+            var isNotEmpty =
+                !string
+                    .IsNullOrEmpty(
+                        result
+                    );
+
+            if (isNotEmpty)
+            {
+                return result;
+            }
+        }
+
+        return string.Empty;
     }
 
     private static void GenerateCode(
@@ -278,13 +291,13 @@ public class DependencyManagerIncrementalSourceGenerator :
     {
         var namespaceListBuilder =
             new StringBuilder();
-        
+
         var referenceListBuilder =
             new StringBuilder();
 
         var referenceItemList =
             new List<string>();
-        
+
         foreach (var classDeclarationSyntax in classDeclarations)
         {
             var semanticModel =
@@ -305,9 +318,9 @@ public class DependencyManagerIncrementalSourceGenerator :
             }
 
             (
-                var typeName,
-                var typeNamespace
-            ) =
+                    var typeName,
+                    var typeNamespace
+                ) =
                 GetFirstBaseTypeArgumentIdentifierName(
                     compilation,
                     classDeclarationSyntax
@@ -334,7 +347,7 @@ public class DependencyManagerIncrementalSourceGenerator :
                         namespaceListItemTemplate
                     );
             }
-            
+
             var validatorName =
                 classDeclarationSyntax
                     .Identifier
@@ -342,15 +355,15 @@ public class DependencyManagerIncrementalSourceGenerator :
 
             var referenceListItemTemplate =
                 $"""
-                  (
-                  	typeof(IValidator<{
-                          typeName
-                      }>),
-                  	typeof({
-                        validatorName
-                      })
-                  ),
-                  """;
+                 (
+                 	typeof(IValidator<{
+                         typeName
+                     }>),
+                 	typeof({
+                         validatorName
+                     })
+                 ),
+                 """;
 
             referenceListBuilder
                 .AppendLine(
@@ -398,7 +411,7 @@ public class DependencyManagerIncrementalSourceGenerator :
             $$"""
               // <auto-generated/>
               using System.Collections.Generic;
-              
+
               using Arc.Infrastructure.Common.Interfaces;
               using Arc.Infrastructure.Common.Models.Dependencies;
 
@@ -437,17 +450,17 @@ public class DependencyManagerIncrementalSourceGenerator :
               }
               """;
 
-            var sourceText =
-                SourceText
-                    .From(
-                        code,
-                        Encoding.UTF8
-                    );
-
-            context
-                .AddSource(
-                    FileName,
-                    sourceText
+        var sourceText =
+            SourceText
+                .From(
+                    code,
+                    Encoding.UTF8
                 );
+
+        context
+            .AddSource(
+                FileName,
+                sourceText
+            );
     }
 }
