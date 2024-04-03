@@ -335,15 +335,24 @@ public class DependencyManagerIncrementalSourceGenerator :
                         typeNamespace
                     );
 
-                namespaceListBuilder
-                    .AppendLine(
-                        namespaceListItemTemplate
-                    );
+                var isNotAdded =
+                    !referenceItemList
+                        .Contains(
+                            namespaceListItemTemplate
+                        );
 
-                referenceItemList
-                    .Add(
-                        namespaceListItemTemplate
-                    );
+                if (isNotAdded)
+                {
+                    namespaceListBuilder
+                        .AppendLine(
+                            namespaceListItemTemplate
+                        );
+
+                    referenceItemList
+                        .Add(
+                            namespaceListItemTemplate
+                        );
+                }
             }
 
             var validatorName =
@@ -380,15 +389,24 @@ public class DependencyManagerIncrementalSourceGenerator :
                         validatorNamespace
                     );
 
-                namespaceListBuilder
-                    .AppendLine(
-                        namespaceListItemTemplate
-                    );
+                var isNotAdded =
+                    !referenceItemList
+                        .Contains(
+                            namespaceListItemTemplate
+                        );
 
-                referenceItemList
-                    .Add(
-                        namespaceListItemTemplate
-                    );
+                if (isNotAdded)
+                {
+                    namespaceListBuilder
+                        .AppendLine(
+                            namespaceListItemTemplate
+                        );
+
+                    referenceItemList
+                        .Add(
+                            namespaceListItemTemplate
+                        );
+                }
             }
         }
 
