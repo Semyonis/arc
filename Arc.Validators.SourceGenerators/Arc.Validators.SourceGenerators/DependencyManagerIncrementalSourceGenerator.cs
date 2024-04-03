@@ -18,18 +18,13 @@ public class DependencyManagerIncrementalSourceGenerator :
     private const string FileName =
         "DependencyManager.g.cs";
 
-    private const string Abstractvalidator = "AbstractValidator";
+    private const string AbstractValidator =
+        "AbstractValidator";
 
     public void Initialize(
         IncrementalGeneratorInitializationContext context
     )
     {
-        /*#if DEBUG
-                if (!Debugger.IsAttached)
-                {
-                    Debugger.Launch();
-                }
-        #endif*/
         var incrementalSyntaxProviders =
             context
                 .SyntaxProvider
@@ -51,11 +46,14 @@ public class DependencyManagerIncrementalSourceGenerator :
                     ) => valueTuple.syntax
                 );
 
+        var valueProvider =
+            providers.Collect();
+
         var incrementalValueProvider =
             context
                 .CompilationProvider
                 .Combine(
-                    providers.Collect()
+                    valueProvider
                 );
 
         context
@@ -67,9 +65,9 @@ public class DependencyManagerIncrementalSourceGenerator :
 
     private static Action<SourceProductionContext, (Compilation Left, ImmutableArray<ClassDeclarationSyntax> Right)> Action() =>
         (
-                context,
-                valueTuple
-            ) =>
+            context,
+            valueTuple
+        ) =>
             GenerateCode(
                 context,
                 valueTuple.Left,
@@ -78,9 +76,9 @@ public class DependencyManagerIncrementalSourceGenerator :
 
     private static Func<GeneratorSyntaxContext, CancellationToken, (ClassDeclarationSyntax syntax, bool isValidator)> Transform() =>
         (
-                syntaxContext,
-                _
-            ) =>
+            syntaxContext,
+            _
+        ) =>
             GetClassDeclaration(
                 syntaxContext
             );
@@ -137,7 +135,7 @@ public class DependencyManagerIncrementalSourceGenerator :
 
                     var isValidator =
                         identifierText
-                        == Abstractvalidator;
+                        == AbstractValidator;
 
                     if (isValidator)
                     {
@@ -190,13 +188,6 @@ public class DependencyManagerIncrementalSourceGenerator :
         string shortTypeName
     )
     {
-/*#if DEBUG
-        if (!Debugger.IsAttached)
-        {
-            Debugger.Launch();
-        }
-#endif*/
-
         var compilationReferences =
             compilation.References;
 
@@ -229,7 +220,8 @@ public class DependencyManagerIncrementalSourceGenerator :
 
             if (isNotEmpty)
             {
-                return namespaceName;
+                return
+                    namespaceName;
             }
         }
 
@@ -276,7 +268,8 @@ public class DependencyManagerIncrementalSourceGenerator :
 
             if (isNotEmpty)
             {
-                return result;
+                return
+                    result;
             }
         }
 
@@ -300,10 +293,13 @@ public class DependencyManagerIncrementalSourceGenerator :
 
         foreach (var classDeclarationSyntax in classDeclarations)
         {
+            var syntaxTree =
+                classDeclarationSyntax.SyntaxTree;
+
             var semanticModel =
                 compilation
                     .GetSemanticModel(
-                        classDeclarationSyntax.SyntaxTree
+                        syntaxTree
                     );
 
             var declaredSymbol =
@@ -318,9 +314,9 @@ public class DependencyManagerIncrementalSourceGenerator :
             }
 
             (
-                    var typeName,
-                    var typeNamespace
-                ) =
+                var typeName,
+                var typeNamespace
+            ) =
                 GetFirstBaseTypeArgumentIdentifierName(
                     compilation,
                     classDeclarationSyntax
@@ -335,7 +331,9 @@ public class DependencyManagerIncrementalSourceGenerator :
             if (isNorContainTypeNamespace)
             {
                 var namespaceListItemTemplate =
-                    $"using {typeNamespace};";
+                    GetNamespaceListItemTemplate(
+                        typeNamespace
+                    );
 
                 namespaceListBuilder
                     .AppendLine(
@@ -354,16 +352,10 @@ public class DependencyManagerIncrementalSourceGenerator :
                     .Text;
 
             var referenceListItemTemplate =
-                $"""
-                 (
-                 	typeof(IValidator<{
-                         typeName
-                     }>),
-                 	typeof({
-                         validatorName
-                     })
-                 ),
-                 """;
+                GetReferenceListItemTemplate(
+                    typeName,
+                    validatorName
+                );
 
             referenceListBuilder
                 .AppendLine(
@@ -384,7 +376,9 @@ public class DependencyManagerIncrementalSourceGenerator :
             if (isNorContainValidatorNamespace)
             {
                 var namespaceListItemTemplate =
-                    $"using {validatorNamespace};";
+                    GetNamespaceListItemTemplate(
+                        validatorNamespace
+                    );
 
                 namespaceListBuilder
                     .AppendLine(
@@ -408,47 +402,11 @@ public class DependencyManagerIncrementalSourceGenerator :
             compilation.AssemblyName;
 
         var code =
-            $$"""
-              // <auto-generated/>
-              using System.Collections.Generic;
-
-              using Arc.Infrastructure.Common.Interfaces;
-              using Arc.Infrastructure.Common.Models.Dependencies;
-
-              {{
-                  namespaceList
-              }}
-
-              using FluentValidation;
-
-              namespace {{
-                  compilationAssemblyName
-              }};
-
-              public sealed class DependencyManager :
-                  IDependencyManager
-              {
-                  public IReadOnlyList<DependencyBase> GetDependencies()
-                  {
-                      ValidatorOptions
-                              .Global
-                              .DefaultClassLevelCascadeMode =
-                          CascadeMode.Stop;
-              
-                      ValidatorOptions
-                              .Global
-                              .DefaultRuleLevelCascadeMode =
-                          CascadeMode.Stop;
-              
-                      return new SingletonDependency[]
-                      {
-                          {{
-                              referenceList
-                          }}
-                      };
-                  }
-              }
-              """;
+            GetCode(
+                namespaceList,
+                compilationAssemblyName,
+                referenceList
+            );
 
         var sourceText =
             SourceText
@@ -463,4 +421,71 @@ public class DependencyManagerIncrementalSourceGenerator :
                 sourceText
             );
     }
+
+    private static string GetCode(
+        string namespaceList,
+        string? compilationAssemblyName,
+        string referenceList
+    ) =>
+        $$"""
+          // <auto-generated/>
+          using System.Collections.Generic;
+
+          using Arc.Infrastructure.Common.Interfaces;
+          using Arc.Infrastructure.Common.Models.Dependencies;
+
+          {{
+              namespaceList
+          }}
+
+          using FluentValidation;
+
+          namespace {{
+              compilationAssemblyName
+          }};
+
+          public sealed class DependencyManager :
+              IDependencyManager
+          {
+              public IReadOnlyList<DependencyBase> GetDependencies()
+              {
+                  ValidatorOptions
+                          .Global
+                          .DefaultClassLevelCascadeMode =
+                      CascadeMode.Stop;
+          
+                  ValidatorOptions
+                          .Global
+                          .DefaultRuleLevelCascadeMode =
+                      CascadeMode.Stop;
+          
+                  return new SingletonDependency[]
+                  {
+                      {{
+                          referenceList
+                      }}
+                  };
+              }
+          }
+          """;
+
+    private static string GetReferenceListItemTemplate(
+        string typeName,
+        string validatorName
+    ) =>
+        $"""
+         (
+         	typeof(IValidator<{
+                 typeName
+             }>),
+         	typeof({
+                 validatorName
+             })
+         ),
+         """;
+
+    private static string GetNamespaceListItemTemplate(
+        string validatorNamespace
+    ) =>
+        $"using {validatorNamespace};";
 }

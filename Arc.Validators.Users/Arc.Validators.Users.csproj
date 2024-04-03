@@ -11,6 +11,13 @@
       <ProjectReference Include="..\Arc.Models.Views.Users\Arc.Models.Views.Users.csproj" />
     </ItemGroup>
 
+	<ItemGroup>
+		<ProjectReference
+			Include="..\Arc.Validators.SourceGenerators\Arc.Validators.SourceGenerators\Arc.Validators.SourceGenerators.csproj"
+			OutputItemType="Analyzer"
+			ReferenceOutputAssembly="false" />
+	</ItemGroup>
+
     <ItemGroup>
       <PackageReference Include="FluentValidation" Version="11.9.0" />
     </ItemGroup>
