@@ -1,10 +1,16 @@
 ﻿using Arc.Infrastructure.Common.Constants.Database;
 using Arc.Infrastructure.Common.Extensions;
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Mvc.Controllers;
 using Microsoft.Extensions.Configuration;
-using Microsoft.OpenApi.Models;
+
+using NSwag;
+using NSwag.Generation.AspNetCore;
+using NSwag.Generation.Processors;
+using NSwag.Generation.Processors.Contexts;
+using NSwag.Generation.Processors.Security;
 
 namespace Arc.Executable.WebApi.Configuration.ServiceCollectionExtensions;
 
@@ -18,94 +24,43 @@ public static class Swagger
             "v1";
 
         const string Title =
-            "ArcDX";
-
+            "Arc";
+        
         return
             services
-                .AddSwaggerGen(
+                .AddOpenApiDocument(
                     options =>
                     {
                         options
-                            .SwaggerDoc(
-                                Version,
-                                new()
-                                {
-                                    Title = Title,
-                                    Version = Version,
-                                }
-                            );
-
+                            .Title = Title;
+                        
                         options
-                            .TagActionsBy(
-                                api =>
-                                {
-                                    if (api.GroupName != null)
-                                    {
-                                        return new[]
-                                        {
-                                            api.GroupName,
-                                        };
-                                    }
-
-                                    if (api.ActionDescriptor is
-                                        ControllerActionDescriptor
-                                        controllerActionDescriptor)
-                                    {
-                                        return new[]
-                                        {
-                                            controllerActionDescriptor
-                                                .ControllerName,
-                                        };
-                                    }
-
-                                    throw new InvalidOperationException(
-                                        "Unable to determine tag for endpoint."
-                                    );
-                                }
-                            );
-
+                            .Version = Version;
+                        
                         options
-                            .DocInclusionPredicate(
-                                (
-                                    _,
-                                    _
-                                ) => true
-                            );
-
-                        //option 2: authorization button to enter the token once
-                        options
-                            .AddSecurityDefinition(
+                            .AddSecurity(
                                 "Bearer",
                                 new()
                                 {
-                                    In = ParameterLocation.Header,
-                                    Description =
-                                        "Please insert JWT with Bearer into field",
-                                    Name = "Authorization",
-                                    Type = SecuritySchemeType.ApiKey,
+                                    Type = OpenApiSecuritySchemeType.Http,
+                                    Scheme = JwtBearerDefaults.AuthenticationScheme,
+                                    BearerFormat = "JWT",
+                                    Description = "Type into the textbox: {your JWT token}.",
                                 }
                             );
-
+                        
                         options
-                            .AddSecurityRequirement(
-                                new()
-                                {
-                                    {
-                                        new()
-                                        {
-                                            Reference =
-                                                new()
-                                                {
-                                                    Id = "Bearer",
-                                                    Type = ReferenceType.SecurityScheme,
-                                                },
-                                            Scheme = "oauth2",
-                                            Name = "Bearer",
-                                            In = ParameterLocation.Header,
-                                        },
-                                        new List<string>()
-                                    },
-                                }
+                            .OperationProcessors
+                            .Add(
+                                new AspNetCoreOperationSecurityScopeProcessor(
+                                    "Bearer"
+                                )
+                            );
+                        
+                        options
+                            .OperationProcessors
+                            .Add(
+                                new CustomTagByOperationProcessor()
                             );
                     }
                 );
@@ -128,50 +83,81 @@ public static class Swagger
 
         if (isFalse)
         {
-            // Enable middleware to serve generated Swagger as a JSON endpoint.
             builder
-                .UseSwagger(
-                    options =>
-                    {
-                        options
-                            .PreSerializeFilters
-                            .Add(
-                                (
-                                    swagger,
-                                    httpReq
-                                ) =>
-                                {
-                                    swagger.Servers =
-                                        new List<OpenApiServer>
-                                        {
-                                            new()
-                                            {
-                                                Url = $"http://{httpReq.Host}",
-                                            },
-                                        };
-                                }
-                            );
-                    }
-                );
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), 
-            // specifying the Swagger JSON endpoint.
-            builder
+                .UseOpenApi()
                 .UseSwaggerUI(
                     options =>
                     {
-                        options.DisplayRequestDuration();
-
-                        options
-                            .SwaggerEndpoint(
-                                "/swagger/v1/swagger.json",
-                                "Arc Api V1"
-                            );
-
+                        options.SwaggerEndpoint(
+                            "/swagger/v1/swagger.json",
+                            "Arc API V1"
+                        );
+                        
                         options.RoutePrefix =
                             string.Empty;
                     }
                 );
+        }
+    }
+    
+    private class CustomTagByOperationProcessor :
+        IOperationProcessor
+    {
+        public bool Process(
+            OperationProcessorContext context
+        )
+        {
+            if (context is not AspNetCoreOperationProcessorContext aspNetCoreContext)
+            {
+                return true;
+            }
+            
+            var tags =
+                aspNetCoreContext
+                    .OperationDescription
+                    .Operation
+                    .Tags;
+            
+            var groupName =
+                aspNetCoreContext
+                    .ApiDescription
+                    .GroupName;
+            
+            var isEmptyGroupName =
+                groupName != null;
+            
+            if (isEmptyGroupName)
+            {
+                tags
+                    .Add(
+                        groupName
+                    );
+                
+                return true;
+            }
+            
+            var actionDescriptor =
+                aspNetCoreContext
+                    .ApiDescription
+                    .ActionDescriptor;
+            
+            if (actionDescriptor is not ControllerActionDescriptor
+                controllerActionDescriptor)
+            {
+                throw new InvalidOperationException(
+                    "Unable to determine tag for endpoint."
+                );
+            }
+            
+            var controllerName =
+                controllerActionDescriptor.ControllerName;
+            
+            tags
+                .Add(
+                    controllerName
+                );
+            
+            return true;
         }
     }
 }
